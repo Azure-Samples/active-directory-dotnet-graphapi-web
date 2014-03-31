@@ -1,0 +1,48 @@
+﻿@using Microsoft.Azure.ActiveDirectory.GraphClient
+@model IEnumerable<DirectoryObject> 
+
+<h2>/Users</h2>
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table id="directoryObjects">
+    <tr>
+        <th>
+            UserPrincipalName
+        </th>
+        <th>
+            DisplayName
+        </th>
+        <th>
+            JobTitle
+        </th>
+        <th>
+            ObjectId
+        </th>
+        <th/>
+    </tr>
+    @foreach (var item in Model)
+    {
+        var user = item as User;
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => user.UserPrincipalName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => user.DisplayName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => user.JobTitle)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => user.ObjectId)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { objectId=item.ObjectId }) <br/>
+                @Html.ActionLink("Details", "Details", new { objectId=item.ObjectId }) <br/>
+                @Html.ActionLink("Delete", "Delete", new { objectId=item.ObjectId })  <br/>
+                @Html.ActionLink("Get Groups", "GetGroups", new { objectId=item.ObjectId }) 
+            </td>
+        </tr>
+    }
+</table>
