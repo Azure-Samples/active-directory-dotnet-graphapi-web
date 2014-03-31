@@ -37,7 +37,7 @@ The sample app is preconfigured to read data from a Demonstration company (Graph
 6. Click "Add an application my organization is developing".
 7. Enter a friendly name for the application, for example "WebApp for Azure AD", select "Web Application and/or Web API", and click next.
 8. For the sign-on URL, enter the base URL for the sample, which is by default `https://localhost:44321`.
-9. For the App ID URI, enter `https://<your_tenant_name>//MvcGraphApp`, replacing `<your_tenant_name>` with the name of your Azure AD tenant.  Click OK to complete the registration.
+9. For the App ID URI, enter `https://<your_tenant_name>/MvcGraphApp`, replacing `<your_tenant_name>` with the name of your Azure AD tenant.  Click OK to complete the registration.
 10. While still in the Azure portal, click the Configure tab of your application.
 11. Find the Client ID value and copy it aside, you will need this later when configuring your application.
 <TODO Add instructions on configuring permissoins>
