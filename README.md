@@ -1,2 +1,2 @@
-WindowsAzureAD-GraphAPI-Samples--Explorer
+WebApp-GraphAPI-DotNet
 =========================================
