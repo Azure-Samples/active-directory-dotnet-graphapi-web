@@ -1,13 +1,13 @@
 WebApp-GraphAPI-DotNet
 =========================================
-This is a sample MVC Web application that shows how to make basic Azure Active Directory Graph API calls. It inlcudes uses the Azure AD Authenication Library (ADAL .Net) for OAuth 2.0, and the new Graph API .Net libray. This sample Application demostrates both the OAuth 2.0 Client Credential authentication flow (Client ID/Secret), and OAuth 2.0 Authorization code flow.
+This is a sample MVC Web application that shows how to make basic Azure Active Directory Graph API calls. It includes uses the Azure AD Authenication Library (ADAL .Net) for OAuth 2.0, and the new Graph API .Net libray. This sample Application demostrates both the OAuth 2.0 Client Credential authentication flow (Client ID/Secret), and OAuth 2.0 Authorization code flow.
 
 For more information about how the protocols work in this scenario and other scenarios, see the REST API and Authentication Scenarios on http://msdn.microsoft.com/aad.
 
 ## How To Run This Sample
 
 To run this sample you will need:
-- Visual Studio 2013
+- Visual Studio 2012 or 2013
 - An Internet connection
 - An Azure subscription (a free trial is sufficient)
 
