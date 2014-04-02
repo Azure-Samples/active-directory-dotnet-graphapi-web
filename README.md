@@ -35,12 +35,11 @@ The sample app is preconfigured to read data from a Demonstration company (Graph
 6. Click "Add an application my organization is developing".
 7. Enter a friendly name for the application, for example "WebApp for Azure AD", select "Web Application and/or Web API", and click next.
 8. For the sign-on URL, enter the base URL for the sample, which is by default `https://localhost:44322`.
-9. For the App ID URI, enter `https://<your_tenant_name>/MvcGraphApp`, replacing `<your_tenant_name>` with the domain name of your Azure AD tenant. For Example "https://contoso.com/MvcGraphApp".  Click OK to complete the registration.
+9. For the App ID URI, enter `https://<your_tenant_name>/WebAppGraphAPI`, replacing `<your_tenant_name>` with the domain name of your Azure AD tenant. For Example "https://contoso.com/WebAppGraphAPI".  Click OK to complete the registration.
 10. While still in the Azure portal, click the Configure tab of your application.
 11. Find the Client ID value and copy it aside, you will need this later when configuring your application.
-12. Add a key - select a key duration of either 1 year or 2 year. When you save this page, the key value will be displayed, copy and save the value in a safe location - you will need this key later to configurate OAuth Client Credentials for this app - this key value will not be displayed again, nor retrievable by any other means.
-13. In the Reply URL, add the reply URL address used to return the authorization code returned during Authorization code flow.  For example: "https://localhost:44322/".
-14. Permissions must be configured if you want to use both OAuth 2.0 Client Credential and Authoriztion Code authentication flows.  Under the "Permissions to other applications" section, select application "Windows Azure Active Directory" (this is the Graph API), and under the second permission (Delegated permissions), select "Access your organization's directory" and "Enable sign-on and read users' profiles".  Application Permission (the 2nd column is not needed for this demo app).
+12. In the Reply URL, add the reply URL address used to return the authorization code returned during Authorization code flow.  For example: "https://localhost:44322/".
+13. Configure Permissions - under the "Permissions to other applications" section, select application "Windows Azure Active Directory" (this is the Graph API), and under the second permission (Delegated permissions), select "Access your organization's directory" and "Enable sign-on and read users' profiles". Application Permission (the 2nd column is not needed for this demo app).
 <TODO List information on each type of delegated permssion>
 
 ## How To Deploy This Sample to Azure
