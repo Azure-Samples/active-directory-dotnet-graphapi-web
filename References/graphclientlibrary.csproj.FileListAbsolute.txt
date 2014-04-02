@@ -1,6 +1,0 @@
-d:\sources\cumulus_main_2\sources\dev\restservices\graphclientlibrary\public\objd\amd64\ResolveAssemblyReference.cache
-d:\sources\cumulus_main_2\sources\dev\restservices\graphclientlibrary\public\objd\amd64\_generated.cs
-d:\sources\cumulus_main_2\sources\dev\restservices\graphclientlibrary\public\objd\amd64\Microsoft.Azure.ActiveDirectory.GraphClient.dll
-d:\sources\cumulus_main_2\sources\dev\restservices\graphclientlibrary\public\objd\amd64\Microsoft.Azure.ActiveDirectory.GraphClient.pdb
-d:\sources\cumulus_main_2\sources\dev\restservices\graphclientlibrary\public\objd\amd64\Newtonsoft.Json.dll
-d:\sources\cumulus_main_2\sources\dev\restservices\graphclientlibrary\public\objd\amd64\Newtonsoft.Json.xml

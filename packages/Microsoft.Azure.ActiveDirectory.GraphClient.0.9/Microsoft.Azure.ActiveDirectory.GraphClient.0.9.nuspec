@@ -14,7 +14,6 @@
     <summary>Microsoft Azure ActiveDirectory Graph API Client library provides easy to use functionality to access your directory information from Azure Active Directory.</summary>
     <releaseNotes>V0.9 version for initial release.</releaseNotes>
     <copyright>© Microsoft Corporation. All rights reserved</copyright>
-    <language />
     <tags>Azure ActiveDirectory GraphAPI GraphClient GraphLibrary</tags>
     <dependencies>
       <dependency id="Newtonsoft.Json" version="6.0.1" />

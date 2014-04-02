@@ -1,0 +1,32 @@
+﻿@model WebAppGraphAPI.Models.UserProfile
+@{
+    ViewBag.Title = "User Profile";
+}
+
+<h2>@ViewBag.Title.</h2>
+
+<table class="table table-bordered table-striped">
+    <tr>
+        <td>Display Name</td>
+        <td>@Model.DisplayName</td>
+    </tr>
+    <tr>
+        <td>First Name</td>
+        <td>@Model.GivenName</td>
+    </tr>
+    <tr>
+        <td>Last Name</td>
+        <td>@Model.Surname</td>
+    </tr>
+</table>
+
+@if (ViewBag.ErrorMessage == "AuthorizationRequired")
+{
+    <p>You have to sign-in to see your profile. Click @Html.ActionLink("here", "Index", "UserProfile", new { reauth = true }, null) to sign-in.</p>
+}
+
+@if (ViewBag.ErrorMessage == "UnexpectedError")
+{
+    <p>An unexpected error occurred while retrieving your profile.  Please try again.  You may need to sign-in.</p>
+}
+

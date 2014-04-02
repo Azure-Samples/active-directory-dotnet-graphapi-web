@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>Microsoft.Owin.Security.ActiveDirectory</id>
+    <version>2.0.0</version>
+    <title>Microsoft.Owin.Security.ActiveDirectory</title>
+    <authors>Microsoft</authors>
+    <owners>Microsoft</owners>
+    <licenseUrl>http://www.microsoft.com/web/webpi/eula/aspnetcomponent_rtw_enu.htm</licenseUrl>
+    <projectUrl>http://katanaproject.codeplex.com/</projectUrl>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <description>Middleware that enables an application to use Microsoft's technology for authentication.</description>
+    <tags>Microsoft OWIN</tags>
+    <dependencies>
+      <dependency id="Owin" version="1.0" />
+      <dependency id="Microsoft.Owin" version="2.0.0" />
+      <dependency id="Microsoft.Owin.Security" version="2.0.0" />
+      <dependency id="Microsoft.Owin.Security.OAuth" version="2.0.0" />
+      <dependency id="Microsoft.Owin.Security.Jwt" version="2.0.0" />
+      <dependency id="System.IdentityModel.Tokens.Jwt" version="1.0.0" />
+    </dependencies>
+    <frameworkAssemblies>
+      <frameworkAssembly assemblyName="System.Net.Http" targetFramework="" />
+      <frameworkAssembly assemblyName="System.Net.Http.WebRequest" targetFramework="" />
+    </frameworkAssemblies>
+  </metadata>
+</package>
