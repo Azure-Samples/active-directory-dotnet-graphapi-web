@@ -66,6 +66,7 @@ C:\GitHub\WebApp-GraphAPI-DotNet\WebAppGraphAPI\bin\System.Web.WebPages.Deployme
 C:\GitHub\WebApp-GraphAPI-DotNet\WebAppGraphAPI\bin\System.Web.WebPages.dll
 C:\GitHub\WebApp-GraphAPI-DotNet\WebAppGraphAPI\bin\System.Web.WebPages.Razor.dll
 C:\GitHub\WebApp-GraphAPI-DotNet\WebAppGraphAPI\bin\WebGrease.dll
+C:\GitHub\WebApp-GraphAPI-DotNet\WebAppGraphAPI\bin\Antlr3.Runtime.pdb
 C:\GitHub\WebApp-GraphAPI-DotNet\WebAppGraphAPI\bin\Microsoft.IdentityModel.Clients.ActiveDirectory.xml
 C:\GitHub\WebApp-GraphAPI-DotNet\WebAppGraphAPI\bin\Microsoft.IdentityModel.Protocol.Extensions.xml
 C:\GitHub\WebApp-GraphAPI-DotNet\WebAppGraphAPI\bin\Microsoft.Owin.xml
@@ -73,6 +74,7 @@ C:\GitHub\WebApp-GraphAPI-DotNet\WebAppGraphAPI\bin\Microsoft.Owin.Host.SystemWe
 C:\GitHub\WebApp-GraphAPI-DotNet\WebAppGraphAPI\bin\Microsoft.Owin.Security.xml
 C:\GitHub\WebApp-GraphAPI-DotNet\WebAppGraphAPI\bin\Microsoft.Owin.Security.Cookies.xml
 C:\GitHub\WebApp-GraphAPI-DotNet\WebAppGraphAPI\bin\Microsoft.Owin.Security.OpenIdConnect.xml
+C:\GitHub\WebApp-GraphAPI-DotNet\WebAppGraphAPI\bin\Newtonsoft.Json.xml
 C:\GitHub\WebApp-GraphAPI-DotNet\WebAppGraphAPI\bin\System.IdentityModel.Tokens.Jwt.xml
 C:\GitHub\WebApp-GraphAPI-DotNet\WebAppGraphAPI\bin\System.Web.Helpers.xml
 C:\GitHub\WebApp-GraphAPI-DotNet\WebAppGraphAPI\bin\System.Web.Mvc.xml
@@ -81,7 +83,6 @@ C:\GitHub\WebApp-GraphAPI-DotNet\WebAppGraphAPI\bin\System.Web.Razor.xml
 C:\GitHub\WebApp-GraphAPI-DotNet\WebAppGraphAPI\bin\System.Web.WebPages.xml
 C:\GitHub\WebApp-GraphAPI-DotNet\WebAppGraphAPI\bin\System.Web.WebPages.Deployment.xml
 C:\GitHub\WebApp-GraphAPI-DotNet\WebAppGraphAPI\bin\System.Web.WebPages.Razor.xml
-C:\GitHub\WebApp-GraphAPI-DotNet\WebAppGraphAPI\bin\Newtonsoft.Json.xml
-C:\GitHub\WebApp-GraphAPI-DotNet\WebAppGraphAPI\bin\Antlr3.Runtime.pdb
+C:\GitHub\WebApp-GraphAPI-DotNet\WebAppGraphAPI\obj\Debug\WebAppGraphAPI.csprojResolveAssemblyReference.cache
 C:\GitHub\WebApp-GraphAPI-DotNet\WebAppGraphAPI\obj\Debug\WebAppGraphAPI.dll
 C:\GitHub\WebApp-GraphAPI-DotNet\WebAppGraphAPI\obj\Debug\WebAppGraphAPI.pdb
