@@ -220,7 +220,6 @@ namespace WebAppGraphAPI.Controllers
             {
                 accessToken = TokenCacheUtils.GetAccessTokenFromCacheOrRefreshToken(tenantId, graphResourceId);
             }
-
             if (accessToken == null)
             {
                 //
@@ -240,10 +239,6 @@ namespace WebAppGraphAPI.Controllers
                 ViewBag.ErrorMessage = "AuthorizationRequired";
                 return View();
             }
-            
-            
-            
-            
             CallContext currentCallContext = new CallContext(
                 accessToken, Guid.NewGuid(), graphApiVersion);
             GraphConnection graphConnection = new GraphConnection(currentCallContext);
@@ -259,7 +254,6 @@ namespace WebAppGraphAPI.Controllers
         [HttpPost]
         public ActionResult Edit([Bind(Include="ObjectId,UserPrincipalName,DisplayName,City,Department")] User user)
         {
-
             string accessToken = null;
             string tenantId = ClaimsPrincipal.Current.FindFirst(TenantIdClaimType).Value;
             if (tenantId != null)
@@ -285,7 +279,7 @@ namespace WebAppGraphAPI.Controllers
                 ViewBag.ErrorMessage = "AuthorizationRequired";
                 return View();
             }
-            
+           
             try
             {
                 // TODO: Add update logic here

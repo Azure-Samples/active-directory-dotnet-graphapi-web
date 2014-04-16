@@ -48,7 +48,8 @@ The other permissions, "Read Directory data" and "Read and write Directory data"
 15. Selct the Save button at the bottom of the screen - upon sucessful configuration, your Key value should now be displayed - please copy and store this value in a secure location.
 
 15. You will need to update the webconfig file of this Application project. From Visual Studio, open the web.config file, and under the <appSettings> section, modify "ida:ClientId" and "ida:AppKey" and " with the values from the previous steps.  Also update the "ida:Tenant" with your Azure AD Tenant's domain name e.g. Contoso.onMicrosoft.com, (or Contoso.com if that domain is owned by your tenant).
-16. Build and run your application - you will need to authenticate with valid user credentials for your company when you run the application.
+16. In `web.config` add this line in the `<system.web>` section: `<sessionState timeout="525600" />`.  This increases the ASP.Net session state timeout to it's maximum value so that access tokens and refresh tokens cache in session state aren't cleared after the default timeout of 20 minutes.
+17. Build and run your application - you will need to authenticate with valid user credentials for your company when you run the application.
 
 ## How To Deploy This Sample to Azure
 

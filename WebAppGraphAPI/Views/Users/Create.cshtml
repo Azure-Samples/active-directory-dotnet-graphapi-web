@@ -98,3 +98,7 @@
         </div>
     </body>
 </html>
+@if (ViewBag.ErrorMessage == "AuthorizationRequired")
+{
+    <p>You have to sign-in. Click @Html.ActionLink("here", "Create", "Users", new { reauth = true }, null) to sign-in.</p>
+}

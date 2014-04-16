@@ -83,6 +83,5 @@ C:\GitHub\WebApp-GraphAPI-DotNet\WebAppGraphAPI\bin\System.Web.Razor.xml
 C:\GitHub\WebApp-GraphAPI-DotNet\WebAppGraphAPI\bin\System.Web.WebPages.xml
 C:\GitHub\WebApp-GraphAPI-DotNet\WebAppGraphAPI\bin\System.Web.WebPages.Deployment.xml
 C:\GitHub\WebApp-GraphAPI-DotNet\WebAppGraphAPI\bin\System.Web.WebPages.Razor.xml
-C:\GitHub\WebApp-GraphAPI-DotNet\WebAppGraphAPI\obj\Debug\WebAppGraphAPI.csprojResolveAssemblyReference.cache
 C:\GitHub\WebApp-GraphAPI-DotNet\WebAppGraphAPI\obj\Debug\WebAppGraphAPI.dll
 C:\GitHub\WebApp-GraphAPI-DotNet\WebAppGraphAPI\obj\Debug\WebAppGraphAPI.pdb
