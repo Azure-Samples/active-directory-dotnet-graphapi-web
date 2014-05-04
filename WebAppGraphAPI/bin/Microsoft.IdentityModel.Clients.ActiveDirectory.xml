@@ -315,27 +315,27 @@
             If passed, resource should match the original resource used to acquire refresh token unless token service supports refresh token for multiple resources.</param>
             <returns>It contains Access Token, Refresh Token and the Access Token's expiration time.</returns>
         </member>
-        <member name="M:Microsoft.IdentityModel.Clients.ActiveDirectory.AuthenticationContext.AcquireTokenActingAsAsync(System.String,Microsoft.IdentityModel.Clients.ActiveDirectory.UserAssertion,Microsoft.IdentityModel.Clients.ActiveDirectory.ClientCredential)">
+        <member name="M:Microsoft.IdentityModel.Clients.ActiveDirectory.AuthenticationContext.AcquireTokenAsync(System.String,Microsoft.IdentityModel.Clients.ActiveDirectory.UserAssertion,Microsoft.IdentityModel.Clients.ActiveDirectory.ClientCredential)">
             <summary>
-            Acquires an access token from the authority which enables the client to act as the user. It requires using a user token previously received.
+            Acquires an access token from the authority on behalf of a user. It requires using a user token previously received.
             </summary>
             <param name="resource">Identifier of the target resource that is the recipient of the requested token.</param>
             <param name="userAssertion">The user assertion (token) to use for token acquisition.</param>
             <param name="clientCredential">The client credential to use for token acquisition.</param>
             <returns>It contains Access Token and the Access Token's expiration time.</returns>
         </member>
-        <member name="M:Microsoft.IdentityModel.Clients.ActiveDirectory.AuthenticationContext.AcquireTokenActingAsAsync(System.String,Microsoft.IdentityModel.Clients.ActiveDirectory.UserAssertion,Microsoft.IdentityModel.Clients.ActiveDirectory.X509CertificateCredential)">
+        <member name="M:Microsoft.IdentityModel.Clients.ActiveDirectory.AuthenticationContext.AcquireTokenAsync(System.String,Microsoft.IdentityModel.Clients.ActiveDirectory.UserAssertion,Microsoft.IdentityModel.Clients.ActiveDirectory.X509CertificateCredential)">
             <summary>
-            Acquires an access token from the authority which enables the client to act as the user. It requires using a user token previously received.
+            Acquires an access token from the authority on behalf of a user. It requires using a user token previously received.
             </summary>
             <param name="resource">Identifier of the target resource that is the recipient of the requested token.</param>
             <param name="userAssertion">The user assertion (token) to use for token acquisition.</param>
             <param name="clientCertificate">The client certificate to use for token acquisition.</param>
             <returns>It contains Access Token and the Access Token's expiration time.</returns>
         </member>
-        <member name="M:Microsoft.IdentityModel.Clients.ActiveDirectory.AuthenticationContext.AcquireTokenActingAsAsync(System.String,Microsoft.IdentityModel.Clients.ActiveDirectory.UserAssertion,Microsoft.IdentityModel.Clients.ActiveDirectory.ClientAssertion)">
+        <member name="M:Microsoft.IdentityModel.Clients.ActiveDirectory.AuthenticationContext.AcquireTokenAsync(System.String,Microsoft.IdentityModel.Clients.ActiveDirectory.UserAssertion,Microsoft.IdentityModel.Clients.ActiveDirectory.ClientAssertion)">
             <summary>
-            Acquires an access token from the authority which enables the client to act as the user. It requires using a user token previously received.
+            Acquires an access token from the authority on behalf of a user. It requires using a user token previously received.
             </summary>
             <param name="resource">Identifier of the target resource that is the recipient of the requested token.</param>
             <param name="userAssertion">The user assertion (token) to use for token acquisition.</param>
@@ -448,6 +448,29 @@
             <param name="resource">Identifier of the target resource that is the recipient of the requested token.</param>
             <param name="clientId">Identifier of the client requesting the token.</param>
             <param name="redirectUri">Address to return to upon receiving a response from the authority.</param>
+            <param name="promptBehavior">If <see cref="F:Microsoft.IdentityModel.Clients.ActiveDirectory.PromptBehavior.Always"/>, asks service to show user the authentication page which gives them chance to authenticate as a different user.</param>
+            <param name="extraQueryParameters">This parameter will be appended as is to the query string in the HTTP authentication request to the authority. The parameter can be null.</param>
+            <returns>It contains Access Token, Refresh Token and the Access Token's expiration time.</returns>
+        </member>
+        <member name="M:Microsoft.IdentityModel.Clients.ActiveDirectory.AuthenticationContext.AcquireToken(System.String,System.String,System.Uri,System.String,Microsoft.IdentityModel.Clients.ActiveDirectory.PromptBehavior)">
+            <summary>
+            Acquires security token from the authority.
+            </summary>
+            <param name="resource">Identifier of the target resource that is the recipient of the requested token.</param>
+            <param name="clientId">Identifier of the client requesting the token.</param>
+            <param name="redirectUri">Address to return to upon receiving a response from the authority.</param>
+            <param name="userId">This parameter will be used to pre-populate the username field in the authentication form. Please note that the end user can still edit the username field and authenticate as a different user. This parameter can be null.</param>
+            <param name="promptBehavior">If <see cref="F:Microsoft.IdentityModel.Clients.ActiveDirectory.PromptBehavior.Always"/>, asks service to show user the authentication page which gives them chance to authenticate as a different user.</param>
+            <returns>It contains Access Token, Refresh Token and the Access Token's expiration time.</returns>
+        </member>
+        <member name="M:Microsoft.IdentityModel.Clients.ActiveDirectory.AuthenticationContext.AcquireToken(System.String,System.String,System.Uri,System.String,Microsoft.IdentityModel.Clients.ActiveDirectory.PromptBehavior,System.String)">
+            <summary>
+            Acquires security token from the authority.
+            </summary>
+            <param name="resource">Identifier of the target resource that is the recipient of the requested token.</param>
+            <param name="clientId">Identifier of the client requesting the token.</param>
+            <param name="redirectUri">Address to return to upon receiving a response from the authority.</param>
+            <param name="userId">This parameter will be used to pre-populate the username field in the authentication form. Please note that the end user can still edit the username field and authenticate as a different user. This parameter can be null.</param>
             <param name="promptBehavior">If <see cref="F:Microsoft.IdentityModel.Clients.ActiveDirectory.PromptBehavior.Always"/>, asks service to show user the authentication page which gives them chance to authenticate as a different user.</param>
             <param name="extraQueryParameters">This parameter will be appended as is to the query string in the HTTP authentication request to the authority. The parameter can be null.</param>
             <returns>It contains Access Token, Refresh Token and the Access Token's expiration time.</returns>
@@ -587,27 +610,27 @@
             If passed, resource should match the original resource used to acquire refresh token unless token service supports refresh token for multiple resources.</param>
             <returns>It contains Access Token, Refresh Token and the Access Token's expiration time.</returns>
         </member>
-        <member name="M:Microsoft.IdentityModel.Clients.ActiveDirectory.AuthenticationContext.AcquireTokenActingAs(System.String,Microsoft.IdentityModel.Clients.ActiveDirectory.UserAssertion,Microsoft.IdentityModel.Clients.ActiveDirectory.ClientCredential)">
+        <member name="M:Microsoft.IdentityModel.Clients.ActiveDirectory.AuthenticationContext.AcquireToken(System.String,Microsoft.IdentityModel.Clients.ActiveDirectory.UserAssertion,Microsoft.IdentityModel.Clients.ActiveDirectory.ClientCredential)">
             <summary>
-            Acquires an access token from the authority which enables the client to act as the user. It requires using a user token previously received.
+            Acquires an access token from the authority on behalf of a user. It requires using a user token previously received.
             </summary>
             <param name="resource">Identifier of the target resource that is the recipient of the requested token.</param>
             <param name="userAssertion">The user assertion (token) to use for token acquisition.</param>
             <param name="clientCredential">The client credential to use for token acquisition.</param>
             <returns>It contains Access Token and the Access Token's expiration time.</returns>
         </member>
-        <member name="M:Microsoft.IdentityModel.Clients.ActiveDirectory.AuthenticationContext.AcquireTokenActingAs(System.String,Microsoft.IdentityModel.Clients.ActiveDirectory.UserAssertion,Microsoft.IdentityModel.Clients.ActiveDirectory.X509CertificateCredential)">
+        <member name="M:Microsoft.IdentityModel.Clients.ActiveDirectory.AuthenticationContext.AcquireToken(System.String,Microsoft.IdentityModel.Clients.ActiveDirectory.UserAssertion,Microsoft.IdentityModel.Clients.ActiveDirectory.X509CertificateCredential)">
             <summary>
-            Acquires an access token from the authority which enables the client to act as the user. It requires using a user token previously received.
+            Acquires an access token from the authority on behalf of a user. It requires using a user token previously received.
             </summary>
             <param name="resource">Identifier of the target resource that is the recipient of the requested token.</param>
             <param name="userAssertion">The user assertion (token) to use for token acquisition.</param>
             <param name="clientCertificate">The client certificate to use for token acquisition.</param>
             <returns>It contains Access Token and the Access Token's expiration time.</returns>
         </member>
-        <member name="M:Microsoft.IdentityModel.Clients.ActiveDirectory.AuthenticationContext.AcquireTokenActingAs(System.String,Microsoft.IdentityModel.Clients.ActiveDirectory.UserAssertion,Microsoft.IdentityModel.Clients.ActiveDirectory.ClientAssertion)">
+        <member name="M:Microsoft.IdentityModel.Clients.ActiveDirectory.AuthenticationContext.AcquireToken(System.String,Microsoft.IdentityModel.Clients.ActiveDirectory.UserAssertion,Microsoft.IdentityModel.Clients.ActiveDirectory.ClientAssertion)">
             <summary>
-            Acquires an access token from the authority which enables the client to act as the user. It requires using a user token previously received.
+            Acquires an access token from the authority on behalf of a user. It requires using a user token previously received.
             </summary>
             <param name="resource">Identifier of the target resource that is the recipient of the requested token.</param>
             <param name="userAssertion">The user assertion (token) to use for token acquisition.</param>
@@ -1380,13 +1403,6 @@
             </summary>
             <param name="requestUri"></param>
             <param name="callbackUri"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Microsoft.IdentityModel.Clients.ActiveDirectory.Internal.IWebUI.Authenticate(System.Uri)">
-            <summary>
-            
-            </summary>
-            <param name="requestUri"></param>
             <returns></returns>
         </member>
         <member name="P:Microsoft.IdentityModel.Clients.ActiveDirectory.Internal.IWebUI.OwnerWindow">

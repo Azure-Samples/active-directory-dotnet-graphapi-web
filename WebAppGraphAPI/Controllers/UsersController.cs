@@ -62,10 +62,14 @@ namespace WebAppGraphAPI.Controllers
                 ViewBag.ErrorMessage = "AuthorizationRequired";
                 return View();
             }
+
+            // Setup Graph API connection and get a list of users
+            Guid ClientRequestId = Guid.NewGuid();
+            GraphSettings graphSettings = new GraphSettings();
+            graphSettings.ApiVersion = graphApiVersion;
+            GraphConnection graphConnection = new GraphConnection(accessToken, ClientRequestId, graphSettings);
             
-            CallContext currentCallContext = new CallContext(accessToken, Guid.NewGuid(), graphApiVersion);
-            GraphConnection graphConnection = new GraphConnection(currentCallContext);
-            PagedResults pagedReslts = graphConnection.List<User>(null, new FilterGenerator());
+            PagedResults<User> pagedReslts = graphConnection.List<User>(null, new FilterGenerator());
             return View(pagedReslts.Results);
         }
 
@@ -101,9 +105,12 @@ namespace WebAppGraphAPI.Controllers
                 return View();
             }
 
-            CallContext currentCallContext = new CallContext(
-                accessToken, Guid.NewGuid(), graphApiVersion);
-            GraphConnection graphConnection = new GraphConnection(currentCallContext);
+            // Setup Graph API connection and get single User
+            Guid ClientRequestId = Guid.NewGuid();
+            GraphSettings graphSettings = new GraphSettings();
+            graphSettings.ApiVersion = graphApiVersion;          
+            GraphConnection graphConnection = new GraphConnection(accessToken, ClientRequestId, graphSettings);
+            
             User user = graphConnection.Get<User>(objectId);
             return View(user);
         }
@@ -152,9 +159,12 @@ namespace WebAppGraphAPI.Controllers
         
             try
             {
-                CallContext currentCallContext = new CallContext(
-                    accessToken, Guid.NewGuid(), graphApiVersion);
-                GraphConnection graphConnection = new GraphConnection(currentCallContext);
+                // Setup Graph API connection and add User
+                Guid ClientRequestId = Guid.NewGuid();
+                GraphSettings graphSettings = new GraphSettings();
+                graphSettings.ApiVersion = graphApiVersion;
+                GraphConnection graphConnection = new GraphConnection(accessToken, ClientRequestId, graphSettings);
+
                 graphConnection.Add(user);
                 return RedirectToAction("Index");
             }
@@ -197,11 +207,13 @@ namespace WebAppGraphAPI.Controllers
                 ViewBag.ErrorMessage = "AuthorizationRequired";
                 return View();
             }
-            
-            
-            CallContext currentCallContext = new CallContext(
-               accessToken, Guid.NewGuid(),graphApiVersion);
-            GraphConnection graphConnection = new GraphConnection(currentCallContext);
+
+            // Setup Graph API connection and get single User
+            Guid ClientRequestId = Guid.NewGuid();
+            GraphSettings graphSettings = new GraphSettings();
+            graphSettings.ApiVersion = graphApiVersion;
+            GraphConnection graphConnection = new GraphConnection(accessToken, ClientRequestId, graphSettings);
+
             User user = graphConnection.Get<User>(objectId);
             return View(user);
         }
@@ -239,11 +251,32 @@ namespace WebAppGraphAPI.Controllers
                 ViewBag.ErrorMessage = "AuthorizationRequired";
                 return View();
             }
-            CallContext currentCallContext = new CallContext(
-                accessToken, Guid.NewGuid(), graphApiVersion);
-            GraphConnection graphConnection = new GraphConnection(currentCallContext);
-            IList<string> groupIds = graphConnection.GetMemberGroups(new User() { ObjectId = objectId }, false);
-            return View(groupIds);
+            // Setup Graph API connection and get Group membership
+            Guid ClientRequestId = Guid.NewGuid();
+            GraphSettings graphSettings = new GraphSettings();
+            graphSettings.ApiVersion = graphApiVersion;
+            GraphConnection graphConnection = new GraphConnection(accessToken, ClientRequestId, graphSettings);
+
+            GraphObject graphUser = graphConnection.Get<User>(objectId);
+            PagedResults<GraphObject> memberShip = graphConnection.GetLinkedObjects(graphUser, LinkProperty.MemberOf, null, 999);
+
+            // users can be members of Groups and Roles
+            // for this app, we will filter and only show Groups
+
+            int count = 0;
+            IList<Group> groupMembership = new List<Group>();
+            foreach (GraphObject graphObj in memberShip.Results)
+            {
+                if (graphObj.ODataTypeName.Contains("Group"))
+                {
+                    Group groupMember = (Group)memberShip.Results[count];
+                    groupMembership.Add(groupMember);
+                }
+                ++count;
+            }
+
+            //return View(groupIds);
+            return View(groupMembership);
         }
 
         /// <summary>
@@ -252,7 +285,7 @@ namespace WebAppGraphAPI.Controllers
         /// <param name="user"><see cref="User"/> to be edited.</param>
         /// <returns>A view with list of all <see cref="User"/> objects.</returns>
         [HttpPost]
-        public ActionResult Edit([Bind(Include="ObjectId,UserPrincipalName,DisplayName,City,Department")] User user)
+        public ActionResult Edit([Bind(Include = "ObjectId,UserPrincipalName,DisplayName,AccountEnabled,GivenName,Surname,JobTitle,Department,Mobile,StreetAddress,City,State,Country,")] User user)
         {
             string accessToken = null;
             string tenantId = ClaimsPrincipal.Current.FindFirst(TenantIdClaimType).Value;
@@ -283,9 +316,12 @@ namespace WebAppGraphAPI.Controllers
             try
             {
                 // TODO: Add update logic here
-                CallContext currentCallContext = new CallContext(
-                accessToken, Guid.NewGuid(), graphApiVersion);
-                GraphConnection graphConnection = new GraphConnection(currentCallContext);
+
+                // Setup Graph API connection and update single User
+                Guid ClientRequestId = Guid.NewGuid();
+                GraphSettings graphSettings = new GraphSettings();
+                graphSettings.ApiVersion = graphApiVersion;
+                GraphConnection graphConnection = new GraphConnection(accessToken, ClientRequestId, graphSettings);
                 graphConnection.Update(user);
                 return RedirectToAction("Index");
             }
@@ -331,9 +367,11 @@ namespace WebAppGraphAPI.Controllers
 
             try
             {
-                CallContext currentCallContext = new CallContext(
-                accessToken, Guid.NewGuid(), graphApiVersion);
-                GraphConnection graphConnection = new GraphConnection(currentCallContext);
+                // Setup Graph API connection and get single User
+                Guid ClientRequestId = Guid.NewGuid();
+                GraphSettings graphSettings = new GraphSettings();
+                graphSettings.ApiVersion = graphApiVersion;
+                GraphConnection graphConnection = new GraphConnection(accessToken, ClientRequestId, graphSettings);
                 User user = graphConnection.Get<User>(objectId);
                 return View(user);
             }
@@ -380,9 +418,11 @@ namespace WebAppGraphAPI.Controllers
 
             try
             {
-                CallContext currentCallContext = new CallContext(
-                accessToken, Guid.NewGuid(), graphApiVersion);
-                GraphConnection graphConnection = new GraphConnection(currentCallContext);
+                // Setup Graph API connection and delete User
+                Guid ClientRequestId = Guid.NewGuid();
+                GraphSettings graphSettings = new GraphSettings();
+                graphSettings.ApiVersion = graphApiVersion;               
+                GraphConnection graphConnection = new GraphConnection(accessToken, ClientRequestId, graphSettings);
                 graphConnection.Delete(user);
                 return RedirectToAction("Index");
             }
