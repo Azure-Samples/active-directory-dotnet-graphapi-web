@@ -432,5 +432,59 @@ namespace WebAppGraphAPI.Controllers
                 return View(user);
             }
         }
+
+        /// <summary>
+        /// Gets a list of <see cref="User"/> objects that a given <see cref="User"/> has as a direct report.
+        /// </summary>
+        /// <param name="objectId">Unique identifier of the <see cref="User"/>.</param>
+        /// <returns>A view with the list of <see cref="User"/> objects.</returns>
+        public ActionResult GetDirectReports(string objectId)
+        {
+
+            string accessToken = null;
+            string tenantId = ClaimsPrincipal.Current.FindFirst(TenantIdClaimType).Value;
+            if (tenantId != null)
+            {
+                accessToken = TokenCacheUtils.GetAccessTokenFromCacheOrRefreshToken(tenantId, graphResourceId);
+            }
+            if (accessToken == null)
+            {
+                //
+                // If refresh is set to true, the user has clicked the link to be authorized again.
+                //
+                if (Request.QueryString["reauth"] == "True")
+                {
+                    // Send an OpenID Connect sign-in request to get a new set of tokens.
+                    // If the user still has a valid session with Azure AD, they will not be prompted for their credentials.
+                    // The OpenID Connect middleware will return to this controller after the sign-in response has been handled.
+                    //
+                    HttpContext.GetOwinContext().Authentication.Challenge(OpenIdConnectAuthenticationDefaults.AuthenticationType);
+                }
+                //
+                // The user needs to re-authorize.  Show them a message to that effect.
+                //
+                ViewBag.ErrorMessage = "AuthorizationRequired";
+                return View();
+            }
+            // Setup Graph API connection and get Group membership
+            Guid ClientRequestId = Guid.NewGuid();
+            GraphSettings graphSettings = new GraphSettings();
+            graphSettings.ApiVersion = graphApiVersion;
+            GraphConnection graphConnection = new GraphConnection(accessToken, ClientRequestId, graphSettings);
+
+            GraphObject graphUser = graphConnection.Get<User>(objectId);
+            IList<GraphObject> results = graphConnection.GetAllDirectLinks(graphUser, LinkProperty.DirectReports);
+            IList<User> reports = new List<User>();
+            foreach (GraphObject obj in results)
+            {
+                if (obj is User)
+                {
+                    User user = (User)obj;
+                    reports.Add(user);
+                }
+                
+            }
+            return View(reports);
+        }
     }
 }
