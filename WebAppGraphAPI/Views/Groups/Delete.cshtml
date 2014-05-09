@@ -1,0 +1,36 @@
+﻿@model Microsoft.Azure.ActiveDirectory.GraphClient.Group
+@{
+    ViewBag.Title = "Delete Group";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h2>Delete Group</h2>
+
+<h3>Are you sure you want to delete this group?</h3>
+<fieldset>
+    <legend>Group</legend>
+    <div class="display-label">
+        @Html.DisplayNameFor(model => model.DisplayName)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.DisplayName)
+    </div>
+
+    <div class="display-label">
+        @Html.DisplayNameFor(model => model.ObjectId)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ObjectId)
+    </div>
+</fieldset>
+@using (Html.BeginForm())
+{
+    <p>
+        @Html.ValidationSummary(true)
+        <input type="submit" value="Delete" /> |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+}
+@if (ViewBag.ErrorMessage == "AuthorizationRequired")
+{
+    <p>You have to sign-in. Click @Html.ActionLink("here", "Delete", "Groups", new { reauth = true }, null) to sign-in.</p>
+}
