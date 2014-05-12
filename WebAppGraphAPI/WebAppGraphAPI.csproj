@@ -164,6 +164,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ContactsController.cs" />
     <Compile Include="Controllers\GroupsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\UserProfileController.cs" />
@@ -239,6 +240,9 @@
     <Content Include="Views\Groups\Edit.cshtml" />
     <Content Include="Views\Groups\GetGroups.cshtml" />
     <Content Include="Views\Groups\GetMembers.cshtml" />
+    <Content Include="Views\Contacts\Index.cshtml" />
+    <Content Include="Views\Contacts\Details.cshtml" />
+    <Content Include="Views\Contacts\GetGroups.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
