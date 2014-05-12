@@ -234,6 +234,11 @@
     <Content Include="Views\Users\GetDirectReports.cshtml" />
     <Content Include="Views\Groups\Index.cshtml" />
     <Content Include="Views\Groups\Delete.cshtml" />
+    <Content Include="Views\Groups\Details.cshtml" />
+    <Content Include="Views\Groups\Create.cshtml" />
+    <Content Include="Views\Groups\Edit.cshtml" />
+    <Content Include="Views\Groups\GetGroups.cshtml" />
+    <Content Include="Views\Groups\GetMembers.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

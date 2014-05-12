@@ -1,0 +1,50 @@
+﻿@using Microsoft.Azure.ActiveDirectory.GraphClient
+@model IList<Group>
+
+@{
+    ViewBag.Title = "GetGroupMembship";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>GetGroups</h2>
+<table id="directoryObjects" class="table table-bordered table-striped">
+    <tr>
+        <th>
+            GroupId
+        </th>
+        <th>
+            DisplayName
+        </th>
+        <th>
+            Description
+        </th>
+        <th>
+            IsMailEnabled
+        </th>
+    </tr>
+    @foreach (var group in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => group.ObjectId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => group.DisplayName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => group.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => group.MailEnabled)
+            </td>
+        </tr>
+    }
+</table>
+
+<p>
+    @Html.ActionLink("Back to List", "Index")
+</p>
+@if (ViewBag.ErrorMessage == "AuthorizationRequired")
+{
+    <p>You have to sign-in. Click @Html.ActionLink("here", "GetGroups", "Groups", new { reauth = true }, null) to sign-in.</p>
+}
