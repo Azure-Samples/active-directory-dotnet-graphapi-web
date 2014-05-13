@@ -1,16 +1,18 @@
 ﻿using Microsoft.Azure.ActiveDirectory.GraphClient;
+using Microsoft.Owin.Security.OpenIdConnect;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
-using System.Linq;
+using System.Security.Claims;
 using System.Web;
 using System.Web.Mvc;
-using System.Security.Claims;
-using Microsoft.Owin.Security.OpenIdConnect;
 using WebAppGraphAPI.Utils;
 
 namespace WebAppGraphAPI.Controllers
 {
+    /// <summary>
+    /// Contact controller to get/set/update/delete users.
+    /// </summary>
     [Authorize]
     public class ContactsController : Controller
     {
@@ -19,8 +21,10 @@ namespace WebAppGraphAPI.Controllers
         private string graphResourceId = ConfigurationManager.AppSettings["ida:GraphUrl"];
         private static string graphApiVersion = ConfigurationManager.AppSettings["ida:GraphApiVersion"];
 
-        //
-        // GET: /Contacts/
+        /// <summary>
+        /// Gets a list of <see cref="Contact"/> objects from Graph.
+        /// </summary>
+        /// <returns>A view with the list of <see cref="Contact"/> objects.</returns>
         public ActionResult Index()
         {
             string accessToken = null;
@@ -49,6 +53,7 @@ namespace WebAppGraphAPI.Controllers
                 return View();
             }
 
+            //Setup Graph API connection and get a list of users
             Guid ClientRequestId = Guid.NewGuid();
             GraphSettings graphSettings = new GraphSettings();
             graphSettings.ApiVersion = graphApiVersion;
@@ -91,7 +96,7 @@ namespace WebAppGraphAPI.Controllers
                 return View();
             }
 
-            // Setup Graph API connection and get single User
+            // Setup Graph API connection and get single Contact
             Guid ClientRequestId = Guid.NewGuid();
             GraphSettings graphSettings = new GraphSettings();
             graphSettings.ApiVersion = graphApiVersion;
@@ -134,6 +139,7 @@ namespace WebAppGraphAPI.Controllers
                 ViewBag.ErrorMessage = "AuthorizationRequired";
                 return View();
             }
+
             // Setup Graph API connection and get Group membership
             Guid ClientRequestId = Guid.NewGuid();
             GraphSettings graphSettings = new GraphSettings();
@@ -143,9 +149,7 @@ namespace WebAppGraphAPI.Controllers
             GraphObject graphContact = graphConnection.Get<Contact>(objectId);
             PagedResults<GraphObject> memberShip = graphConnection.GetLinkedObjects(graphContact, LinkProperty.MemberOf, null, 999);
 
-            // users can be members of Groups and Roles
-            // for this app, we will filter and only show Groups
-
+            // filter for Groups only
             int count = 0;
             IList<Group> groupMembership = new List<Group>();
             foreach (GraphObject graphObj in memberShip.Results)
@@ -158,7 +162,6 @@ namespace WebAppGraphAPI.Controllers
                 ++count;
             }
 
-            //return View(groupIds);
             return View(groupMembership);
         }
 	}

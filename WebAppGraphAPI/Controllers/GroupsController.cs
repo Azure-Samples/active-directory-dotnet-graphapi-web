@@ -11,6 +11,9 @@ using WebAppGraphAPI.Utils;
 
 namespace WebAppGraphAPI.Controllers
 {
+    /// <summary>
+    /// Group controller to get/set/update/delete users.
+    /// </summary>
     [Authorize]
     public class GroupsController : Controller
     {
@@ -19,8 +22,10 @@ namespace WebAppGraphAPI.Controllers
         private string graphResourceId = ConfigurationManager.AppSettings["ida:GraphUrl"];
         private static string graphApiVersion = ConfigurationManager.AppSettings["ida:GraphApiVersion"];
 
-        //
-        // GET: /Groups/
+        /// <summary>
+        /// Gets a list of <see cref="Group"/> objects from Graph.
+        /// </summary>
+        /// <returns>A view with the list of <see cref="Group"/> objects.</returns>
         public ActionResult Index()
         {
             string accessToken = null;
@@ -49,6 +54,7 @@ namespace WebAppGraphAPI.Controllers
                 return View();
             }
 
+            //Setup GRaph API connection and get a list of groups
             Guid ClientRequestId = Guid.NewGuid();
             GraphSettings graphSettings = new GraphSettings();
             graphSettings.ApiVersion = graphApiVersion;
@@ -59,6 +65,10 @@ namespace WebAppGraphAPI.Controllers
             return View(pagedResults.Results);
         }
 
+        /// <summary>
+        /// Gets details of a single <see cref="Group"/> Graph.
+        /// </summary>
+        /// <returns>A view with the details of a single <see cref="Group"/>.</returns>
         public ActionResult Details(string objectId)
         {
             string accessToken = null;
@@ -87,7 +97,7 @@ namespace WebAppGraphAPI.Controllers
                 return View();
             }
 
-            // Setup Graph API connection and get single User
+            // Setup Graph API connection and get single Group
             Guid ClientRequestId = Guid.NewGuid();
             GraphSettings graphSettings = new GraphSettings();
             graphSettings.ApiVersion = graphApiVersion;
@@ -97,11 +107,20 @@ namespace WebAppGraphAPI.Controllers
             return View(group);
         }
 
+        /// <summary>
+        /// Creates a view to for adding a new <see cref="Group"/> to Graph.
+        /// </summary>
+        /// <returns>A view with the details to add a new <see cref="Group"/> objects</returns>
         public ActionResult Create()
         {
             return View();
         }
 
+        /// <summary>
+        /// Processes creation of a new <see cref="Group"/> to Graph.
+        /// </summary>
+        /// <param name="group"><see cref="Group"/> to be created.</param>
+        /// <returns>A view with the details to all <see cref="Group"/> objects</returns>
         [HttpPost]
         public ActionResult Create([Bind(Include = "DisplayName,Description,MailNickName,SecurityEnabled")] Group group)
         {
@@ -133,7 +152,7 @@ namespace WebAppGraphAPI.Controllers
 
             try
             {
-                // Setup Graph API connection and add User
+                // Setup Graph API connection and add Group
                 Guid ClientRequestId = Guid.NewGuid();
                 GraphSettings graphSettings = new GraphSettings();
                 graphSettings.ApiVersion = graphApiVersion;
@@ -150,6 +169,11 @@ namespace WebAppGraphAPI.Controllers
             }
         }
 
+        /// <summary>
+        /// Creates a view to for editing an existing <see cref="Group"/> in Graph.
+        /// </summary>
+        /// <param name="objectId">Unique identifier of the <see cref="Group"/>.</param>
+        /// <returns>A view with details to edit <see cref="Group"/>.</returns>
         public ActionResult Edit(string objectId)
         {
             string accessToken = null;
@@ -177,7 +201,7 @@ namespace WebAppGraphAPI.Controllers
                 ViewBag.ErrorMessage = "AuthorizationRequired";
                 return View();
             }
-            // Setup Graph API connection and add User
+            // Setup Graph API connection and get a single Group
             Guid ClientRequestId = Guid.NewGuid();
             GraphSettings graphSettings = new GraphSettings();
             graphSettings.ApiVersion = graphApiVersion;
@@ -187,6 +211,11 @@ namespace WebAppGraphAPI.Controllers
             return View(group);
         }
 
+        /// <summary>
+        /// Processes editing of an existing <see cref="Group"/>.
+        /// </summary>
+        /// <param name="group"><see cref="Group"/> to be edited.</param>
+        /// <returns>A view with list of all <see cref="Group"/> objects.</returns>
         [HttpPost]
         public ActionResult Edit([Bind(Include="ObjectId,DispalyName,Description,MailNickName,SecurityEnabled")] Group group) 
         {
@@ -218,7 +247,7 @@ namespace WebAppGraphAPI.Controllers
 
             try
             {
-                // Setup Graph API connection and add User
+                // Setup Graph API connection and update Group
                 Guid ClientRequestId = Guid.NewGuid();
                 GraphSettings graphSettings = new GraphSettings();
                 graphSettings.ApiVersion = graphApiVersion;
@@ -233,6 +262,11 @@ namespace WebAppGraphAPI.Controllers
             }
         }
 
+        /// <summary>
+        /// Creates a view to delete an existing <see cref="Group"/>.
+        /// </summary>
+        /// <param name="objectId">Unique identifier of the <see cref="Group"/>.</param>
+        /// <returns>A view of the <see cref="Group"/> to be deleted.</returns>
         public ActionResult Delete(string objectId)
         {
             string accessToken = null;
@@ -263,6 +297,7 @@ namespace WebAppGraphAPI.Controllers
 
             try
             {
+                //Setup Graph API and get a single Group
                 Guid ClientRequestId = Guid.NewGuid();
                 GraphSettings graphSettings = new GraphSettings();
                 graphSettings.ApiVersion = graphApiVersion;
@@ -277,6 +312,11 @@ namespace WebAppGraphAPI.Controllers
             }
         }
 
+        /// <summary>
+        /// Processes the deletion of a given <see cref="Group"/>.
+        /// </summary>
+        /// <param name="group"><see cref="Group"/> to be deleted.</param>
+        /// <returns>A view to display all the existing <see cref="Group"/> objects.</returns>
         [HttpPost]
         public ActionResult Delete(Group group)
         {
@@ -307,6 +347,7 @@ namespace WebAppGraphAPI.Controllers
             }
             try
             {
+                // Setup Graph API connection and delete Group
                 Guid ClientRequestId = Guid.NewGuid();
                 GraphSettings graphSettings = new GraphSettings();
                 graphSettings.ApiVersion = graphApiVersion;
@@ -322,6 +363,11 @@ namespace WebAppGraphAPI.Controllers
             
         }
 
+        /// <summary>
+        /// Gets a list of <see cref="Group"/> objects that a given <see cref="Group"/> is member of.
+        /// </summary>
+        /// <param name="objectId">Unique identifier of the <see cref="Group"/>.</param>
+        /// <returns>A view with the list of <see cref="Group"/> objects.</returns>
         public ActionResult GetGroups(string objectId)
         {
             string accessToken = null;
@@ -371,6 +417,11 @@ namespace WebAppGraphAPI.Controllers
             return View(groupMemberShip);
         }
 
+        /// <summary>
+        /// Gets a list of <see cref="User"/> objects that are members of a give <see cref="Group"/>.
+        /// </summary>
+        /// <param name="objectId">Unique identifier of the <see cref="Group"/>.</param>
+        /// <returns>A view with the list of <see cref="User"/> objects.</returns>
         public ActionResult GetMembers(string objectId)
         {
             string accessToken = null;
@@ -398,7 +449,7 @@ namespace WebAppGraphAPI.Controllers
                 ViewBag.ErrorMessage = "AuthorizationRequired";
                 return View();
             }
-            // Setup Graph API connection and get Group membership
+            // Setup Graph API connection and get Group members
             Guid ClientRequestId = Guid.NewGuid();
             GraphSettings graphSettings = new GraphSettings();
             graphSettings.ApiVersion = graphApiVersion;
