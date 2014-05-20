@@ -1,0 +1,44 @@
+﻿@using Microsoft.Azure.ActiveDirectory.GraphClient
+@model List<User>
+           
+<h2>/DirectReports</h2>
+<table id="directoryObjects" class="table table-bordered table-striped">
+    <tr>
+        <th>
+            UserPrincipalName
+        </th>
+        <th>
+            DisplayName
+        </th>
+        <th>
+            JobTitle
+        </th>
+        <th>
+            ObjectId
+        </th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        var user = item as User;
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => user.UserPrincipalName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => user.DisplayName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => user.JobTitle)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => user.ObjectId)
+            </td>
+        </tr>
+    }
+</table>
+
+@if (ViewBag.ErrorMessage == "AuthorizationRequired")
+{
+    <p>You have to sign-in to see DirectReports. Click @Html.ActionLink("here", "Index", "Users", new { reauth = true }, null) to sign-in.</p>
+}
+

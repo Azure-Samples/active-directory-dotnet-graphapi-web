@@ -1,0 +1,49 @@
+﻿@using Microsoft.Azure.ActiveDirectory.GraphClient
+@model IEnumerable<Contact>
+
+<h2>/Contact</h2>
+<table id="directoryObjects" class="table table-bordered table-striped">
+    <tr>
+        <th>
+            DisplayName
+        </th>
+        <th>
+            JobTitle
+        </th>
+        <th>
+            ObjectId
+        </th>
+        <th>
+            Manager
+        </th>
+        <th />
+    </tr>
+    @foreach (var item in Model)
+    {
+        var contact = item as Contact;
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => contact.DisplayName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => contact.JobTitle)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => contact.ObjectId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => contact.Manager)
+            </td>
+            <td>
+                @Html.ActionLink("Details", "Details", new { objectId = item.ObjectId }) <br />
+                @Html.ActionLink("GroupMembership", "GetGroups", new { objectId = item.ObjectId }) <br />
+            </td>
+        </tr>
+    }
+</table>
+
+@if (ViewBag.ErrorMessage == "AuthorizationRequired")
+{
+    <p>You have to sign-in to see contacts. Click @Html.ActionLink("here", "Index", "Contacts", new { reauth = true }, null) to sign-in.</p>
+}
+

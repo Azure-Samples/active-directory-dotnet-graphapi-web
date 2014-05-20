@@ -1,34 +1,27 @@
-﻿using System;
+﻿using Microsoft.Azure.ActiveDirectory.GraphClient;
+using Microsoft.Owin.Security.OpenIdConnect;
+using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
+using System.Security.Claims;
 using System.Web;
 using System.Web.Mvc;
-
-using System.Threading.Tasks;
-using WebAppGraphAPI.Models;
-using System.Security.Claims;
-using Microsoft.Owin.Security.OpenIdConnect;
-using System.Globalization;
-using System.Configuration;
-using System.Net.Http;
-using System.Net.Http.Headers;
-using Newtonsoft.Json;
 using WebAppGraphAPI.Utils;
-using Microsoft.Azure.ActiveDirectory.GraphClient;
 
 namespace WebAppGraphAPI.Controllers
 {
     /// <summary>
-    /// User controller to get/set/update/delete users.
+    /// Group controller to get/set/update/delete users.
     /// </summary>
     [Authorize]
-    public class UsersController : Controller
+    public class GroupsController : Controller
     {
 
         /// <summary>
-        /// Gets a list of <see cref="User"/> objects from Graph.
+        /// Gets a list of <see cref="Group"/> objects from Graph.
         /// </summary>
-        /// <returns>A view with the list of <see cref="User"/> objects.</returns>
+        /// <returns>A view with the list of <see cref="Group"/> objects.</returns>
         public ActionResult Index()
         {
             //Get the access token as we need it to make a call to the Graph API
@@ -42,20 +35,21 @@ namespace WebAppGraphAPI.Controllers
                 return View();
             }
 
-            // Setup Graph API connection and get a list of users
+            //Setup GRaph API connection and get a list of groups
             Guid ClientRequestId = Guid.NewGuid();
             GraphSettings graphSettings = new GraphSettings();
             graphSettings.ApiVersion = GraphConfiguration.GraphApiVersion;
             GraphConnection graphConnection = new GraphConnection(accessToken, ClientRequestId, graphSettings);
-            
-            PagedResults<User> pagedReslts = graphConnection.List<User>(null, new FilterGenerator());
-            return View(pagedReslts.Results);
+
+            PagedResults<Group> pagedResults = graphConnection.List<Group>(null, new FilterGenerator());
+
+            return View(pagedResults.Results);
         }
 
         /// <summary>
-        /// Gets details of a single <see cref="User"/> Graph.
+        /// Gets details of a single <see cref="Group"/> Graph.
         /// </summary>
-        /// <returns>A view with the details of a single <see cref="User"/>.</returns>
+        /// <returns>A view with the details of a single <see cref="Group"/>.</returns>
         public ActionResult Details(string objectId)
         {
             //Get the access token as we need it to make a call to the Graph API
@@ -69,31 +63,32 @@ namespace WebAppGraphAPI.Controllers
                 return View();
             }
 
-            // Setup Graph API connection and get single User
+            // Setup Graph API connection and get single Group
             Guid ClientRequestId = Guid.NewGuid();
             GraphSettings graphSettings = new GraphSettings();
-            graphSettings.ApiVersion = GraphConfiguration.GraphApiVersion;          
+            graphSettings.ApiVersion = GraphConfiguration.GraphApiVersion;
             GraphConnection graphConnection = new GraphConnection(accessToken, ClientRequestId, graphSettings);
-            
-            User user = graphConnection.Get<User>(objectId);
-            return View(user);
+
+            Group group = graphConnection.Get<Group>(objectId);
+            return View(group);
         }
 
         /// <summary>
-        /// Creates a view to for adding a new <see cref="User"/> to Graph.
+        /// Creates a view to for adding a new <see cref="Group"/> to Graph.
         /// </summary>
-        /// <returns>A view with the details to add a new <see cref="User"/> objects</returns>
+        /// <returns>A view with the details to add a new <see cref="Group"/> objects</returns>
         public ActionResult Create()
         {
             return View();
         }
 
         /// <summary>
-        /// Processes creation of a new <see cref="User"/> to Graph.
+        /// Processes creation of a new <see cref="Group"/> to Graph.
         /// </summary>
-        /// <returns>A view with the details to all <see cref="User"/> objects</returns>
+        /// <param name="group"><see cref="Group"/> to be created.</param>
+        /// <returns>A view with the details to all <see cref="Group"/> objects</returns>
         [HttpPost]
-        public ActionResult Create([Bind(Include="UserPrincipalName,AccountEnabled,PasswordProfile,MailNickname,DisplayName,GivenName,Surname,JobTitle,Department")] User user)
+        public ActionResult Create([Bind(Include = "DisplayName,Description,MailNickName,SecurityEnabled")] Group group)
         {
             //Get the access token as we need it to make a call to the Graph API
             string accessToken = AuthUtils.GetAuthToken(Request, HttpContext);
@@ -105,16 +100,17 @@ namespace WebAppGraphAPI.Controllers
                 ViewBag.ErrorMessage = "AuthorizationRequired";
                 return View();
             }
-        
+
             try
             {
-                // Setup Graph API connection and add User
+                // Setup Graph API connection and add Group
                 Guid ClientRequestId = Guid.NewGuid();
                 GraphSettings graphSettings = new GraphSettings();
                 graphSettings.ApiVersion = GraphConfiguration.GraphApiVersion;
                 GraphConnection graphConnection = new GraphConnection(accessToken, ClientRequestId, graphSettings);
+                group.MailEnabled = false;
 
-                graphConnection.Add(user);
+                graphConnection.Add(group);
                 return RedirectToAction("Index");
             }
             catch (Exception exception)
@@ -125,10 +121,10 @@ namespace WebAppGraphAPI.Controllers
         }
 
         /// <summary>
-        /// Creates a view to for editing an existing <see cref="User"/> in Graph.
+        /// Creates a view to for editing an existing <see cref="Group"/> in Graph.
         /// </summary>
-        /// <param name="objectId">Unique identifier of the <see cref="User"/>.</param>
-        /// <returns>A view with details to edit <see cref="User"/>.</returns>
+        /// <param name="objectId">Unique identifier of the <see cref="Group"/>.</param>
+        /// <returns>A view with details to edit <see cref="Group"/>.</returns>
         public ActionResult Edit(string objectId)
         {
             //Get the access token as we need it to make a call to the Graph API
@@ -142,69 +138,23 @@ namespace WebAppGraphAPI.Controllers
                 return View();
             }
 
-            // Setup Graph API connection and get single User
+            // Setup Graph API connection and get a single Group
             Guid ClientRequestId = Guid.NewGuid();
             GraphSettings graphSettings = new GraphSettings();
             graphSettings.ApiVersion = GraphConfiguration.GraphApiVersion;
             GraphConnection graphConnection = new GraphConnection(accessToken, ClientRequestId, graphSettings);
 
-            User user = graphConnection.Get<User>(objectId);
-            return View(user);
+            Group group = graphConnection.Get<Group>(objectId);
+            return View(group);
         }
 
         /// <summary>
-        /// Gets a list of <see cref="Group"/> objects that a given <see cref="User"/> is member of.
+        /// Processes editing of an existing <see cref="Group"/>.
         /// </summary>
-        /// <param name="objectId">Unique identifier of the <see cref="User"/>.</param>
-        /// <returns>A view with the list of <see cref="Group"/> objects.</returns>
-        public ActionResult GetGroups(string objectId)
-        {
-
-            //Get the access token as we need it to make a call to the Graph API
-            string accessToken = AuthUtils.GetAuthToken(Request, HttpContext);
-            if (accessToken == null)
-            {
-                //
-                // The user needs to re-authorize.  Show them a message to that effect.
-                //
-                ViewBag.ErrorMessage = "AuthorizationRequired";
-                return View();
-            }
-            // Setup Graph API connection and get Group membership
-            Guid ClientRequestId = Guid.NewGuid();
-            GraphSettings graphSettings = new GraphSettings();
-            graphSettings.ApiVersion = GraphConfiguration.GraphApiVersion;
-            GraphConnection graphConnection = new GraphConnection(accessToken, ClientRequestId, graphSettings);
-
-            GraphObject graphUser = graphConnection.Get<User>(objectId);
-            PagedResults<GraphObject> memberShip = graphConnection.GetLinkedObjects(graphUser, LinkProperty.MemberOf, null, 999);
-
-            // users can be members of Groups and Roles
-            // for this app, we will filter and only show Groups
-
-            int count = 0;
-            IList<Group> groupMembership = new List<Group>();
-            foreach (GraphObject graphObj in memberShip.Results)
-            {
-                if (graphObj.ODataTypeName.Contains("Group"))
-                {
-                    Group groupMember = (Group)memberShip.Results[count];
-                    groupMembership.Add(groupMember);
-                }
-                ++count;
-            }
-
-            //return View(groupIds);
-            return View(groupMembership);
-        }
-
-        /// <summary>
-        /// Processes editing of an existing <see cref="User"/>.
-        /// </summary>
-        /// <param name="user"><see cref="User"/> to be edited.</param>
-        /// <returns>A view with list of all <see cref="User"/> objects.</returns>
+        /// <param name="group"><see cref="Group"/> to be edited.</param>
+        /// <returns>A view with list of all <see cref="Group"/> objects.</returns>
         [HttpPost]
-        public ActionResult Edit([Bind(Include = "ObjectId,UserPrincipalName,DisplayName,AccountEnabled,GivenName,Surname,JobTitle,Department,Mobile,StreetAddress,City,State,Country,")] User user)
+        public ActionResult Edit([Bind(Include="ObjectId,DispalyName,Description,MailNickName,SecurityEnabled")] Group group) 
         {
             //Get the access token as we need it to make a call to the Graph API
             string accessToken = AuthUtils.GetAuthToken(Request, HttpContext);
@@ -216,20 +166,18 @@ namespace WebAppGraphAPI.Controllers
                 ViewBag.ErrorMessage = "AuthorizationRequired";
                 return View();
             }
-           
+
             try
             {
-                // TODO: Add update logic here
-
-                // Setup Graph API connection and update single User
+                // Setup Graph API connection and update Group
                 Guid ClientRequestId = Guid.NewGuid();
                 GraphSettings graphSettings = new GraphSettings();
                 graphSettings.ApiVersion = GraphConfiguration.GraphApiVersion;
                 GraphConnection graphConnection = new GraphConnection(accessToken, ClientRequestId, graphSettings);
-                graphConnection.Update(user);
+                graphConnection.Update(group);
                 return RedirectToAction("Index");
             }
-            catch(Exception exception)
+            catch (Exception exception)
             {
                 ModelState.AddModelError("", exception.Message);
                 return View();
@@ -237,10 +185,10 @@ namespace WebAppGraphAPI.Controllers
         }
 
         /// <summary>
-        /// Creates a view to delete an existing <see cref="User"/>.
+        /// Creates a view to delete an existing <see cref="Group"/>.
         /// </summary>
-        /// <param name="objectId">Unique identifier of the <see cref="User"/>.</param>
-        /// <returns>A view of the <see cref="User"/> to be deleted.</returns>
+        /// <param name="objectId">Unique identifier of the <see cref="Group"/>.</param>
+        /// <returns>A view of the <see cref="Group"/> to be deleted.</returns>
         public ActionResult Delete(string objectId)
         {
             //Get the access token as we need it to make a call to the Graph API
@@ -256,13 +204,13 @@ namespace WebAppGraphAPI.Controllers
 
             try
             {
-                // Setup Graph API connection and get single User
+                //Setup Graph API and get a single Group
                 Guid ClientRequestId = Guid.NewGuid();
                 GraphSettings graphSettings = new GraphSettings();
                 graphSettings.ApiVersion = GraphConfiguration.GraphApiVersion;
                 GraphConnection graphConnection = new GraphConnection(accessToken, ClientRequestId, graphSettings);
-                User user = graphConnection.Get<User>(objectId);
-                return View(user);
+                Group group = graphConnection.Get<Group>(objectId);
+                return View(group);
             }
             catch (Exception exception)
             {
@@ -272,12 +220,12 @@ namespace WebAppGraphAPI.Controllers
         }
 
         /// <summary>
-        /// Processes the deletion of a given <see cref="User"/>.
+        /// Processes the deletion of a given <see cref="Group"/>.
         /// </summary>
-        /// <param name="user"><see cref="User"/> to be deleted.</param>
-        /// <returns>A view to display all the existing <see cref="User"/> objects.</returns>
+        /// <param name="group"><see cref="Group"/> to be deleted.</param>
+        /// <returns>A view to display all the existing <see cref="Group"/> objects.</returns>
         [HttpPost]
-        public ActionResult Delete(User user)
+        public ActionResult Delete(Group group)
         {
             //Get the access token as we need it to make a call to the Graph API
             string accessToken = AuthUtils.GetAuthToken(Request, HttpContext);
@@ -292,29 +240,29 @@ namespace WebAppGraphAPI.Controllers
 
             try
             {
-                // Setup Graph API connection and delete User
+                // Setup Graph API connection and delete Group
                 Guid ClientRequestId = Guid.NewGuid();
                 GraphSettings graphSettings = new GraphSettings();
-                graphSettings.ApiVersion = GraphConfiguration.GraphApiVersion;               
+                graphSettings.ApiVersion = GraphConfiguration.GraphApiVersion;
                 GraphConnection graphConnection = new GraphConnection(accessToken, ClientRequestId, graphSettings);
-                graphConnection.Delete(user);
+                graphConnection.Delete(group);
                 return RedirectToAction("Index");
             }
-            catch(Exception exception)
+            catch (Exception exception)
             {
                 ModelState.AddModelError("", exception.Message);
-                return View(user);
+                return View(group);
             }
+            
         }
 
         /// <summary>
-        /// Gets a list of <see cref="User"/> objects that a given <see cref="User"/> has as a direct report.
+        /// Gets a list of <see cref="Group"/> objects that a given <see cref="Group"/> is member of.
         /// </summary>
-        /// <param name="objectId">Unique identifier of the <see cref="User"/>.</param>
-        /// <returns>A view with the list of <see cref="User"/> objects.</returns>
-        public ActionResult GetDirectReports(string objectId)
+        /// <param name="objectId">Unique identifier of the <see cref="Group"/>.</param>
+        /// <returns>A view with the list of <see cref="Group"/> objects.</returns>
+        public ActionResult GetGroups(string objectId)
         {
-
             //Get the access token as we need it to make a call to the Graph API
             string accessToken = AuthUtils.GetAuthToken(Request, HttpContext);
             if (accessToken == null)
@@ -332,19 +280,60 @@ namespace WebAppGraphAPI.Controllers
             graphSettings.ApiVersion = GraphConfiguration.GraphApiVersion;
             GraphConnection graphConnection = new GraphConnection(accessToken, ClientRequestId, graphSettings);
 
-            GraphObject graphUser = graphConnection.Get<User>(objectId);
-            IList<GraphObject> results = graphConnection.GetAllDirectLinks(graphUser, LinkProperty.DirectReports);
-            IList<User> reports = new List<User>();
-            foreach (GraphObject obj in results)
+            GraphObject graphGroup = graphConnection.Get<Group>(objectId);
+            PagedResults<GraphObject> memberShip = graphConnection.GetLinkedObjects(graphGroup, LinkProperty.MemberOf, null, 999);
+
+            IList<Group> groupMemberShip = new List<Group>();
+            foreach (GraphObject graphObj in memberShip.Results)
+            {
+                if (graphObj is Group)
+                {
+                    Group group = (Group)graphObj;
+                    groupMemberShip.Add(group);
+                }
+            }
+
+            return View(groupMemberShip);
+        }
+
+        /// <summary>
+        /// Gets a list of <see cref="User"/> objects that are members of a give <see cref="Group"/>.
+        /// </summary>
+        /// <param name="objectId">Unique identifier of the <see cref="Group"/>.</param>
+        /// <returns>A view with the list of <see cref="User"/> objects.</returns>
+        public ActionResult GetMembers(string objectId)
+        {
+            //Get the access token as we need it to make a call to the Graph API
+            string accessToken = AuthUtils.GetAuthToken(Request, HttpContext);
+            if (accessToken == null)
+            {
+                //
+                // The user needs to re-authorize.  Show them a message to that effect.
+                //
+                ViewBag.ErrorMessage = "AuthorizationRequired";
+                return View();
+            }
+
+            // Setup Graph API connection and get Group members
+            Guid ClientRequestId = Guid.NewGuid();
+            GraphSettings graphSettings = new GraphSettings();
+            graphSettings.ApiVersion = GraphConfiguration.GraphApiVersion;
+            GraphConnection graphConnection = new GraphConnection(accessToken, ClientRequestId, graphSettings);
+
+            Group group = graphConnection.Get<Group>(objectId);
+            PagedResults<GraphObject> members = graphConnection.GetLinkedObjects(group, LinkProperty.Members, null, 999);
+
+            IList<User> users = new List<User>();
+
+            foreach (GraphObject obj in members.Results)
             {
                 if (obj is User)
                 {
-                    User user = (User)obj;
-                    reports.Add(user);
+                    users.Add((User)obj);
                 }
-                
             }
-            return View(reports);
+
+            return View(users);
         }
-    }
+	}
 }
