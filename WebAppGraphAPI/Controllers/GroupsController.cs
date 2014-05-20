@@ -18,10 +18,6 @@ namespace WebAppGraphAPI.Controllers
     public class GroupsController : Controller
     {
 
-        private const string TenantIdClaimType = "http://schemas.microsoft.com/identity/claims/tenantid";
-        private string graphResourceId = ConfigurationManager.AppSettings["ida:GraphUrl"];
-        private static string graphApiVersion = ConfigurationManager.AppSettings["ida:GraphApiVersion"];
-
         /// <summary>
         /// Gets a list of <see cref="Group"/> objects from Graph.
         /// </summary>
@@ -29,10 +25,10 @@ namespace WebAppGraphAPI.Controllers
         public ActionResult Index()
         {
             string accessToken = null;
-            string tenantId = ClaimsPrincipal.Current.FindFirst(TenantIdClaimType).Value;
+            string tenantId = ClaimsPrincipal.Current.FindFirst(GraphConfiguration.TenantIdClaimType).Value;
             if (tenantId != null)
             {
-                accessToken = WebAppGraphAPI.Utils.TokenCacheUtils.GetAccessTokenFromCacheOrRefreshToken(tenantId, graphResourceId);
+                accessToken = WebAppGraphAPI.Utils.TokenCacheUtils.GetAccessTokenFromCacheOrRefreshToken(tenantId, GraphConfiguration.GraphResourceId);
             }
             if (accessToken == null)
             {
@@ -57,7 +53,7 @@ namespace WebAppGraphAPI.Controllers
             //Setup GRaph API connection and get a list of groups
             Guid ClientRequestId = Guid.NewGuid();
             GraphSettings graphSettings = new GraphSettings();
-            graphSettings.ApiVersion = graphApiVersion;
+            graphSettings.ApiVersion = GraphConfiguration.GraphApiVersion;
             GraphConnection graphConnection = new GraphConnection(accessToken, ClientRequestId, graphSettings);
 
             PagedResults<Group> pagedResults = graphConnection.List<Group>(null, new FilterGenerator());
@@ -72,10 +68,10 @@ namespace WebAppGraphAPI.Controllers
         public ActionResult Details(string objectId)
         {
             string accessToken = null;
-            string tenantId = ClaimsPrincipal.Current.FindFirst(TenantIdClaimType).Value;
+            string tenantId = ClaimsPrincipal.Current.FindFirst(GraphConfiguration.TenantIdClaimType).Value;
             if (tenantId != null)
             {
-                accessToken = TokenCacheUtils.GetAccessTokenFromCacheOrRefreshToken(tenantId, graphResourceId);
+                accessToken = TokenCacheUtils.GetAccessTokenFromCacheOrRefreshToken(tenantId, GraphConfiguration.GraphResourceId);
             }
             if (accessToken == null)
             {
@@ -100,7 +96,7 @@ namespace WebAppGraphAPI.Controllers
             // Setup Graph API connection and get single Group
             Guid ClientRequestId = Guid.NewGuid();
             GraphSettings graphSettings = new GraphSettings();
-            graphSettings.ApiVersion = graphApiVersion;
+            graphSettings.ApiVersion = GraphConfiguration.GraphApiVersion;
             GraphConnection graphConnection = new GraphConnection(accessToken, ClientRequestId, graphSettings);
 
             Group group = graphConnection.Get<Group>(objectId);
@@ -125,10 +121,10 @@ namespace WebAppGraphAPI.Controllers
         public ActionResult Create([Bind(Include = "DisplayName,Description,MailNickName,SecurityEnabled")] Group group)
         {
             string accessToken = null;
-            string tenantId = ClaimsPrincipal.Current.FindFirst(TenantIdClaimType).Value;
+            string tenantId = ClaimsPrincipal.Current.FindFirst(GraphConfiguration.TenantIdClaimType).Value;
             if (tenantId != null)
             {
-                accessToken = TokenCacheUtils.GetAccessTokenFromCacheOrRefreshToken(tenantId, graphResourceId);
+                accessToken = TokenCacheUtils.GetAccessTokenFromCacheOrRefreshToken(tenantId, GraphConfiguration.GraphResourceId);
             }
             if (accessToken == null)
             {
@@ -155,7 +151,7 @@ namespace WebAppGraphAPI.Controllers
                 // Setup Graph API connection and add Group
                 Guid ClientRequestId = Guid.NewGuid();
                 GraphSettings graphSettings = new GraphSettings();
-                graphSettings.ApiVersion = graphApiVersion;
+                graphSettings.ApiVersion = GraphConfiguration.GraphApiVersion;
                 GraphConnection graphConnection = new GraphConnection(accessToken, ClientRequestId, graphSettings);
                 group.MailEnabled = false;
 
@@ -177,10 +173,10 @@ namespace WebAppGraphAPI.Controllers
         public ActionResult Edit(string objectId)
         {
             string accessToken = null;
-            string tenantId = ClaimsPrincipal.Current.FindFirst(TenantIdClaimType).Value;
+            string tenantId = ClaimsPrincipal.Current.FindFirst(GraphConfiguration.TenantIdClaimType).Value;
             if (tenantId != null)
             {
-                accessToken = TokenCacheUtils.GetAccessTokenFromCacheOrRefreshToken(tenantId, graphResourceId);
+                accessToken = TokenCacheUtils.GetAccessTokenFromCacheOrRefreshToken(tenantId, GraphConfiguration.GraphResourceId);
             }
             if (accessToken == null)
             {
@@ -204,7 +200,7 @@ namespace WebAppGraphAPI.Controllers
             // Setup Graph API connection and get a single Group
             Guid ClientRequestId = Guid.NewGuid();
             GraphSettings graphSettings = new GraphSettings();
-            graphSettings.ApiVersion = graphApiVersion;
+            graphSettings.ApiVersion = GraphConfiguration.GraphApiVersion;
             GraphConnection graphConnection = new GraphConnection(accessToken, ClientRequestId, graphSettings);
 
             Group group = graphConnection.Get<Group>(objectId);
@@ -220,10 +216,10 @@ namespace WebAppGraphAPI.Controllers
         public ActionResult Edit([Bind(Include="ObjectId,DispalyName,Description,MailNickName,SecurityEnabled")] Group group) 
         {
             string accessToken = null;
-            string tenantId = ClaimsPrincipal.Current.FindFirst(TenantIdClaimType).Value;
+            string tenantId = ClaimsPrincipal.Current.FindFirst(GraphConfiguration.TenantIdClaimType).Value;
             if (tenantId != null)
             {
-                accessToken = TokenCacheUtils.GetAccessTokenFromCacheOrRefreshToken(tenantId, graphResourceId);
+                accessToken = TokenCacheUtils.GetAccessTokenFromCacheOrRefreshToken(tenantId, GraphConfiguration.GraphResourceId);
             }
             if (accessToken == null)
             {
@@ -250,7 +246,7 @@ namespace WebAppGraphAPI.Controllers
                 // Setup Graph API connection and update Group
                 Guid ClientRequestId = Guid.NewGuid();
                 GraphSettings graphSettings = new GraphSettings();
-                graphSettings.ApiVersion = graphApiVersion;
+                graphSettings.ApiVersion = GraphConfiguration.GraphApiVersion;
                 GraphConnection graphConnection = new GraphConnection(accessToken, ClientRequestId, graphSettings);
                 graphConnection.Update(group);
                 return RedirectToAction("Index");
@@ -270,10 +266,10 @@ namespace WebAppGraphAPI.Controllers
         public ActionResult Delete(string objectId)
         {
             string accessToken = null;
-            string tenantId = ClaimsPrincipal.Current.FindFirst(TenantIdClaimType).Value;
+            string tenantId = ClaimsPrincipal.Current.FindFirst(GraphConfiguration.TenantIdClaimType).Value;
             if (tenantId != null)
             {
-                accessToken = TokenCacheUtils.GetAccessTokenFromCacheOrRefreshToken(tenantId, graphResourceId);
+                accessToken = TokenCacheUtils.GetAccessTokenFromCacheOrRefreshToken(tenantId, GraphConfiguration.GraphResourceId);
             }
             if (accessToken == null)
             {
@@ -300,7 +296,7 @@ namespace WebAppGraphAPI.Controllers
                 //Setup Graph API and get a single Group
                 Guid ClientRequestId = Guid.NewGuid();
                 GraphSettings graphSettings = new GraphSettings();
-                graphSettings.ApiVersion = graphApiVersion;
+                graphSettings.ApiVersion = GraphConfiguration.GraphApiVersion;
                 GraphConnection graphConnection = new GraphConnection(accessToken, ClientRequestId, graphSettings);
                 Group group = graphConnection.Get<Group>(objectId);
                 return View(group);
@@ -321,10 +317,10 @@ namespace WebAppGraphAPI.Controllers
         public ActionResult Delete(Group group)
         {
             string accessToken = null;
-            string tenantId = ClaimsPrincipal.Current.FindFirst(TenantIdClaimType).Value;
+            string tenantId = ClaimsPrincipal.Current.FindFirst(GraphConfiguration.TenantIdClaimType).Value;
             if (tenantId != null)
             {
-                accessToken = TokenCacheUtils.GetAccessTokenFromCacheOrRefreshToken(tenantId, graphResourceId);
+                accessToken = TokenCacheUtils.GetAccessTokenFromCacheOrRefreshToken(tenantId, GraphConfiguration.GraphResourceId);
             }
             if (accessToken == null)
             {
@@ -350,7 +346,7 @@ namespace WebAppGraphAPI.Controllers
                 // Setup Graph API connection and delete Group
                 Guid ClientRequestId = Guid.NewGuid();
                 GraphSettings graphSettings = new GraphSettings();
-                graphSettings.ApiVersion = graphApiVersion;
+                graphSettings.ApiVersion = GraphConfiguration.GraphApiVersion;
                 GraphConnection graphConnection = new GraphConnection(accessToken, ClientRequestId, graphSettings);
                 graphConnection.Delete(group);
                 return RedirectToAction("Index");
@@ -371,10 +367,10 @@ namespace WebAppGraphAPI.Controllers
         public ActionResult GetGroups(string objectId)
         {
             string accessToken = null;
-            string tenantId = ClaimsPrincipal.Current.FindFirst(TenantIdClaimType).Value;
+            string tenantId = ClaimsPrincipal.Current.FindFirst(GraphConfiguration.TenantIdClaimType).Value;
             if (tenantId != null)
             {
-                accessToken = TokenCacheUtils.GetAccessTokenFromCacheOrRefreshToken(tenantId, graphResourceId);
+                accessToken = TokenCacheUtils.GetAccessTokenFromCacheOrRefreshToken(tenantId, GraphConfiguration.GraphResourceId);
             }
             if (accessToken == null)
             {
@@ -398,7 +394,7 @@ namespace WebAppGraphAPI.Controllers
             // Setup Graph API connection and get Group membership
             Guid ClientRequestId = Guid.NewGuid();
             GraphSettings graphSettings = new GraphSettings();
-            graphSettings.ApiVersion = graphApiVersion;
+            graphSettings.ApiVersion = GraphConfiguration.GraphApiVersion;
             GraphConnection graphConnection = new GraphConnection(accessToken, ClientRequestId, graphSettings);
 
             GraphObject graphGroup = graphConnection.Get<Group>(objectId);
@@ -425,10 +421,10 @@ namespace WebAppGraphAPI.Controllers
         public ActionResult GetMembers(string objectId)
         {
             string accessToken = null;
-            string tenantId = ClaimsPrincipal.Current.FindFirst(TenantIdClaimType).Value;
+            string tenantId = ClaimsPrincipal.Current.FindFirst(GraphConfiguration.TenantIdClaimType).Value;
             if (tenantId != null)
             {
-                accessToken = TokenCacheUtils.GetAccessTokenFromCacheOrRefreshToken(tenantId, graphResourceId);
+                accessToken = TokenCacheUtils.GetAccessTokenFromCacheOrRefreshToken(tenantId, GraphConfiguration.GraphResourceId);
             }
             if (accessToken == null)
             {
@@ -452,7 +448,7 @@ namespace WebAppGraphAPI.Controllers
             // Setup Graph API connection and get Group members
             Guid ClientRequestId = Guid.NewGuid();
             GraphSettings graphSettings = new GraphSettings();
-            graphSettings.ApiVersion = graphApiVersion;
+            graphSettings.ApiVersion = GraphConfiguration.GraphApiVersion;
             GraphConnection graphConnection = new GraphConnection(accessToken, ClientRequestId, graphSettings);
 
             Group group = graphConnection.Get<Group>(objectId);

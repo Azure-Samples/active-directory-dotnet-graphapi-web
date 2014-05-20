@@ -178,6 +178,7 @@
     <Compile Include="Startup.cs" />
     <Compile Include="Utils\Logger.cs" />
     <Compile Include="Utils\TokenCacheUtils.cs" />
+    <Compile Include="Utils\GraphConfiguration.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />

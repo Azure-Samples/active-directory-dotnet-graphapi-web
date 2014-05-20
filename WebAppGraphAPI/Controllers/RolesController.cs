@@ -15,10 +15,6 @@ namespace WebAppGraphAPI.Controllers
     public class RolesController : Controller
     {
 
-        private const string TenantIdClaimType = "http://schemas.microsoft.com/identity/claims/tenantid";
-        private string graphResourceId = ConfigurationManager.AppSettings["ida:GraphUrl"];
-        private static string graphApiVersion = ConfigurationManager.AppSettings["ida:GraphApiVersion"];
-
         /// <summary>
         /// Gets a list of <see cref="Role"/> objects from Graph.
         /// </summary>
@@ -26,10 +22,10 @@ namespace WebAppGraphAPI.Controllers
         public ActionResult Index()
         {
             string accessToken = null;
-            string tenantId = ClaimsPrincipal.Current.FindFirst(TenantIdClaimType).Value;
+            string tenantId = ClaimsPrincipal.Current.FindFirst(GraphConfiguration.TenantIdClaimType).Value;
             if (tenantId != null)
             {
-                accessToken = WebAppGraphAPI.Utils.TokenCacheUtils.GetAccessTokenFromCacheOrRefreshToken(tenantId, graphResourceId);
+                accessToken = WebAppGraphAPI.Utils.TokenCacheUtils.GetAccessTokenFromCacheOrRefreshToken(tenantId, GraphConfiguration.GraphResourceId);
             }
             if (accessToken == null)
             {
@@ -54,7 +50,7 @@ namespace WebAppGraphAPI.Controllers
             //Setup GRaph API connection and get a list of roles
             Guid ClientRequestId = Guid.NewGuid();
             GraphSettings graphSettings = new GraphSettings();
-            graphSettings.ApiVersion = graphApiVersion;
+            graphSettings.ApiVersion = GraphConfiguration.GraphApiVersion;
             GraphConnection graphConnection = new GraphConnection(accessToken, ClientRequestId, graphSettings);
 
             PagedResults<Role> pagedResults = graphConnection.List<Role>(null, new FilterGenerator());
@@ -69,10 +65,10 @@ namespace WebAppGraphAPI.Controllers
         public ActionResult Details(string objectId)
         {
             string accessToken = null;
-            string tenantId = ClaimsPrincipal.Current.FindFirst(TenantIdClaimType).Value;
+            string tenantId = ClaimsPrincipal.Current.FindFirst(GraphConfiguration.TenantIdClaimType).Value;
             if (tenantId != null)
             {
-                accessToken = TokenCacheUtils.GetAccessTokenFromCacheOrRefreshToken(tenantId, graphResourceId);
+                accessToken = TokenCacheUtils.GetAccessTokenFromCacheOrRefreshToken(tenantId, GraphConfiguration.GraphResourceId);
             }
             if (accessToken == null)
             {
@@ -97,7 +93,7 @@ namespace WebAppGraphAPI.Controllers
             // Setup Graph API connection and get single Role
             Guid ClientRequestId = Guid.NewGuid();
             GraphSettings graphSettings = new GraphSettings();
-            graphSettings.ApiVersion = graphApiVersion;
+            graphSettings.ApiVersion = GraphConfiguration.GraphApiVersion;
             GraphConnection graphConnection = new GraphConnection(accessToken, ClientRequestId, graphSettings);
 
             Role contact = graphConnection.Get<Role>(objectId);
@@ -112,10 +108,10 @@ namespace WebAppGraphAPI.Controllers
         public ActionResult GetMembers(string objectId)
         {
             string accessToken = null;
-            string tenantId = ClaimsPrincipal.Current.FindFirst(TenantIdClaimType).Value;
+            string tenantId = ClaimsPrincipal.Current.FindFirst(GraphConfiguration.TenantIdClaimType).Value;
             if (tenantId != null)
             {
-                accessToken = TokenCacheUtils.GetAccessTokenFromCacheOrRefreshToken(tenantId, graphResourceId);
+                accessToken = TokenCacheUtils.GetAccessTokenFromCacheOrRefreshToken(tenantId, GraphConfiguration.GraphResourceId);
             }
             if (accessToken == null)
             {
@@ -139,7 +135,7 @@ namespace WebAppGraphAPI.Controllers
             // Setup Graph API connection and get Role members
             Guid ClientRequestId = Guid.NewGuid();
             GraphSettings graphSettings = new GraphSettings();
-            graphSettings.ApiVersion = graphApiVersion;
+            graphSettings.ApiVersion = GraphConfiguration.GraphApiVersion;
             GraphConnection graphConnection = new GraphConnection(accessToken, ClientRequestId, graphSettings);
 
             Role role = graphConnection.Get<Role>(objectId);

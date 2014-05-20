@@ -25,10 +25,6 @@ namespace WebAppGraphAPI.Controllers
     public class UsersController : Controller
     {
 
-        private const string TenantIdClaimType = "http://schemas.microsoft.com/identity/claims/tenantid";
-        private string graphResourceId = ConfigurationManager.AppSettings["ida:GraphUrl"];
-        private static string graphApiVersion = ConfigurationManager.AppSettings["ida:GraphApiVersion"];
-
         /// <summary>
         /// Gets a list of <see cref="User"/> objects from Graph.
         /// </summary>
@@ -38,10 +34,10 @@ namespace WebAppGraphAPI.Controllers
             // Retrieve the user's tenantID and access token since they are used to call the GraphAPI.
             //
             string accessToken = null;
-            string tenantId = ClaimsPrincipal.Current.FindFirst(TenantIdClaimType).Value;
+            string tenantId = ClaimsPrincipal.Current.FindFirst(GraphConfiguration.TenantIdClaimType).Value;
             if (tenantId != null)
             { 
-               accessToken = TokenCacheUtils.GetAccessTokenFromCacheOrRefreshToken(tenantId, graphResourceId);
+               accessToken = TokenCacheUtils.GetAccessTokenFromCacheOrRefreshToken(tenantId, GraphConfiguration.GraphResourceId);
             }
             if (accessToken == null)
             {
@@ -66,7 +62,7 @@ namespace WebAppGraphAPI.Controllers
             // Setup Graph API connection and get a list of users
             Guid ClientRequestId = Guid.NewGuid();
             GraphSettings graphSettings = new GraphSettings();
-            graphSettings.ApiVersion = graphApiVersion;
+            graphSettings.ApiVersion = GraphConfiguration.GraphApiVersion;
             GraphConnection graphConnection = new GraphConnection(accessToken, ClientRequestId, graphSettings);
             
             PagedResults<User> pagedReslts = graphConnection.List<User>(null, new FilterGenerator());
@@ -80,10 +76,10 @@ namespace WebAppGraphAPI.Controllers
         public ActionResult Details(string objectId)
         {
             string accessToken = null;
-            string tenantId = ClaimsPrincipal.Current.FindFirst(TenantIdClaimType).Value;
+            string tenantId = ClaimsPrincipal.Current.FindFirst(GraphConfiguration.TenantIdClaimType).Value;
             if (tenantId != null)
             {
-                accessToken = TokenCacheUtils.GetAccessTokenFromCacheOrRefreshToken(tenantId, graphResourceId);
+                accessToken = TokenCacheUtils.GetAccessTokenFromCacheOrRefreshToken(tenantId, GraphConfiguration.GraphResourceId);
             }
             if (accessToken == null)
             {
@@ -108,7 +104,7 @@ namespace WebAppGraphAPI.Controllers
             // Setup Graph API connection and get single User
             Guid ClientRequestId = Guid.NewGuid();
             GraphSettings graphSettings = new GraphSettings();
-            graphSettings.ApiVersion = graphApiVersion;          
+            graphSettings.ApiVersion = GraphConfiguration.GraphApiVersion;          
             GraphConnection graphConnection = new GraphConnection(accessToken, ClientRequestId, graphSettings);
             
             User user = graphConnection.Get<User>(objectId);
@@ -132,10 +128,10 @@ namespace WebAppGraphAPI.Controllers
         public ActionResult Create([Bind(Include="UserPrincipalName,AccountEnabled,PasswordProfile,MailNickname,DisplayName,GivenName,Surname,JobTitle,Department")] User user)
         {
             string accessToken = null;
-            string tenantId = ClaimsPrincipal.Current.FindFirst(TenantIdClaimType).Value;
+            string tenantId = ClaimsPrincipal.Current.FindFirst(GraphConfiguration.TenantIdClaimType).Value;
             if (tenantId != null)
             {
-                accessToken = TokenCacheUtils.GetAccessTokenFromCacheOrRefreshToken(tenantId, graphResourceId);
+                accessToken = TokenCacheUtils.GetAccessTokenFromCacheOrRefreshToken(tenantId, GraphConfiguration.GraphResourceId);
             }
             if (accessToken == null)
             {
@@ -162,7 +158,7 @@ namespace WebAppGraphAPI.Controllers
                 // Setup Graph API connection and add User
                 Guid ClientRequestId = Guid.NewGuid();
                 GraphSettings graphSettings = new GraphSettings();
-                graphSettings.ApiVersion = graphApiVersion;
+                graphSettings.ApiVersion = GraphConfiguration.GraphApiVersion;
                 GraphConnection graphConnection = new GraphConnection(accessToken, ClientRequestId, graphSettings);
 
                 graphConnection.Add(user);
@@ -183,10 +179,10 @@ namespace WebAppGraphAPI.Controllers
         public ActionResult Edit(string objectId)
         {
             string accessToken = null;
-            string tenantId = ClaimsPrincipal.Current.FindFirst(TenantIdClaimType).Value;
+            string tenantId = ClaimsPrincipal.Current.FindFirst(GraphConfiguration.TenantIdClaimType).Value;
             if (tenantId != null)
             {
-                accessToken = TokenCacheUtils.GetAccessTokenFromCacheOrRefreshToken(tenantId, graphResourceId);
+                accessToken = TokenCacheUtils.GetAccessTokenFromCacheOrRefreshToken(tenantId, GraphConfiguration.GraphResourceId);
             }
             if (accessToken == null)
             {
@@ -211,7 +207,7 @@ namespace WebAppGraphAPI.Controllers
             // Setup Graph API connection and get single User
             Guid ClientRequestId = Guid.NewGuid();
             GraphSettings graphSettings = new GraphSettings();
-            graphSettings.ApiVersion = graphApiVersion;
+            graphSettings.ApiVersion = GraphConfiguration.GraphApiVersion;
             GraphConnection graphConnection = new GraphConnection(accessToken, ClientRequestId, graphSettings);
 
             User user = graphConnection.Get<User>(objectId);
@@ -227,10 +223,10 @@ namespace WebAppGraphAPI.Controllers
         {
 
             string accessToken = null;
-            string tenantId = ClaimsPrincipal.Current.FindFirst(TenantIdClaimType).Value;
+            string tenantId = ClaimsPrincipal.Current.FindFirst(GraphConfiguration.TenantIdClaimType).Value;
             if (tenantId != null)
             {
-                accessToken = TokenCacheUtils.GetAccessTokenFromCacheOrRefreshToken(tenantId, graphResourceId);
+                accessToken = TokenCacheUtils.GetAccessTokenFromCacheOrRefreshToken(tenantId, GraphConfiguration.GraphResourceId);
             }
             if (accessToken == null)
             {
@@ -254,7 +250,7 @@ namespace WebAppGraphAPI.Controllers
             // Setup Graph API connection and get Group membership
             Guid ClientRequestId = Guid.NewGuid();
             GraphSettings graphSettings = new GraphSettings();
-            graphSettings.ApiVersion = graphApiVersion;
+            graphSettings.ApiVersion = GraphConfiguration.GraphApiVersion;
             GraphConnection graphConnection = new GraphConnection(accessToken, ClientRequestId, graphSettings);
 
             GraphObject graphUser = graphConnection.Get<User>(objectId);
@@ -288,10 +284,10 @@ namespace WebAppGraphAPI.Controllers
         public ActionResult Edit([Bind(Include = "ObjectId,UserPrincipalName,DisplayName,AccountEnabled,GivenName,Surname,JobTitle,Department,Mobile,StreetAddress,City,State,Country,")] User user)
         {
             string accessToken = null;
-            string tenantId = ClaimsPrincipal.Current.FindFirst(TenantIdClaimType).Value;
+            string tenantId = ClaimsPrincipal.Current.FindFirst(GraphConfiguration.TenantIdClaimType).Value;
             if (tenantId != null)
             {
-                accessToken = TokenCacheUtils.GetAccessTokenFromCacheOrRefreshToken(tenantId, graphResourceId);
+                accessToken = TokenCacheUtils.GetAccessTokenFromCacheOrRefreshToken(tenantId, GraphConfiguration.GraphResourceId);
             }
             if (accessToken == null)
             {
@@ -320,7 +316,7 @@ namespace WebAppGraphAPI.Controllers
                 // Setup Graph API connection and update single User
                 Guid ClientRequestId = Guid.NewGuid();
                 GraphSettings graphSettings = new GraphSettings();
-                graphSettings.ApiVersion = graphApiVersion;
+                graphSettings.ApiVersion = GraphConfiguration.GraphApiVersion;
                 GraphConnection graphConnection = new GraphConnection(accessToken, ClientRequestId, graphSettings);
                 graphConnection.Update(user);
                 return RedirectToAction("Index");
@@ -340,10 +336,10 @@ namespace WebAppGraphAPI.Controllers
         public ActionResult Delete(string objectId)
         {
             string accessToken = null;
-            string tenantId = ClaimsPrincipal.Current.FindFirst(TenantIdClaimType).Value;
+            string tenantId = ClaimsPrincipal.Current.FindFirst(GraphConfiguration.TenantIdClaimType).Value;
             if (tenantId != null)
             {
-                accessToken = TokenCacheUtils.GetAccessTokenFromCacheOrRefreshToken(tenantId, graphResourceId);
+                accessToken = TokenCacheUtils.GetAccessTokenFromCacheOrRefreshToken(tenantId, GraphConfiguration.GraphResourceId);
             }
             if (accessToken == null)
             {
@@ -370,7 +366,7 @@ namespace WebAppGraphAPI.Controllers
                 // Setup Graph API connection and get single User
                 Guid ClientRequestId = Guid.NewGuid();
                 GraphSettings graphSettings = new GraphSettings();
-                graphSettings.ApiVersion = graphApiVersion;
+                graphSettings.ApiVersion = GraphConfiguration.GraphApiVersion;
                 GraphConnection graphConnection = new GraphConnection(accessToken, ClientRequestId, graphSettings);
                 User user = graphConnection.Get<User>(objectId);
                 return View(user);
@@ -391,10 +387,10 @@ namespace WebAppGraphAPI.Controllers
         public ActionResult Delete(User user)
         {
             string accessToken = null;
-            string tenantId = ClaimsPrincipal.Current.FindFirst(TenantIdClaimType).Value;
+            string tenantId = ClaimsPrincipal.Current.FindFirst(GraphConfiguration.TenantIdClaimType).Value;
             if (tenantId != null)
             {
-                accessToken = TokenCacheUtils.GetAccessTokenFromCacheOrRefreshToken(tenantId, graphResourceId);
+                accessToken = TokenCacheUtils.GetAccessTokenFromCacheOrRefreshToken(tenantId, GraphConfiguration.GraphResourceId);
             }
             if (accessToken == null)
             {
@@ -421,7 +417,7 @@ namespace WebAppGraphAPI.Controllers
                 // Setup Graph API connection and delete User
                 Guid ClientRequestId = Guid.NewGuid();
                 GraphSettings graphSettings = new GraphSettings();
-                graphSettings.ApiVersion = graphApiVersion;               
+                graphSettings.ApiVersion = GraphConfiguration.GraphApiVersion;               
                 GraphConnection graphConnection = new GraphConnection(accessToken, ClientRequestId, graphSettings);
                 graphConnection.Delete(user);
                 return RedirectToAction("Index");
@@ -442,10 +438,10 @@ namespace WebAppGraphAPI.Controllers
         {
 
             string accessToken = null;
-            string tenantId = ClaimsPrincipal.Current.FindFirst(TenantIdClaimType).Value;
+            string tenantId = ClaimsPrincipal.Current.FindFirst(GraphConfiguration.TenantIdClaimType).Value;
             if (tenantId != null)
             {
-                accessToken = TokenCacheUtils.GetAccessTokenFromCacheOrRefreshToken(tenantId, graphResourceId);
+                accessToken = TokenCacheUtils.GetAccessTokenFromCacheOrRefreshToken(tenantId, GraphConfiguration.GraphResourceId);
             }
             if (accessToken == null)
             {
@@ -469,7 +465,7 @@ namespace WebAppGraphAPI.Controllers
             // Setup Graph API connection and get Group membership
             Guid ClientRequestId = Guid.NewGuid();
             GraphSettings graphSettings = new GraphSettings();
-            graphSettings.ApiVersion = graphApiVersion;
+            graphSettings.ApiVersion = GraphConfiguration.GraphApiVersion;
             GraphConnection graphConnection = new GraphConnection(accessToken, ClientRequestId, graphSettings);
 
             GraphObject graphUser = graphConnection.Get<User>(objectId);
