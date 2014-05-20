@@ -31,27 +31,10 @@ namespace WebAppGraphAPI.Controllers
         /// <returns>A view with the list of <see cref="User"/> objects.</returns>
         public ActionResult Index()
         {
-            // Retrieve the user's tenantID and access token since they are used to call the GraphAPI.
-            //
-            string accessToken = null;
-            string tenantId = ClaimsPrincipal.Current.FindFirst(GraphConfiguration.TenantIdClaimType).Value;
-            if (tenantId != null)
-            { 
-               accessToken = TokenCacheUtils.GetAccessTokenFromCacheOrRefreshToken(tenantId, GraphConfiguration.GraphResourceId);
-            }
+            //Get the access token as we need it to make a call to the Graph API
+            string accessToken = AuthUtils.GetAuthToken(Request, HttpContext);
             if (accessToken == null)
             {
-                //
-                // If refresh is set to true, the user has clicked the link to be authorized again.
-                //
-                if (Request.QueryString["reauth"] == "True")
-                {
-                    // Send an OpenID Connect sign-in request to get a new set of tokens.
-                    // If the user still has a valid session with Azure AD, they will not be prompted for their credentials.
-                    // The OpenID Connect middleware will return to this controller after the sign-in response has been handled.
-                    //
-                    HttpContext.GetOwinContext().Authentication.Challenge(OpenIdConnectAuthenticationDefaults.AuthenticationType);
-                }
                 //
                 // The user needs to re-authorize.  Show them a message to that effect.
                 //
@@ -75,25 +58,10 @@ namespace WebAppGraphAPI.Controllers
         /// <returns>A view with the details of a single <see cref="User"/>.</returns>
         public ActionResult Details(string objectId)
         {
-            string accessToken = null;
-            string tenantId = ClaimsPrincipal.Current.FindFirst(GraphConfiguration.TenantIdClaimType).Value;
-            if (tenantId != null)
-            {
-                accessToken = TokenCacheUtils.GetAccessTokenFromCacheOrRefreshToken(tenantId, GraphConfiguration.GraphResourceId);
-            }
+            //Get the access token as we need it to make a call to the Graph API
+            string accessToken = AuthUtils.GetAuthToken(Request, HttpContext);
             if (accessToken == null)
             {
-                //
-                // If refresh is set to true, the user has clicked the link to be authorized again.
-                //
-                if (Request.QueryString["reauth"] == "True")
-                {
-                    // Send an OpenID Connect sign-in request to get a new set of tokens.
-                    // If the user still has a valid session with Azure AD, they will not be prompted for their credentials.
-                    // The OpenID Connect middleware will return to this controller after the sign-in response has been handled.
-                    //
-                    HttpContext.GetOwinContext().Authentication.Challenge(OpenIdConnectAuthenticationDefaults.AuthenticationType);
-                }
                 //
                 // The user needs to re-authorize.  Show them a message to that effect.
                 //
@@ -127,25 +95,10 @@ namespace WebAppGraphAPI.Controllers
         [HttpPost]
         public ActionResult Create([Bind(Include="UserPrincipalName,AccountEnabled,PasswordProfile,MailNickname,DisplayName,GivenName,Surname,JobTitle,Department")] User user)
         {
-            string accessToken = null;
-            string tenantId = ClaimsPrincipal.Current.FindFirst(GraphConfiguration.TenantIdClaimType).Value;
-            if (tenantId != null)
-            {
-                accessToken = TokenCacheUtils.GetAccessTokenFromCacheOrRefreshToken(tenantId, GraphConfiguration.GraphResourceId);
-            }
+            //Get the access token as we need it to make a call to the Graph API
+            string accessToken = AuthUtils.GetAuthToken(Request, HttpContext);
             if (accessToken == null)
             {
-                //
-                // If refresh is set to true, the user has clicked the link to be authorized again.
-                //
-                if (Request.QueryString["reauth"] == "True")
-                {
-                    // Send an OpenID Connect sign-in request to get a new set of tokens.
-                    // If the user still has a valid session with Azure AD, they will not be prompted for their credentials.
-                    // The OpenID Connect middleware will return to this controller after the sign-in response has been handled.
-                    //
-                    HttpContext.GetOwinContext().Authentication.Challenge(OpenIdConnectAuthenticationDefaults.AuthenticationType);
-                }
                 //
                 // The user needs to re-authorize.  Show them a message to that effect.
                 //
@@ -178,25 +131,10 @@ namespace WebAppGraphAPI.Controllers
         /// <returns>A view with details to edit <see cref="User"/>.</returns>
         public ActionResult Edit(string objectId)
         {
-            string accessToken = null;
-            string tenantId = ClaimsPrincipal.Current.FindFirst(GraphConfiguration.TenantIdClaimType).Value;
-            if (tenantId != null)
-            {
-                accessToken = TokenCacheUtils.GetAccessTokenFromCacheOrRefreshToken(tenantId, GraphConfiguration.GraphResourceId);
-            }
+            //Get the access token as we need it to make a call to the Graph API
+            string accessToken = AuthUtils.GetAuthToken(Request, HttpContext);
             if (accessToken == null)
             {
-                //
-                // If refresh is set to true, the user has clicked the link to be authorized again.
-                //
-                if (Request.QueryString["reauth"] == "True")
-                {
-                    // Send an OpenID Connect sign-in request to get a new set of tokens.
-                    // If the user still has a valid session with Azure AD, they will not be prompted for their credentials.
-                    // The OpenID Connect middleware will return to this controller after the sign-in response has been handled.
-                    //
-                    HttpContext.GetOwinContext().Authentication.Challenge(OpenIdConnectAuthenticationDefaults.AuthenticationType);
-                }
                 //
                 // The user needs to re-authorize.  Show them a message to that effect.
                 //
@@ -222,25 +160,10 @@ namespace WebAppGraphAPI.Controllers
         public ActionResult GetGroups(string objectId)
         {
 
-            string accessToken = null;
-            string tenantId = ClaimsPrincipal.Current.FindFirst(GraphConfiguration.TenantIdClaimType).Value;
-            if (tenantId != null)
-            {
-                accessToken = TokenCacheUtils.GetAccessTokenFromCacheOrRefreshToken(tenantId, GraphConfiguration.GraphResourceId);
-            }
+            //Get the access token as we need it to make a call to the Graph API
+            string accessToken = AuthUtils.GetAuthToken(Request, HttpContext);
             if (accessToken == null)
             {
-                //
-                // If refresh is set to true, the user has clicked the link to be authorized again.
-                //
-                if (Request.QueryString["reauth"] == "True")
-                {
-                    // Send an OpenID Connect sign-in request to get a new set of tokens.
-                    // If the user still has a valid session with Azure AD, they will not be prompted for their credentials.
-                    // The OpenID Connect middleware will return to this controller after the sign-in response has been handled.
-                    //
-                    HttpContext.GetOwinContext().Authentication.Challenge(OpenIdConnectAuthenticationDefaults.AuthenticationType);
-                }
                 //
                 // The user needs to re-authorize.  Show them a message to that effect.
                 //
@@ -283,25 +206,10 @@ namespace WebAppGraphAPI.Controllers
         [HttpPost]
         public ActionResult Edit([Bind(Include = "ObjectId,UserPrincipalName,DisplayName,AccountEnabled,GivenName,Surname,JobTitle,Department,Mobile,StreetAddress,City,State,Country,")] User user)
         {
-            string accessToken = null;
-            string tenantId = ClaimsPrincipal.Current.FindFirst(GraphConfiguration.TenantIdClaimType).Value;
-            if (tenantId != null)
-            {
-                accessToken = TokenCacheUtils.GetAccessTokenFromCacheOrRefreshToken(tenantId, GraphConfiguration.GraphResourceId);
-            }
+            //Get the access token as we need it to make a call to the Graph API
+            string accessToken = AuthUtils.GetAuthToken(Request, HttpContext);
             if (accessToken == null)
             {
-                //
-                // If refresh is set to true, the user has clicked the link to be authorized again.
-                //
-                if (Request.QueryString["reauth"] == "True")
-                {
-                    // Send an OpenID Connect sign-in request to get a new set of tokens.
-                    // If the user still has a valid session with Azure AD, they will not be prompted for their credentials.
-                    // The OpenID Connect middleware will return to this controller after the sign-in response has been handled.
-                    //
-                    HttpContext.GetOwinContext().Authentication.Challenge(OpenIdConnectAuthenticationDefaults.AuthenticationType);
-                }
                 //
                 // The user needs to re-authorize.  Show them a message to that effect.
                 //
@@ -335,25 +243,10 @@ namespace WebAppGraphAPI.Controllers
         /// <returns>A view of the <see cref="User"/> to be deleted.</returns>
         public ActionResult Delete(string objectId)
         {
-            string accessToken = null;
-            string tenantId = ClaimsPrincipal.Current.FindFirst(GraphConfiguration.TenantIdClaimType).Value;
-            if (tenantId != null)
-            {
-                accessToken = TokenCacheUtils.GetAccessTokenFromCacheOrRefreshToken(tenantId, GraphConfiguration.GraphResourceId);
-            }
+            //Get the access token as we need it to make a call to the Graph API
+            string accessToken = AuthUtils.GetAuthToken(Request, HttpContext);
             if (accessToken == null)
             {
-                //
-                // If refresh is set to true, the user has clicked the link to be authorized again.
-                //
-                if (Request.QueryString["reauth"] == "True")
-                {
-                    // Send an OpenID Connect sign-in request to get a new set of tokens.
-                    // If the user still has a valid session with Azure AD, they will not be prompted for their credentials.
-                    // The OpenID Connect middleware will return to this controller after the sign-in response has been handled.
-                    //
-                    HttpContext.GetOwinContext().Authentication.Challenge(OpenIdConnectAuthenticationDefaults.AuthenticationType);
-                }
                 //
                 // The user needs to re-authorize.  Show them a message to that effect.
                 //
@@ -386,25 +279,10 @@ namespace WebAppGraphAPI.Controllers
         [HttpPost]
         public ActionResult Delete(User user)
         {
-            string accessToken = null;
-            string tenantId = ClaimsPrincipal.Current.FindFirst(GraphConfiguration.TenantIdClaimType).Value;
-            if (tenantId != null)
-            {
-                accessToken = TokenCacheUtils.GetAccessTokenFromCacheOrRefreshToken(tenantId, GraphConfiguration.GraphResourceId);
-            }
+            //Get the access token as we need it to make a call to the Graph API
+            string accessToken = AuthUtils.GetAuthToken(Request, HttpContext);
             if (accessToken == null)
             {
-                //
-                // If refresh is set to true, the user has clicked the link to be authorized again.
-                //
-                if (Request.QueryString["reauth"] == "True")
-                {
-                    // Send an OpenID Connect sign-in request to get a new set of tokens.
-                    // If the user still has a valid session with Azure AD, they will not be prompted for their credentials.
-                    // The OpenID Connect middleware will return to this controller after the sign-in response has been handled.
-                    //
-                    HttpContext.GetOwinContext().Authentication.Challenge(OpenIdConnectAuthenticationDefaults.AuthenticationType);
-                }
                 //
                 // The user needs to re-authorize.  Show them a message to that effect.
                 //
@@ -437,31 +315,17 @@ namespace WebAppGraphAPI.Controllers
         public ActionResult GetDirectReports(string objectId)
         {
 
-            string accessToken = null;
-            string tenantId = ClaimsPrincipal.Current.FindFirst(GraphConfiguration.TenantIdClaimType).Value;
-            if (tenantId != null)
-            {
-                accessToken = TokenCacheUtils.GetAccessTokenFromCacheOrRefreshToken(tenantId, GraphConfiguration.GraphResourceId);
-            }
+            //Get the access token as we need it to make a call to the Graph API
+            string accessToken = AuthUtils.GetAuthToken(Request, HttpContext);
             if (accessToken == null)
             {
-                //
-                // If refresh is set to true, the user has clicked the link to be authorized again.
-                //
-                if (Request.QueryString["reauth"] == "True")
-                {
-                    // Send an OpenID Connect sign-in request to get a new set of tokens.
-                    // If the user still has a valid session with Azure AD, they will not be prompted for their credentials.
-                    // The OpenID Connect middleware will return to this controller after the sign-in response has been handled.
-                    //
-                    HttpContext.GetOwinContext().Authentication.Challenge(OpenIdConnectAuthenticationDefaults.AuthenticationType);
-                }
                 //
                 // The user needs to re-authorize.  Show them a message to that effect.
                 //
                 ViewBag.ErrorMessage = "AuthorizationRequired";
                 return View();
             }
+
             // Setup Graph API connection and get Group membership
             Guid ClientRequestId = Guid.NewGuid();
             GraphSettings graphSettings = new GraphSettings();
