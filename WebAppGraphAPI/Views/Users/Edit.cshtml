@@ -12,6 +12,11 @@
 
     <fieldset>
         <legend>User</legend>
+        <div class="editor-field">
+            @Html.Label("Upload User Photo")
+            <br />
+            <input type=file name="photofile"></input>
+        </div>
         <div class="editor-label">
             @Html.LabelFor(model => model.UserPrincipalName)
         </div>

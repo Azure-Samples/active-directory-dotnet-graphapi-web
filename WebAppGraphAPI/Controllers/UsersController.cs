@@ -346,5 +346,37 @@ namespace WebAppGraphAPI.Controllers
             }
             return View(reports);
         }
+
+        public ActionResult ShowThumbnail(string id)
+        {
+            string accessToken = AuthUtils.GetAuthToken(Request, HttpContext);
+            if (accessToken == null)
+            {
+                //
+                // The user needs to re-authorize.  Show them a message to that effect.
+                //
+                ViewBag.ErrorMessage = "AuthorizationRequired";
+                return View();
+            }
+
+            // Setup Graph API connection and get Group membership
+            Guid ClientRequestId = Guid.NewGuid();
+            GraphSettings graphSettings = new GraphSettings();
+            graphSettings.ApiVersion = GraphConfiguration.GraphApiVersion;
+            GraphConnection graphConnection = new GraphConnection(accessToken, ClientRequestId, graphSettings);
+
+            User user = graphConnection.Get<User>(id);
+
+            if(user == null)
+            {
+                return HttpNotFound();
+            }
+            if (user.ThumbnailPhoto != null)
+            {
+                return File(user.ThumbnailPhoto, "image/jpeg");
+            }
+
+            return View();
+        }
     }
 }

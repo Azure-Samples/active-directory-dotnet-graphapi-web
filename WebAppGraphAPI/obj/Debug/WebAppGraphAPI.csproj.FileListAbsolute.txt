@@ -146,7 +146,6 @@ C:\Users\t-jokal\Documents\GitHub\WebApp-GraphAPI-DotNet\WebAppGraphAPI\bin\Syst
 C:\Users\t-jokal\Documents\GitHub\WebApp-GraphAPI-DotNet\WebAppGraphAPI\obj\Debug\WebAppGraphAPI.csprojResolveAssemblyReference.cache
 C:\Users\t-jokal\Documents\GitHub\WebApp-GraphAPI-DotNet\WebAppGraphAPI\obj\Debug\WebAppGraphAPI.dll
 C:\Users\t-jokal\Documents\GitHub\WebApp-GraphAPI-DotNet\WebAppGraphAPI\obj\Debug\WebAppGraphAPI.pdb
-C:\Users\t-jokal\Documents\GitHub\WebApp-GraphAPI-DotNet\WebAppGraphAPI\bin\WebAppGraphAPI.dll.config
 C:\Users\t-jokal\Documents\GitHub\WebApp-GraphAPI-DotNet\WebAppGraphAPI\bin\Antlr3.Runtime.dll
 C:\Users\t-jokal\Documents\GitHub\WebApp-GraphAPI-DotNet\WebAppGraphAPI\bin\Microsoft.IdentityModel.Clients.ActiveDirectory.dll
 C:\Users\t-jokal\Documents\GitHub\WebApp-GraphAPI-DotNet\WebAppGraphAPI\bin\Microsoft.IdentityModel.Clients.ActiveDirectory.WindowsForms.dll
