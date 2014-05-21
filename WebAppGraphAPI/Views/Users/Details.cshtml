@@ -11,6 +11,9 @@
 <body>
     <fieldset>
         <legend>User</legend>
+        
+        <b>Thumbnail Photo: </b>  <img src='@Url.Action( "ShowThumbnail", "Users", new { id = Model.ObjectId } )' alt="No Image Exists"/>
+
         <table id="directoryObjects">
             <tr>
                 <td>
