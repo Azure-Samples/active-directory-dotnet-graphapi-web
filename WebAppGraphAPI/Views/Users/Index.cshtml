@@ -19,6 +19,9 @@
         <th>
             ObjectId
         </th>
+        <th>
+            Manager
+        </th>
         <th />
     </tr>
     @foreach (var item in Model)
@@ -36,6 +39,9 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => user.ObjectId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => user.Manager)
             </td>
             <td>
                 @Html.ActionLink("Edit", "Edit", new { objectId = item.ObjectId }) <br />
