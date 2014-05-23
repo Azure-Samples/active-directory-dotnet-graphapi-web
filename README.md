@@ -51,6 +51,10 @@ The other permissions, "Read Directory data" and "Read and write Directory data"
 16. In `web.config` add this line in the `<system.web>` section: `<sessionState timeout="525600" />`.  This increases the ASP.Net session state timeout to it's maximum value so that access tokens and refresh tokens cache in session state aren't cleared after the default timeout of 20 minutes.
 17. Build and run your application - you will need to authenticate with valid user credentials for your company when you run the application.
 
+Note: there is an issues with uploading jpeg file images for user's thumbnail photos when using this app
+from Chrome or FireFox (Internet Explorer works) - we will debug this in more detail and update when this issue
+is addressed.
+
 ## How To Deploy This Sample to Azure
 
 Coming soon.

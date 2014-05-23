@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.IO;
+using System.Drawing;
+using System.Drawing.Imaging;
 
 using System.Threading.Tasks;
 using WebAppGraphAPI.Models;
@@ -204,7 +207,7 @@ namespace WebAppGraphAPI.Controllers
         /// <param name="user"><see cref="User"/> to be edited.</param>
         /// <returns>A view with list of all <see cref="User"/> objects.</returns>
         [HttpPost]
-        public ActionResult Edit([Bind(Include = "ObjectId,UserPrincipalName,DisplayName,AccountEnabled,GivenName,Surname,JobTitle,Department,Mobile,StreetAddress,City,State,Country,")] User user)
+        public ActionResult Edit([Bind(Include = "ObjectId,UserPrincipalName,DisplayName,AccountEnabled,GivenName,Surname,JobTitle,Department,Mobile,StreetAddress,City,State,Country,")] User user, FormCollection values)
         {
             //Get the access token as we need it to make a call to the Graph API
             string accessToken = AuthUtils.GetAuthToken(Request, HttpContext);
@@ -227,6 +230,30 @@ namespace WebAppGraphAPI.Controllers
                 graphSettings.ApiVersion = GraphConfiguration.GraphApiVersion;
                 GraphConnection graphConnection = new GraphConnection(accessToken, ClientRequestId, graphSettings);
                 graphConnection.Update(user);
+
+                // update thumbnail photo 
+
+
+
+                if (!String.IsNullOrEmpty(values["photofile"]))
+                {
+
+                  //string path = AppDomain.CurrentDomain.BaseDirectory + "uploads/";
+                  //string filename = Path.GetFileName(values["photofile"]);
+                  //Image image = Image.FromFile(filename);
+              
+                    var imageFile = Path.Combine(Server.MapPath("~/app_data"), values["photofile"]);
+                    Image image = Image.FromFile(imageFile);
+                    
+                  MemoryStream stream = new MemoryStream();
+                  image.Save(stream, ImageFormat.Jpeg);
+                    
+                  // Write the photo file to the Graph service.                    
+                  graphConnection.SetStreamProperty(user, GraphProperty.ThumbnailPhoto, stream, "image/jpeg");
+                  
+                }
+
+
                 return RedirectToAction("Index");
             }
             catch(Exception exception)
@@ -345,6 +372,47 @@ namespace WebAppGraphAPI.Controllers
                 
             }
             return View(reports);
+        }
+
+        public ActionResult ShowThumbnail(string id)
+        {
+            string accessToken = AuthUtils.GetAuthToken(Request, HttpContext);
+            if (accessToken == null)
+            {
+                //
+                // The user needs to re-authorize.  Show them a message to that effect.
+                //
+                ViewBag.ErrorMessage = "AuthorizationRequired";
+                return View();
+            }
+
+            // Setup Graph API connection and get Group membership
+            Guid ClientRequestId = Guid.NewGuid();
+            GraphSettings graphSettings = new GraphSettings();
+            graphSettings.ApiVersion = GraphConfiguration.GraphApiVersion;
+            GraphConnection graphConnection = new GraphConnection(accessToken, ClientRequestId, graphSettings);
+
+          //  User user = graphConnection.Get<User>(id);
+            User user = new User();
+            user.ObjectId = id;
+
+            try
+            {
+                Stream ms = graphConnection.GetStreamProperty(user, GraphProperty.ThumbnailPhoto, "image/jpeg");
+                user.ThumbnailPhoto = ms;
+            }
+            catch
+            {
+                user.ThumbnailPhoto = null;
+            }
+             
+
+            if (user.ThumbnailPhoto != null)
+            {
+                return File(user.ThumbnailPhoto, "image/jpeg");
+            }
+
+            return View();
         }
     }
 }

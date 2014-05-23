@@ -2,6 +2,7 @@
 @model User 
 
 <h2>/Users/@Model.UserPrincipalName</h2>
+<b>Thumbnail Photo: </b>  <img src='@Url.Action( "ShowThumbnail", "Users", new { id = Model.ObjectId } )' alt="No Image Exists" height="52" width="52"/>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,6 +12,7 @@
 <body>
     <fieldset>
         <legend>User</legend>
+        
         <table id="directoryObjects">
             <tr>
                 <td>
