@@ -45,16 +45,18 @@ namespace WebAppGraphAPI
             app.UseOpenIdConnectAuthentication(
                 new OpenIdConnectAuthenticationOptions
                 {
-                    Client_Id = clientId,
+                    
+                    ClientId = clientId,
                     Authority = authority,
-                    Post_Logout_Redirect_Uri = postLogoutRedirectUri,
+                    PostLogoutRedirectUri = postLogoutRedirectUri,
 
                     Notifications = new OpenIdConnectAuthenticationNotifications()
                     {
                         //
                         // If there is a code in the OpenID Connect response, redeem it for an access token and refresh token, and store those away.
                         //
-                        AccessCodeReceived = (context) =>
+                        
+                        AuthorizationCodeReceived = (context) =>
                         {
                             var code = context.Code;
 
