@@ -348,91 +348,85 @@
             If passed, resource should match the original resource used to acquire refresh token unless token service supports refresh token for multiple resources.</param>
             <returns>It contains Access Token, Refresh Token and the Access Token's expiration time.</returns>
         </member>
-        <member name="M:Microsoft.IdentityModel.Clients.ActiveDirectory.AuthenticationContext.AcquireTokenByRefreshTokenAsync(System.String,System.String,Microsoft.IdentityModel.Clients.ActiveDirectory.ClientCredential)">
+        <member name="M:Microsoft.IdentityModel.Clients.ActiveDirectory.AuthenticationContext.AcquireTokenByRefreshTokenAsync(System.String,Microsoft.IdentityModel.Clients.ActiveDirectory.ClientCredential)">
             <summary>
             Acquires a security token from the authority using a Refresh Token previously received.
             </summary>
             <param name="refreshToken">Refresh Token to use in the refresh flow.</param>
-            <param name="clientId">Name or ID of the client requesting the token.</param>
             <param name="clientCredential">The client credential used for token acquisition.</param>
             <returns>It contains Access Token, Refresh Token and the Access Token's expiration time.</returns>
         </member>
-        <member name="M:Microsoft.IdentityModel.Clients.ActiveDirectory.AuthenticationContext.AcquireTokenByRefreshTokenAsync(System.String,System.String,Microsoft.IdentityModel.Clients.ActiveDirectory.ClientCredential,System.String)">
+        <member name="M:Microsoft.IdentityModel.Clients.ActiveDirectory.AuthenticationContext.AcquireTokenByRefreshTokenAsync(System.String,Microsoft.IdentityModel.Clients.ActiveDirectory.ClientCredential,System.String)">
             <summary>
             Acquires a security token from the authority using a Refresh Token previously received.
             </summary>
             <param name="refreshToken">Refresh Token to use in the refresh flow.</param>
-            <param name="clientId">Name or ID of the client requesting the token.</param>
             <param name="clientCredential">The client credential used for token acquisition.</param>
             <param name="resource">Identifier of the target resource that is the recipient of the requested token. If null, token is requested for the same resource refresh token was originally issued for.
             If passed, resource should match the original resource used to acquire refresh token unless token service supports refresh token for multiple resources.</param>
             <returns>It contains Access Token, Refresh Token and the Access Token's expiration time.</returns>
         </member>
-        <member name="M:Microsoft.IdentityModel.Clients.ActiveDirectory.AuthenticationContext.AcquireTokenByRefreshTokenAsync(System.String,System.String,Microsoft.IdentityModel.Clients.ActiveDirectory.ClientAssertion)">
+        <member name="M:Microsoft.IdentityModel.Clients.ActiveDirectory.AuthenticationContext.AcquireTokenByRefreshTokenAsync(System.String,Microsoft.IdentityModel.Clients.ActiveDirectory.ClientAssertion)">
             <summary>
             Acquires a security token from the authority using a Refresh Token previously received.
             </summary>
             <param name="refreshToken">Refresh Token to use in the refresh flow.</param>
-            <param name="clientId">Name or ID of the client requesting the token.</param>
             <param name="clientAssertion">The client assertion used for token acquisition.</param>
             <returns>It contains Access Token, Refresh Token and the Access Token's expiration time.</returns>
         </member>
-        <member name="M:Microsoft.IdentityModel.Clients.ActiveDirectory.AuthenticationContext.AcquireTokenByRefreshTokenAsync(System.String,System.String,Microsoft.IdentityModel.Clients.ActiveDirectory.ClientAssertion,System.String)">
+        <member name="M:Microsoft.IdentityModel.Clients.ActiveDirectory.AuthenticationContext.AcquireTokenByRefreshTokenAsync(System.String,Microsoft.IdentityModel.Clients.ActiveDirectory.ClientAssertion,System.String)">
             <summary>
             Acquires a security token from the authority using a Refresh Token previously received.
             </summary>
             <param name="refreshToken">Refresh Token to use in the refresh flow.</param>
-            <param name="clientId">Name or ID of the client requesting the token.</param>
             <param name="clientAssertion">The client assertion used for token acquisition.</param>
             <param name="resource">Identifier of the target resource that is the recipient of the requested token. If null, token is requested for the same resource refresh token was originally issued for.
             If passed, resource should match the original resource used to acquire refresh token unless token service supports refresh token for multiple resources.</param>
             <returns>It contains Access Token, Refresh Token and the Access Token's expiration time.</returns>
         </member>
-        <member name="M:Microsoft.IdentityModel.Clients.ActiveDirectory.AuthenticationContext.AcquireTokenByRefreshTokenAsync(System.String,System.String,Microsoft.IdentityModel.Clients.ActiveDirectory.ClientAssertionCertificate)">
+        <member name="M:Microsoft.IdentityModel.Clients.ActiveDirectory.AuthenticationContext.AcquireTokenByRefreshTokenAsync(System.String,Microsoft.IdentityModel.Clients.ActiveDirectory.ClientAssertionCertificate)">
             <summary>
             Acquires a security token from the authority using a Refresh Token previously received.
             </summary>
             <param name="refreshToken">Refresh Token to use in the refresh flow.</param>
-            <param name="clientId">Name or ID of the client requesting the token.</param>
             <param name="clientCertificate">The client certificate used for token acquisition.</param>
             <returns>It contains Access Token, Refresh Token and the Access Token's expiration time.</returns>
         </member>
-        <member name="M:Microsoft.IdentityModel.Clients.ActiveDirectory.AuthenticationContext.AcquireTokenByRefreshTokenAsync(System.String,System.String,Microsoft.IdentityModel.Clients.ActiveDirectory.ClientAssertionCertificate,System.String)">
+        <member name="M:Microsoft.IdentityModel.Clients.ActiveDirectory.AuthenticationContext.AcquireTokenByRefreshTokenAsync(System.String,Microsoft.IdentityModel.Clients.ActiveDirectory.ClientAssertionCertificate,System.String)">
             <summary>
             Acquires a security token from the authority using a Refresh Token previously received.
             </summary>
             <param name="refreshToken">Refresh Token to use in the refresh flow.</param>
-            <param name="clientId">Name or ID of the client requesting the token.</param>
             <param name="clientCertificate">The client certificate used for token acquisition.</param>
             <param name="resource">Identifier of the target resource that is the recipient of the requested token. If null, token is requested for the same resource refresh token was originally issued for.
             If passed, resource should match the original resource used to acquire refresh token unless token service supports refresh token for multiple resources.</param>
             <returns>It contains Access Token, Refresh Token and the Access Token's expiration time.</returns>
         </member>
-        <member name="M:Microsoft.IdentityModel.Clients.ActiveDirectory.AuthenticationContext.AcquireTokenAsync(System.String,Microsoft.IdentityModel.Clients.ActiveDirectory.UserAssertion,Microsoft.IdentityModel.Clients.ActiveDirectory.ClientCredential)">
+        <member name="M:Microsoft.IdentityModel.Clients.ActiveDirectory.AuthenticationContext.AcquireTokenAsync(System.String,Microsoft.IdentityModel.Clients.ActiveDirectory.ClientCredential,Microsoft.IdentityModel.Clients.ActiveDirectory.UserAssertion)">
             <summary>
             Acquires an access token from the authority on behalf of a user. It requires using a user token previously received.
             </summary>
             <param name="resource">Identifier of the target resource that is the recipient of the requested token.</param>
-            <param name="userAssertion">The user assertion (token) to use for token acquisition.</param>
             <param name="clientCredential">The client credential to use for token acquisition.</param>
+            <param name="userAssertion">The user assertion (token) to use for token acquisition.</param>
             <returns>It contains Access Token and the Access Token's expiration time.</returns>
         </member>
-        <member name="M:Microsoft.IdentityModel.Clients.ActiveDirectory.AuthenticationContext.AcquireTokenAsync(System.String,Microsoft.IdentityModel.Clients.ActiveDirectory.UserAssertion,Microsoft.IdentityModel.Clients.ActiveDirectory.ClientAssertionCertificate)">
+        <member name="M:Microsoft.IdentityModel.Clients.ActiveDirectory.AuthenticationContext.AcquireTokenAsync(System.String,Microsoft.IdentityModel.Clients.ActiveDirectory.ClientAssertionCertificate,Microsoft.IdentityModel.Clients.ActiveDirectory.UserAssertion)">
             <summary>
             Acquires an access token from the authority on behalf of a user. It requires using a user token previously received.
             </summary>
             <param name="resource">Identifier of the target resource that is the recipient of the requested token.</param>
-            <param name="userAssertion">The user assertion (token) to use for token acquisition.</param>
             <param name="clientCertificate">The client certificate to use for token acquisition.</param>
+            <param name="userAssertion">The user assertion (token) to use for token acquisition.</param>
             <returns>It contains Access Token and the Access Token's expiration time.</returns>
         </member>
-        <member name="M:Microsoft.IdentityModel.Clients.ActiveDirectory.AuthenticationContext.AcquireTokenAsync(System.String,Microsoft.IdentityModel.Clients.ActiveDirectory.UserAssertion,Microsoft.IdentityModel.Clients.ActiveDirectory.ClientAssertion)">
+        <member name="M:Microsoft.IdentityModel.Clients.ActiveDirectory.AuthenticationContext.AcquireTokenAsync(System.String,Microsoft.IdentityModel.Clients.ActiveDirectory.ClientAssertion,Microsoft.IdentityModel.Clients.ActiveDirectory.UserAssertion)">
             <summary>
             Acquires an access token from the authority on behalf of a user. It requires using a user token previously received.
             </summary>
             <param name="resource">Identifier of the target resource that is the recipient of the requested token.</param>
-            <param name="userAssertion">The user assertion (token) to use for token acquisition.</param>
             <param name="clientAssertion">The client assertion to use for token acquisition.</param>
+            <param name="userAssertion">The user assertion (token) to use for token acquisition.</param>
             <returns>It contains Access Token and the Access Token's expiration time.</returns>
         </member>
         <member name="M:Microsoft.IdentityModel.Clients.ActiveDirectory.AuthenticationContext.AcquireTokenSilentAsync(System.String,System.String)">
@@ -449,6 +443,33 @@
             </summary>
             <param name="resource">Identifier of the target resource that is the recipient of the requested token.</param>
             <param name="clientId">Identifier of the client requesting the token.</param>
+            <param name="userId">Identifier of the user token is requested for. This parameter can be null.</param>
+            <returns>It contains Access Token, Refresh Token and the Access Token's expiration time. If acquiring token without user credential is not possible, the method throws AdalException.</returns>
+        </member>
+        <member name="M:Microsoft.IdentityModel.Clients.ActiveDirectory.AuthenticationContext.AcquireTokenSilentAsync(System.String,Microsoft.IdentityModel.Clients.ActiveDirectory.ClientCredential,Microsoft.IdentityModel.Clients.ActiveDirectory.UserIdentifier)">
+            <summary>
+            Acquires security token without asking for user credential.
+            </summary>
+            <param name="resource">Identifier of the target resource that is the recipient of the requested token.</param>
+            <param name="clientCredential">The client credential to use for token acquisition.</param>
+            <param name="userId">Identifier of the user token is requested for. This parameter can be null.</param>
+            <returns>It contains Access Token, Refresh Token and the Access Token's expiration time. If acquiring token without user credential is not possible, the method throws AdalException.</returns>
+        </member>
+        <member name="M:Microsoft.IdentityModel.Clients.ActiveDirectory.AuthenticationContext.AcquireTokenSilentAsync(System.String,Microsoft.IdentityModel.Clients.ActiveDirectory.ClientAssertionCertificate,Microsoft.IdentityModel.Clients.ActiveDirectory.UserIdentifier)">
+            <summary>
+            Acquires security token without asking for user credential.
+            </summary>
+            <param name="resource">Identifier of the target resource that is the recipient of the requested token.</param>
+            <param name="clientCertificate">The client certificate to use for token acquisition.</param>
+            <param name="userId">Identifier of the user token is requested for. This parameter can be null.</param>
+            <returns>It contains Access Token, Refresh Token and the Access Token's expiration time. If acquiring token without user credential is not possible, the method throws AdalException.</returns>
+        </member>
+        <member name="M:Microsoft.IdentityModel.Clients.ActiveDirectory.AuthenticationContext.AcquireTokenSilentAsync(System.String,Microsoft.IdentityModel.Clients.ActiveDirectory.ClientAssertion,Microsoft.IdentityModel.Clients.ActiveDirectory.UserIdentifier)">
+            <summary>
+            Acquires security token without asking for user credential.
+            </summary>
+            <param name="resource">Identifier of the target resource that is the recipient of the requested token.</param>
+            <param name="clientAssertion">The client assertion to use for token acquisition.</param>
             <param name="userId">Identifier of the user token is requested for. This parameter can be null.</param>
             <returns>It contains Access Token, Refresh Token and the Access Token's expiration time. If acquiring token without user credential is not possible, the method throws AdalException.</returns>
         </member>
@@ -619,91 +640,85 @@
             If passed, resource should match the original resource used to acquire refresh token unless token service supports refresh token for multiple resources.</param>
             <returns>It contains Access Token, Refresh Token and the Access Token's expiration time.</returns>
         </member>
-        <member name="M:Microsoft.IdentityModel.Clients.ActiveDirectory.AuthenticationContext.AcquireTokenByRefreshToken(System.String,System.String,Microsoft.IdentityModel.Clients.ActiveDirectory.ClientCredential)">
+        <member name="M:Microsoft.IdentityModel.Clients.ActiveDirectory.AuthenticationContext.AcquireTokenByRefreshToken(System.String,Microsoft.IdentityModel.Clients.ActiveDirectory.ClientCredential)">
             <summary>
             Acquires a security token from the authority using a Refresh Token previously received.
             </summary>
             <param name="refreshToken">Refresh Token to use in the refresh flow.</param>
-            <param name="clientId">Name or ID of the client requesting the token.</param>
             <param name="clientCredential">The client credential used for token acquisition.</param>
             <returns>It contains Access Token, Refresh Token and the Access Token's expiration time.</returns>
         </member>
-        <member name="M:Microsoft.IdentityModel.Clients.ActiveDirectory.AuthenticationContext.AcquireTokenByRefreshToken(System.String,System.String,Microsoft.IdentityModel.Clients.ActiveDirectory.ClientCredential,System.String)">
+        <member name="M:Microsoft.IdentityModel.Clients.ActiveDirectory.AuthenticationContext.AcquireTokenByRefreshToken(System.String,Microsoft.IdentityModel.Clients.ActiveDirectory.ClientCredential,System.String)">
             <summary>
             Acquires a security token from the authority using a Refresh Token previously received.
             </summary>
             <param name="refreshToken">Refresh Token to use in the refresh flow.</param>
-            <param name="clientId">Name or ID of the client requesting the token.</param>
             <param name="clientCredential">The client credential used for token acquisition.</param>
             <param name="resource">Identifier of the target resource that is the recipient of the requested token. If null, token is requested for the same resource refresh token was originally issued for.
             If passed, resource should match the original resource used to acquire refresh token unless token service supports refresh token for multiple resources.</param>
             <returns>It contains Access Token, Refresh Token and the Access Token's expiration time.</returns>
         </member>
-        <member name="M:Microsoft.IdentityModel.Clients.ActiveDirectory.AuthenticationContext.AcquireTokenByRefreshToken(System.String,System.String,Microsoft.IdentityModel.Clients.ActiveDirectory.ClientAssertion)">
+        <member name="M:Microsoft.IdentityModel.Clients.ActiveDirectory.AuthenticationContext.AcquireTokenByRefreshToken(System.String,Microsoft.IdentityModel.Clients.ActiveDirectory.ClientAssertion)">
             <summary>
             Acquires a security token from the authority using a Refresh Token previously received.
             </summary>
             <param name="refreshToken">Refresh Token to use in the refresh flow.</param>
-            <param name="clientId">Name or ID of the client requesting the token.</param>
             <param name="clientAssertion">The client assertion used for token acquisition.</param>
             <returns>It contains Access Token, Refresh Token and the Access Token's expiration time.</returns>
         </member>
-        <member name="M:Microsoft.IdentityModel.Clients.ActiveDirectory.AuthenticationContext.AcquireTokenByRefreshToken(System.String,System.String,Microsoft.IdentityModel.Clients.ActiveDirectory.ClientAssertion,System.String)">
+        <member name="M:Microsoft.IdentityModel.Clients.ActiveDirectory.AuthenticationContext.AcquireTokenByRefreshToken(System.String,Microsoft.IdentityModel.Clients.ActiveDirectory.ClientAssertion,System.String)">
             <summary>
             Acquires a security token from the authority using a Refresh Token previously received.
             </summary>
             <param name="refreshToken">Refresh Token to use in the refresh flow.</param>
-            <param name="clientId">Name or ID of the client requesting the token.</param>
             <param name="clientAssertion">The client assertion used for token acquisition.</param>
             <param name="resource">Identifier of the target resource that is the recipient of the requested token. If null, token is requested for the same resource refresh token was originally issued for.
             If passed, resource should match the original resource used to acquire refresh token unless token service supports refresh token for multiple resources.</param>
             <returns>It contains Access Token, Refresh Token and the Access Token's expiration time.</returns>
         </member>
-        <member name="M:Microsoft.IdentityModel.Clients.ActiveDirectory.AuthenticationContext.AcquireTokenByRefreshToken(System.String,System.String,Microsoft.IdentityModel.Clients.ActiveDirectory.ClientAssertionCertificate)">
+        <member name="M:Microsoft.IdentityModel.Clients.ActiveDirectory.AuthenticationContext.AcquireTokenByRefreshToken(System.String,Microsoft.IdentityModel.Clients.ActiveDirectory.ClientAssertionCertificate)">
             <summary>
             Acquires a security token from the authority using a Refresh Token previously received.
             </summary>
             <param name="refreshToken">Refresh Token to use in the refresh flow.</param>
-            <param name="clientId">Name or ID of the client requesting the token.</param>
             <param name="clientCertificate">The client certificate used for token acquisition.</param>
             <returns>It contains Access Token, Refresh Token and the Access Token's expiration time.</returns>
         </member>
-        <member name="M:Microsoft.IdentityModel.Clients.ActiveDirectory.AuthenticationContext.AcquireTokenByRefreshToken(System.String,System.String,Microsoft.IdentityModel.Clients.ActiveDirectory.ClientAssertionCertificate,System.String)">
+        <member name="M:Microsoft.IdentityModel.Clients.ActiveDirectory.AuthenticationContext.AcquireTokenByRefreshToken(System.String,Microsoft.IdentityModel.Clients.ActiveDirectory.ClientAssertionCertificate,System.String)">
             <summary>
             Acquires a security token from the authority using a Refresh Token previously received.
             </summary>
             <param name="refreshToken">Refresh Token to use in the refresh flow.</param>
-            <param name="clientId">Name or ID of the client requesting the token.</param>
             <param name="clientCertificate">The client certificate used for token acquisition.</param>
             <param name="resource">Identifier of the target resource that is the recipient of the requested token. If null, token is requested for the same resource refresh token was originally issued for.
             If passed, resource should match the original resource used to acquire refresh token unless token service supports refresh token for multiple resources.</param>
             <returns>It contains Access Token, Refresh Token and the Access Token's expiration time.</returns>
         </member>
-        <member name="M:Microsoft.IdentityModel.Clients.ActiveDirectory.AuthenticationContext.AcquireToken(System.String,Microsoft.IdentityModel.Clients.ActiveDirectory.UserAssertion,Microsoft.IdentityModel.Clients.ActiveDirectory.ClientCredential)">
+        <member name="M:Microsoft.IdentityModel.Clients.ActiveDirectory.AuthenticationContext.AcquireToken(System.String,Microsoft.IdentityModel.Clients.ActiveDirectory.ClientCredential,Microsoft.IdentityModel.Clients.ActiveDirectory.UserAssertion)">
             <summary>
             Acquires an access token from the authority on behalf of a user. It requires using a user token previously received.
             </summary>
             <param name="resource">Identifier of the target resource that is the recipient of the requested token.</param>
-            <param name="userAssertion">The user assertion (token) to use for token acquisition.</param>
             <param name="clientCredential">The client credential to use for token acquisition.</param>
+            <param name="userAssertion">The user assertion (token) to use for token acquisition.</param>
             <returns>It contains Access Token and the Access Token's expiration time.</returns>
         </member>
-        <member name="M:Microsoft.IdentityModel.Clients.ActiveDirectory.AuthenticationContext.AcquireToken(System.String,Microsoft.IdentityModel.Clients.ActiveDirectory.UserAssertion,Microsoft.IdentityModel.Clients.ActiveDirectory.ClientAssertionCertificate)">
+        <member name="M:Microsoft.IdentityModel.Clients.ActiveDirectory.AuthenticationContext.AcquireToken(System.String,Microsoft.IdentityModel.Clients.ActiveDirectory.ClientAssertionCertificate,Microsoft.IdentityModel.Clients.ActiveDirectory.UserAssertion)">
             <summary>
             Acquires an access token from the authority on behalf of a user. It requires using a user token previously received.
             </summary>
             <param name="resource">Identifier of the target resource that is the recipient of the requested token.</param>
-            <param name="userAssertion">The user assertion (token) to use for token acquisition.</param>
             <param name="clientCertificate">The client certificate to use for token acquisition.</param>
+            <param name="userAssertion">The user assertion (token) to use for token acquisition.</param>
             <returns>It contains Access Token and the Access Token's expiration time.</returns>
         </member>
-        <member name="M:Microsoft.IdentityModel.Clients.ActiveDirectory.AuthenticationContext.AcquireToken(System.String,Microsoft.IdentityModel.Clients.ActiveDirectory.UserAssertion,Microsoft.IdentityModel.Clients.ActiveDirectory.ClientAssertion)">
+        <member name="M:Microsoft.IdentityModel.Clients.ActiveDirectory.AuthenticationContext.AcquireToken(System.String,Microsoft.IdentityModel.Clients.ActiveDirectory.ClientAssertion,Microsoft.IdentityModel.Clients.ActiveDirectory.UserAssertion)">
             <summary>
             Acquires an access token from the authority on behalf of a user. It requires using a user token previously received.
             </summary>
             <param name="resource">Identifier of the target resource that is the recipient of the requested token.</param>
-            <param name="userAssertion">The user assertion (token) to use for token acquisition.</param>
             <param name="clientAssertion">The client assertion to use for token acquisition.</param>
+            <param name="userAssertion">The user assertion (token) to use for token acquisition.</param>
             <returns>It contains Access Token and the Access Token's expiration time.</returns>
         </member>
         <member name="M:Microsoft.IdentityModel.Clients.ActiveDirectory.AuthenticationContext.AcquireTokenSilent(System.String,System.String)">
@@ -720,6 +735,33 @@
             </summary>
             <param name="resource">Identifier of the target resource that is the recipient of the requested token.</param>
             <param name="clientId">Identifier of the client requesting the token.</param>
+            <param name="userId">Identifier of the user token is requested for. This parameter can be null.</param>
+            <returns>It contains Access Token, Refresh Token and the Access Token's expiration time. If acquiring token without user credential is not possible, the method throws AdalException.</returns>
+        </member>
+        <member name="M:Microsoft.IdentityModel.Clients.ActiveDirectory.AuthenticationContext.AcquireTokenSilent(System.String,Microsoft.IdentityModel.Clients.ActiveDirectory.ClientCredential,Microsoft.IdentityModel.Clients.ActiveDirectory.UserIdentifier)">
+            <summary>
+            Acquires security token without asking for user credential.
+            </summary>
+            <param name="resource">Identifier of the target resource that is the recipient of the requested token.</param>
+            <param name="clientCredential">The client credential to use for token acquisition.</param>
+            <param name="userId">Identifier of the user token is requested for. This parameter can be null.</param>
+            <returns>It contains Access Token, Refresh Token and the Access Token's expiration time. If acquiring token without user credential is not possible, the method throws AdalException.</returns>
+        </member>
+        <member name="M:Microsoft.IdentityModel.Clients.ActiveDirectory.AuthenticationContext.AcquireTokenSilent(System.String,Microsoft.IdentityModel.Clients.ActiveDirectory.ClientAssertionCertificate,Microsoft.IdentityModel.Clients.ActiveDirectory.UserIdentifier)">
+            <summary>
+            Acquires security token without asking for user credential.
+            </summary>
+            <param name="resource">Identifier of the target resource that is the recipient of the requested token.</param>
+            <param name="clientCertificate">The client certificate to use for token acquisition.</param>
+            <param name="userId">Identifier of the user token is requested for. This parameter can be null.</param>
+            <returns>It contains Access Token, Refresh Token and the Access Token's expiration time. If acquiring token without user credential is not possible, the method throws AdalException.</returns>
+        </member>
+        <member name="M:Microsoft.IdentityModel.Clients.ActiveDirectory.AuthenticationContext.AcquireTokenSilent(System.String,Microsoft.IdentityModel.Clients.ActiveDirectory.ClientAssertion,Microsoft.IdentityModel.Clients.ActiveDirectory.UserIdentifier)">
+            <summary>
+            Acquires security token without asking for user credential.
+            </summary>
+            <param name="resource">Identifier of the target resource that is the recipient of the requested token.</param>
+            <param name="clientAssertion">The client assertion to use for token acquisition.</param>
             <param name="userId">Identifier of the user token is requested for. This parameter can be null.</param>
             <returns>It contains Access Token, Refresh Token and the Access Token's expiration time. If acquiring token without user credential is not possible, the method throws AdalException.</returns>
         </member>
@@ -1075,6 +1117,16 @@
             Federation Metadata Url is missing for federated user.
             </summary>
         </member>
+        <member name="F:Microsoft.IdentityModel.Clients.ActiveDirectory.AdalError.FailedToRefreshToken">
+            <summary>
+            Failed to refresh token.
+            </summary>
+        </member>
+        <member name="F:Microsoft.IdentityModel.Clients.ActiveDirectory.AdalError.IntegratedAuthFailed">
+            <summary>
+            Integrated authentication failed. You may try an alternative authentication method.
+            </summary>
+        </member>
         <member name="T:Microsoft.IdentityModel.Clients.ActiveDirectory.AdalErrorMessage">
             <summary>
             The active directory authentication error message.
@@ -1196,6 +1248,11 @@
             <summary>
             Gets or sets the flag indicating whether cache state has changed. ADAL methods set this flag after any change. Caller application should reset 
             the flag after serlizaing and persisting the state of the cache.
+            </summary>
+        </member>
+        <member name="P:Microsoft.IdentityModel.Clients.ActiveDirectory.TokenCache.Count">
+            <summary>
+            Gets the nunmber of items in the cache.
             </summary>
         </member>
         <member name="T:Microsoft.IdentityModel.Clients.ActiveDirectory.TokenCacheKeyElement">
@@ -1367,6 +1424,26 @@
             Gets the entire Id Token if returned by the service or null if no Id Token is returned.
             </summary>
         </member>
+        <member name="T:Microsoft.IdentityModel.Clients.ActiveDirectory.TokenSubjectType">
+            <summary>
+            Determines what type of subject the token was issued for.
+            </summary>
+        </member>
+        <member name="F:Microsoft.IdentityModel.Clients.ActiveDirectory.TokenSubjectType.User">
+            <summary>
+            User
+            </summary>
+        </member>
+        <member name="F:Microsoft.IdentityModel.Clients.ActiveDirectory.TokenSubjectType.Client">
+            <summary>
+            Client
+            </summary>
+        </member>
+        <member name="F:Microsoft.IdentityModel.Clients.ActiveDirectory.TokenSubjectType.UserPlusClient">
+            <summary>
+            UserPlusClient: This is for confidential clients used in middle tier.
+            </summary>
+        </member>
         <member name="T:Microsoft.IdentityModel.Clients.ActiveDirectory.TokenCacheKey">
             <summary>
             <see cref="T:Microsoft.IdentityModel.Clients.ActiveDirectory.TokenCacheKey"/> can be used with Linq to access items from the TokenCacheStore.
@@ -1444,7 +1521,7 @@
             Gets or sets the user's displayable Id.
             </summary>
         </member>
-        <member name="M:Microsoft.IdentityModel.Clients.ActiveDirectory.TokenCacheManager.QueryCache(System.String,System.String,System.String,System.String)">
+        <member name="M:Microsoft.IdentityModel.Clients.ActiveDirectory.TokenCacheManager.QueryCache(System.String,System.String,System.String,Microsoft.IdentityModel.Clients.ActiveDirectory.TokenSubjectType,System.String)">
             <summary>
             Queries all values in the cache that meet the passed in values, plus the 
             authority value that this AuthorizationContext was created with.  In every case passing
@@ -1565,17 +1642,17 @@
         </member>
         <member name="F:Microsoft.IdentityModel.Clients.ActiveDirectory.UserIdentifierType.UniqueId">
             <summary>
-            
+            UniqueId
             </summary>
         </member>
         <member name="F:Microsoft.IdentityModel.Clients.ActiveDirectory.UserIdentifierType.OptionalDisplayableId">
             <summary>
-            
+            OptionalDisplayableId
             </summary>
         </member>
         <member name="F:Microsoft.IdentityModel.Clients.ActiveDirectory.UserIdentifierType.RequiredDisplayableId">
             <summary>
-            
+            RequiredDisplayableId
             </summary>
         </member>
         <member name="T:Microsoft.IdentityModel.Clients.ActiveDirectory.UserIdentifier">
@@ -1592,12 +1669,17 @@
         </member>
         <member name="P:Microsoft.IdentityModel.Clients.ActiveDirectory.UserIdentifier.Type">
             <summary>
-            
+            Gets type of the <see cref="T:Microsoft.IdentityModel.Clients.ActiveDirectory.UserIdentifier"/>.
             </summary>
         </member>
         <member name="P:Microsoft.IdentityModel.Clients.ActiveDirectory.UserIdentifier.Id">
             <summary>
-            
+            Gets Id of the <see cref="T:Microsoft.IdentityModel.Clients.ActiveDirectory.UserIdentifier"/>.
+            </summary>
+        </member>
+        <member name="P:Microsoft.IdentityModel.Clients.ActiveDirectory.UserIdentifier.AnyUser">
+            <summary>
+            Gets an static instance of <see cref="T:Microsoft.IdentityModel.Clients.ActiveDirectory.UserIdentifier"/> to represent any user.
             </summary>
         </member>
         <member name="T:Microsoft.IdentityModel.Clients.ActiveDirectory.UserInfo">
@@ -1645,11 +1727,17 @@
             Credential type containing an assertion of type "urn:ietf:params:oauth:token-type:jwt".
             </summary>
         </member>
-        <member name="M:Microsoft.IdentityModel.Clients.ActiveDirectory.ClientAssertion.#ctor(System.String)">
+        <member name="M:Microsoft.IdentityModel.Clients.ActiveDirectory.ClientAssertion.#ctor(System.String,System.String)">
             <summary>
             Constructor to create credential with a jwt token encoded as a base64 url encoded string.
             </summary>
+            <param name="clientId">Identifier of the client requesting the token.</param>
             <param name="assertion">The jwt used as credential.</param>
+        </member>
+        <member name="P:Microsoft.IdentityModel.Clients.ActiveDirectory.ClientAssertion.ClientId">
+            <summary>
+            Gets the identifier of the client requesting the token.
+            </summary>
         </member>
         <member name="P:Microsoft.IdentityModel.Clients.ActiveDirectory.ClientAssertion.Assertion">
             <summary>

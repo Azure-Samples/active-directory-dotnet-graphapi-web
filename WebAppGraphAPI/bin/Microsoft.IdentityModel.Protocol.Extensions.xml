@@ -179,10 +179,10 @@
         </member>
         <member name="M:Microsoft.IdentityModel.Tokens.SecurityKeyResolver.TryResolveTokenCore(System.IdentityModel.Tokens.SecurityKeyIdentifier,System.IdentityModel.Tokens.SecurityToken@)">
             <summary>
-            
+            TryResolveTokenCore
             </summary>
-            <param name="id"></param>
-            <param name="token"></param>
+            <param name="keyIdentifier">TODO</param>
+            <param name="token">TODO</param>
             <returns></returns>
         </member>
         <member name="T:Microsoft.IdentityModel.Protocols.JsonWebKey">
@@ -386,7 +386,7 @@
             Creates an instance of <see cref="T:Microsoft.IdentityModel.Protocols.JsonWebKey"/>.
             </summary>
             <param name="dictionary">a dictionary containing a 'Keys' element which is a Dictionary of JsonWebKeys.</param>
-            <exception cref="!:ArgumentNullExceptioni">if 'dictionary' is null.</exception>
+            <exception cref="T:System.ArgumentNullException">if 'dictionary' is null.</exception>
         </member>
         <member name="M:Microsoft.IdentityModel.Protocols.JsonWebKeySet.GetSigningTokens">
             <summary>
@@ -972,11 +972,11 @@
             <exception cref="T:System.ArgumentNullException">if 'jwt' is null.</exception>
             <exception cref="T:System.ArgumentNullException">if 'validationContext' is null.</exception>
             <exception cref="T:Microsoft.IdentityModel.Protocols.OpenIdConnectProtocolException">if the <see cref="T:System.IdentityModel.Tokens.JwtSecurityToken"/> is missing any required claims as per: http://openid.net/specs/openid-connect-core-1_0.html#IDToken </exception>
-            <remarks><see cref="!:OpenIdConnectProtocolValidationParameters.Nonce"/> and <see cref="!:OpenIdConnectProtocolValidationParameters.AuthorizationCode"/> will be validated if they are not 'null' or 'whitespace'.</remarks>
+            <remarks><see cref="P:Microsoft.IdentityModel.Protocols.OpenIdConnectProtocolValidationContext.Nonce"/> and <see cref="P:Microsoft.IdentityModel.Protocols.OpenIdConnectProtocolValidationContext.AuthorizationCode"/> will be validated if they are not 'null' or 'whitespace'.</remarks>
         </member>
         <member name="M:Microsoft.IdentityModel.Protocols.OpenIdConnectProtocolValidator.ValidateCHash(System.IdentityModel.Tokens.JwtSecurityToken,System.String,System.Collections.Generic.IDictionary{System.String,System.String})">
             <summary>
-            Validates that the 'authorizationCode' according to http://openid.net/specs/openid-connect-core-1_0.html section 3.3.2.10
+            Validates the 'authorizationCode' according to http://openid.net/specs/openid-connect-core-1_0.html section 3.3.2.10
             </summary>
             <param name="jwt">the <see cref="T:System.IdentityModel.Tokens.JwtSecurityToken"/> that that should contain a matching 'c_hash' claim.</param>
             <param name="authorizationCode">the 'Authorization Code' to validate.</param>
@@ -1015,6 +1015,7 @@
             RequireAuthTime: false
             RequireAzp: false
             RequireNonce: true
+            RequireSub: false
             ResponseType = <see cref="P:Microsoft.IdentityModel.Protocols.OpenIdConnectMessage.DefaultResponseType"/>
             </summary>
         </member>
@@ -1048,6 +1049,11 @@
         <member name="P:Microsoft.IdentityModel.Protocols.OpenIdConnectProtocolValidationParameters.RequireNonce">
             <summary>
             Gets or sets a value indicating if a 'nonce' claim is required.
+            </summary>
+        </member>
+        <member name="P:Microsoft.IdentityModel.Protocols.OpenIdConnectProtocolValidationParameters.RequireSub">
+            <summary>
+            Gets or sets a value indicating if a 'sub' claim is required.
             </summary>
         </member>
         <member name="P:Microsoft.IdentityModel.Protocols.OpenIdConnectProtocolValidationParameters.ResponseType">

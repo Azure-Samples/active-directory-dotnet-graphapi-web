@@ -1,264 +1,45 @@
-C:\GitHub\WebApp-GraphAPI-DotNet\TodoListWebApp\obj\Debug\TodoListWebApp.dll
-C:\GitHub\WebApp-GraphAPI-DotNet\TodoListWebApp\bin\TodoListWebApp.dll.config
-C:\GitHub\WebApp-GraphAPI-DotNet\TodoListWebApp\bin\TodoListWebApp.dll
-C:\GitHub\WebApp-GraphAPI-DotNet\TodoListWebApp\bin\TodoListWebApp.pdb
-C:\GitHub\WebApp-GraphAPI-DotNet\TodoListWebApp\bin\Antlr3.Runtime.dll
-C:\GitHub\WebApp-GraphAPI-DotNet\TodoListWebApp\bin\Microsoft.IdentityModel.Clients.ActiveDirectory.dll
-C:\GitHub\WebApp-GraphAPI-DotNet\TodoListWebApp\bin\Microsoft.IdentityModel.Clients.ActiveDirectory.WindowsForms.dll
-C:\GitHub\WebApp-GraphAPI-DotNet\TodoListWebApp\bin\Microsoft.IdentityModel.Protocol.Extensions.dll
-C:\GitHub\WebApp-GraphAPI-DotNet\TodoListWebApp\bin\Microsoft.Owin.dll
-C:\GitHub\WebApp-GraphAPI-DotNet\TodoListWebApp\bin\Microsoft.Owin.Host.SystemWeb.dll
-C:\GitHub\WebApp-GraphAPI-DotNet\TodoListWebApp\bin\Microsoft.Owin.Security.Cookies.dll
-C:\GitHub\WebApp-GraphAPI-DotNet\TodoListWebApp\bin\Microsoft.Owin.Security.dll
-C:\GitHub\WebApp-GraphAPI-DotNet\TodoListWebApp\bin\Microsoft.Owin.Security.OpenIdConnect.dll
-C:\GitHub\WebApp-GraphAPI-DotNet\TodoListWebApp\bin\Microsoft.Web.Infrastructure.dll
-C:\GitHub\WebApp-GraphAPI-DotNet\TodoListWebApp\bin\Newtonsoft.Json.dll
-C:\GitHub\WebApp-GraphAPI-DotNet\TodoListWebApp\bin\Owin.dll
-C:\GitHub\WebApp-GraphAPI-DotNet\TodoListWebApp\bin\System.IdentityModel.Tokens.Jwt.dll
-C:\GitHub\WebApp-GraphAPI-DotNet\TodoListWebApp\bin\System.Web.Helpers.dll
-C:\GitHub\WebApp-GraphAPI-DotNet\TodoListWebApp\bin\System.Web.Mvc.dll
-C:\GitHub\WebApp-GraphAPI-DotNet\TodoListWebApp\bin\System.Web.Optimization.dll
-C:\GitHub\WebApp-GraphAPI-DotNet\TodoListWebApp\bin\System.Web.Razor.dll
-C:\GitHub\WebApp-GraphAPI-DotNet\TodoListWebApp\bin\System.Web.WebPages.Deployment.dll
-C:\GitHub\WebApp-GraphAPI-DotNet\TodoListWebApp\bin\System.Web.WebPages.dll
-C:\GitHub\WebApp-GraphAPI-DotNet\TodoListWebApp\bin\System.Web.WebPages.Razor.dll
-C:\GitHub\WebApp-GraphAPI-DotNet\TodoListWebApp\bin\WebGrease.dll
-C:\GitHub\WebApp-GraphAPI-DotNet\TodoListWebApp\bin\Microsoft.IdentityModel.Clients.ActiveDirectory.xml
-C:\GitHub\WebApp-GraphAPI-DotNet\TodoListWebApp\bin\Microsoft.IdentityModel.Protocol.Extensions.xml
-C:\GitHub\WebApp-GraphAPI-DotNet\TodoListWebApp\bin\Microsoft.Owin.xml
-C:\GitHub\WebApp-GraphAPI-DotNet\TodoListWebApp\bin\Microsoft.Owin.Host.SystemWeb.xml
-C:\GitHub\WebApp-GraphAPI-DotNet\TodoListWebApp\bin\Microsoft.Owin.Security.xml
-C:\GitHub\WebApp-GraphAPI-DotNet\TodoListWebApp\bin\Microsoft.Owin.Security.Cookies.xml
-C:\GitHub\WebApp-GraphAPI-DotNet\TodoListWebApp\bin\Microsoft.Owin.Security.OpenIdConnect.xml
-C:\GitHub\WebApp-GraphAPI-DotNet\TodoListWebApp\bin\System.IdentityModel.Tokens.Jwt.xml
-C:\GitHub\WebApp-GraphAPI-DotNet\TodoListWebApp\bin\System.Web.Helpers.xml
-C:\GitHub\WebApp-GraphAPI-DotNet\TodoListWebApp\bin\System.Web.Mvc.xml
-C:\GitHub\WebApp-GraphAPI-DotNet\TodoListWebApp\bin\System.Web.Optimization.xml
-C:\GitHub\WebApp-GraphAPI-DotNet\TodoListWebApp\bin\System.Web.Razor.xml
-C:\GitHub\WebApp-GraphAPI-DotNet\TodoListWebApp\bin\System.Web.WebPages.xml
-C:\GitHub\WebApp-GraphAPI-DotNet\TodoListWebApp\bin\System.Web.WebPages.Deployment.xml
-C:\GitHub\WebApp-GraphAPI-DotNet\TodoListWebApp\bin\System.Web.WebPages.Razor.xml
-C:\GitHub\WebApp-GraphAPI-DotNet\TodoListWebApp\bin\Newtonsoft.Json.xml
-C:\GitHub\WebApp-GraphAPI-DotNet\TodoListWebApp\bin\Antlr3.Runtime.pdb
-C:\GitHub\WebApp-GraphAPI-DotNet\TodoListWebApp\obj\Debug\TodoListWebApp.pdb
-C:\GitHub\WebApp-GraphAPI-DotNet\WebAppGraphAPI\bin\WebAppGraphAPI.dll.config
-C:\GitHub\WebApp-GraphAPI-DotNet\WebAppGraphAPI\bin\WebAppGraphAPI.dll
-C:\GitHub\WebApp-GraphAPI-DotNet\WebAppGraphAPI\bin\WebAppGraphAPI.pdb
-C:\GitHub\WebApp-GraphAPI-DotNet\WebAppGraphAPI\bin\Antlr3.Runtime.dll
-C:\GitHub\WebApp-GraphAPI-DotNet\WebAppGraphAPI\bin\Microsoft.Azure.ActiveDirectory.GraphClient.dll
-C:\GitHub\WebApp-GraphAPI-DotNet\WebAppGraphAPI\bin\Microsoft.IdentityModel.Clients.ActiveDirectory.dll
-C:\GitHub\WebApp-GraphAPI-DotNet\WebAppGraphAPI\bin\Microsoft.IdentityModel.Clients.ActiveDirectory.WindowsForms.dll
-C:\GitHub\WebApp-GraphAPI-DotNet\WebAppGraphAPI\bin\Microsoft.IdentityModel.Protocol.Extensions.dll
-C:\GitHub\WebApp-GraphAPI-DotNet\WebAppGraphAPI\bin\Microsoft.Owin.dll
-C:\GitHub\WebApp-GraphAPI-DotNet\WebAppGraphAPI\bin\Microsoft.Owin.Host.SystemWeb.dll
-C:\GitHub\WebApp-GraphAPI-DotNet\WebAppGraphAPI\bin\Microsoft.Owin.Security.Cookies.dll
-C:\GitHub\WebApp-GraphAPI-DotNet\WebAppGraphAPI\bin\Microsoft.Owin.Security.dll
-C:\GitHub\WebApp-GraphAPI-DotNet\WebAppGraphAPI\bin\Microsoft.Owin.Security.OpenIdConnect.dll
-C:\GitHub\WebApp-GraphAPI-DotNet\WebAppGraphAPI\bin\Microsoft.Web.Infrastructure.dll
-C:\GitHub\WebApp-GraphAPI-DotNet\WebAppGraphAPI\bin\Newtonsoft.Json.dll
-C:\GitHub\WebApp-GraphAPI-DotNet\WebAppGraphAPI\bin\Owin.dll
-C:\GitHub\WebApp-GraphAPI-DotNet\WebAppGraphAPI\bin\System.IdentityModel.Tokens.Jwt.dll
-C:\GitHub\WebApp-GraphAPI-DotNet\WebAppGraphAPI\bin\System.Web.Helpers.dll
-C:\GitHub\WebApp-GraphAPI-DotNet\WebAppGraphAPI\bin\System.Web.Mvc.dll
-C:\GitHub\WebApp-GraphAPI-DotNet\WebAppGraphAPI\bin\System.Web.Optimization.dll
-C:\GitHub\WebApp-GraphAPI-DotNet\WebAppGraphAPI\bin\System.Web.Razor.dll
-C:\GitHub\WebApp-GraphAPI-DotNet\WebAppGraphAPI\bin\System.Web.WebPages.Deployment.dll
-C:\GitHub\WebApp-GraphAPI-DotNet\WebAppGraphAPI\bin\System.Web.WebPages.dll
-C:\GitHub\WebApp-GraphAPI-DotNet\WebAppGraphAPI\bin\System.Web.WebPages.Razor.dll
-C:\GitHub\WebApp-GraphAPI-DotNet\WebAppGraphAPI\bin\WebGrease.dll
-C:\GitHub\WebApp-GraphAPI-DotNet\WebAppGraphAPI\bin\Antlr3.Runtime.pdb
-C:\GitHub\WebApp-GraphAPI-DotNet\WebAppGraphAPI\bin\Microsoft.IdentityModel.Clients.ActiveDirectory.xml
-C:\GitHub\WebApp-GraphAPI-DotNet\WebAppGraphAPI\bin\Microsoft.IdentityModel.Protocol.Extensions.xml
-C:\GitHub\WebApp-GraphAPI-DotNet\WebAppGraphAPI\bin\Microsoft.Owin.xml
-C:\GitHub\WebApp-GraphAPI-DotNet\WebAppGraphAPI\bin\Microsoft.Owin.Host.SystemWeb.xml
-C:\GitHub\WebApp-GraphAPI-DotNet\WebAppGraphAPI\bin\Microsoft.Owin.Security.xml
-C:\GitHub\WebApp-GraphAPI-DotNet\WebAppGraphAPI\bin\Microsoft.Owin.Security.Cookies.xml
-C:\GitHub\WebApp-GraphAPI-DotNet\WebAppGraphAPI\bin\Microsoft.Owin.Security.OpenIdConnect.xml
-C:\GitHub\WebApp-GraphAPI-DotNet\WebAppGraphAPI\bin\Newtonsoft.Json.xml
-C:\GitHub\WebApp-GraphAPI-DotNet\WebAppGraphAPI\bin\System.IdentityModel.Tokens.Jwt.xml
-C:\GitHub\WebApp-GraphAPI-DotNet\WebAppGraphAPI\bin\System.Web.Helpers.xml
-C:\GitHub\WebApp-GraphAPI-DotNet\WebAppGraphAPI\bin\System.Web.Mvc.xml
-C:\GitHub\WebApp-GraphAPI-DotNet\WebAppGraphAPI\bin\System.Web.Optimization.xml
-C:\GitHub\WebApp-GraphAPI-DotNet\WebAppGraphAPI\bin\System.Web.Razor.xml
-C:\GitHub\WebApp-GraphAPI-DotNet\WebAppGraphAPI\bin\System.Web.WebPages.xml
-C:\GitHub\WebApp-GraphAPI-DotNet\WebAppGraphAPI\bin\System.Web.WebPages.Deployment.xml
-C:\GitHub\WebApp-GraphAPI-DotNet\WebAppGraphAPI\bin\System.Web.WebPages.Razor.xml
-C:\GitHub\WebApp-GraphAPI-DotNet\WebAppGraphAPI\obj\Debug\WebAppGraphAPI.dll
-C:\GitHub\WebApp-GraphAPI-DotNet\WebAppGraphAPI\obj\Debug\WebAppGraphAPI.pdb
-C:\Test\WebApp-GraphAPI-DotNet-master\WebApp-GraphAPI-DotNet-master\WebAppGraphAPI\bin\WebAppGraphAPI.dll.config
-C:\Test\WebApp-GraphAPI-DotNet-master\WebApp-GraphAPI-DotNet-master\WebAppGraphAPI\bin\WebAppGraphAPI.dll
-C:\Test\WebApp-GraphAPI-DotNet-master\WebApp-GraphAPI-DotNet-master\WebAppGraphAPI\bin\WebAppGraphAPI.pdb
-C:\Test\WebApp-GraphAPI-DotNet-master\WebApp-GraphAPI-DotNet-master\WebAppGraphAPI\bin\Antlr3.Runtime.dll
-C:\Test\WebApp-GraphAPI-DotNet-master\WebApp-GraphAPI-DotNet-master\WebAppGraphAPI\bin\Microsoft.IdentityModel.Clients.ActiveDirectory.dll
-C:\Test\WebApp-GraphAPI-DotNet-master\WebApp-GraphAPI-DotNet-master\WebAppGraphAPI\bin\Microsoft.IdentityModel.Clients.ActiveDirectory.WindowsForms.dll
-C:\Test\WebApp-GraphAPI-DotNet-master\WebApp-GraphAPI-DotNet-master\WebAppGraphAPI\bin\Microsoft.IdentityModel.Protocol.Extensions.dll
-C:\Test\WebApp-GraphAPI-DotNet-master\WebApp-GraphAPI-DotNet-master\WebAppGraphAPI\bin\Microsoft.Owin.dll
-C:\Test\WebApp-GraphAPI-DotNet-master\WebApp-GraphAPI-DotNet-master\WebAppGraphAPI\bin\Microsoft.Owin.Host.SystemWeb.dll
-C:\Test\WebApp-GraphAPI-DotNet-master\WebApp-GraphAPI-DotNet-master\WebAppGraphAPI\bin\Microsoft.Owin.Security.Cookies.dll
-C:\Test\WebApp-GraphAPI-DotNet-master\WebApp-GraphAPI-DotNet-master\WebAppGraphAPI\bin\Microsoft.Owin.Security.dll
-C:\Test\WebApp-GraphAPI-DotNet-master\WebApp-GraphAPI-DotNet-master\WebAppGraphAPI\bin\Microsoft.Owin.Security.OpenIdConnect.dll
-C:\Test\WebApp-GraphAPI-DotNet-master\WebApp-GraphAPI-DotNet-master\WebAppGraphAPI\bin\Microsoft.Web.Infrastructure.dll
-C:\Test\WebApp-GraphAPI-DotNet-master\WebApp-GraphAPI-DotNet-master\WebAppGraphAPI\bin\Newtonsoft.Json.dll
-C:\Test\WebApp-GraphAPI-DotNet-master\WebApp-GraphAPI-DotNet-master\WebAppGraphAPI\bin\Owin.dll
-C:\Test\WebApp-GraphAPI-DotNet-master\WebApp-GraphAPI-DotNet-master\WebAppGraphAPI\bin\System.IdentityModel.Tokens.Jwt.dll
-C:\Test\WebApp-GraphAPI-DotNet-master\WebApp-GraphAPI-DotNet-master\WebAppGraphAPI\bin\System.Web.Helpers.dll
-C:\Test\WebApp-GraphAPI-DotNet-master\WebApp-GraphAPI-DotNet-master\WebAppGraphAPI\bin\System.Web.Mvc.dll
-C:\Test\WebApp-GraphAPI-DotNet-master\WebApp-GraphAPI-DotNet-master\WebAppGraphAPI\bin\System.Web.Optimization.dll
-C:\Test\WebApp-GraphAPI-DotNet-master\WebApp-GraphAPI-DotNet-master\WebAppGraphAPI\bin\System.Web.Razor.dll
-C:\Test\WebApp-GraphAPI-DotNet-master\WebApp-GraphAPI-DotNet-master\WebAppGraphAPI\bin\System.Web.WebPages.Deployment.dll
-C:\Test\WebApp-GraphAPI-DotNet-master\WebApp-GraphAPI-DotNet-master\WebAppGraphAPI\bin\System.Web.WebPages.dll
-C:\Test\WebApp-GraphAPI-DotNet-master\WebApp-GraphAPI-DotNet-master\WebAppGraphAPI\bin\System.Web.WebPages.Razor.dll
-C:\Test\WebApp-GraphAPI-DotNet-master\WebApp-GraphAPI-DotNet-master\WebAppGraphAPI\bin\WebGrease.dll
-C:\Test\WebApp-GraphAPI-DotNet-master\WebApp-GraphAPI-DotNet-master\WebAppGraphAPI\bin\Antlr3.Runtime.pdb
-C:\Test\WebApp-GraphAPI-DotNet-master\WebApp-GraphAPI-DotNet-master\WebAppGraphAPI\bin\Microsoft.IdentityModel.Clients.ActiveDirectory.xml
-C:\Test\WebApp-GraphAPI-DotNet-master\WebApp-GraphAPI-DotNet-master\WebAppGraphAPI\bin\Microsoft.IdentityModel.Protocol.Extensions.xml
-C:\Test\WebApp-GraphAPI-DotNet-master\WebApp-GraphAPI-DotNet-master\WebAppGraphAPI\bin\Microsoft.Owin.xml
-C:\Test\WebApp-GraphAPI-DotNet-master\WebApp-GraphAPI-DotNet-master\WebAppGraphAPI\bin\Microsoft.Owin.Host.SystemWeb.xml
-C:\Test\WebApp-GraphAPI-DotNet-master\WebApp-GraphAPI-DotNet-master\WebAppGraphAPI\bin\Microsoft.Owin.Security.xml
-C:\Test\WebApp-GraphAPI-DotNet-master\WebApp-GraphAPI-DotNet-master\WebAppGraphAPI\bin\Microsoft.Owin.Security.Cookies.xml
-C:\Test\WebApp-GraphAPI-DotNet-master\WebApp-GraphAPI-DotNet-master\WebAppGraphAPI\bin\Microsoft.Owin.Security.OpenIdConnect.xml
-C:\Test\WebApp-GraphAPI-DotNet-master\WebApp-GraphAPI-DotNet-master\WebAppGraphAPI\bin\Newtonsoft.Json.xml
-C:\Test\WebApp-GraphAPI-DotNet-master\WebApp-GraphAPI-DotNet-master\WebAppGraphAPI\bin\System.IdentityModel.Tokens.Jwt.xml
-C:\Test\WebApp-GraphAPI-DotNet-master\WebApp-GraphAPI-DotNet-master\WebAppGraphAPI\bin\System.Web.Helpers.xml
-C:\Test\WebApp-GraphAPI-DotNet-master\WebApp-GraphAPI-DotNet-master\WebAppGraphAPI\bin\System.Web.Mvc.xml
-C:\Test\WebApp-GraphAPI-DotNet-master\WebApp-GraphAPI-DotNet-master\WebAppGraphAPI\bin\System.Web.Optimization.xml
-C:\Test\WebApp-GraphAPI-DotNet-master\WebApp-GraphAPI-DotNet-master\WebAppGraphAPI\bin\System.Web.Razor.xml
-C:\Test\WebApp-GraphAPI-DotNet-master\WebApp-GraphAPI-DotNet-master\WebAppGraphAPI\bin\System.Web.WebPages.xml
-C:\Test\WebApp-GraphAPI-DotNet-master\WebApp-GraphAPI-DotNet-master\WebAppGraphAPI\bin\System.Web.WebPages.Deployment.xml
-C:\Test\WebApp-GraphAPI-DotNet-master\WebApp-GraphAPI-DotNet-master\WebAppGraphAPI\bin\System.Web.WebPages.Razor.xml
-C:\Test\WebApp-GraphAPI-DotNet-master\WebApp-GraphAPI-DotNet-master\WebAppGraphAPI\obj\Debug\WebAppGraphAPI.dll
-C:\Test\WebApp-GraphAPI-DotNet-master\WebApp-GraphAPI-DotNet-master\WebAppGraphAPI\obj\Debug\WebAppGraphAPI.pdb
-C:\Test\WebApp-GraphAPI-DotNet-master\WebApp-GraphAPI-DotNet-master\WebAppGraphAPI\obj\Debug\WebAppGraphAPI.csprojResolveAssemblyReference.cache
-C:\Users\t-jokal\Documents\GitHub\WebApp-GraphAPI-DotNet\WebAppGraphAPI\bin\WebAppGraphAPI.dll
-C:\Users\t-jokal\Documents\GitHub\WebApp-GraphAPI-DotNet\WebAppGraphAPI\bin\WebAppGraphAPI.pdb
-C:\Users\t-jokal\Documents\GitHub\WebApp-GraphAPI-DotNet\WebAppGraphAPI\bin\Microsoft.Web.Infrastructure.dll
-C:\Users\t-jokal\Documents\GitHub\WebApp-GraphAPI-DotNet\WebAppGraphAPI\bin\Antlr3.Runtime.pdb
-C:\Users\t-jokal\Documents\GitHub\WebApp-GraphAPI-DotNet\WebAppGraphAPI\bin\Microsoft.IdentityModel.Clients.ActiveDirectory.xml
-C:\Users\t-jokal\Documents\GitHub\WebApp-GraphAPI-DotNet\WebAppGraphAPI\bin\Microsoft.IdentityModel.Protocol.Extensions.xml
-C:\Users\t-jokal\Documents\GitHub\WebApp-GraphAPI-DotNet\WebAppGraphAPI\bin\Microsoft.Owin.xml
-C:\Users\t-jokal\Documents\GitHub\WebApp-GraphAPI-DotNet\WebAppGraphAPI\bin\Microsoft.Owin.Host.SystemWeb.xml
-C:\Users\t-jokal\Documents\GitHub\WebApp-GraphAPI-DotNet\WebAppGraphAPI\bin\Microsoft.Owin.Security.xml
-C:\Users\t-jokal\Documents\GitHub\WebApp-GraphAPI-DotNet\WebAppGraphAPI\bin\Microsoft.Owin.Security.Cookies.xml
-C:\Users\t-jokal\Documents\GitHub\WebApp-GraphAPI-DotNet\WebAppGraphAPI\bin\Microsoft.Owin.Security.OpenIdConnect.xml
-C:\Users\t-jokal\Documents\GitHub\WebApp-GraphAPI-DotNet\WebAppGraphAPI\bin\Newtonsoft.Json.xml
-C:\Users\t-jokal\Documents\GitHub\WebApp-GraphAPI-DotNet\WebAppGraphAPI\bin\System.IdentityModel.Tokens.Jwt.xml
-C:\Users\t-jokal\Documents\GitHub\WebApp-GraphAPI-DotNet\WebAppGraphAPI\bin\System.Web.Optimization.xml
-C:\Users\t-jokal\Documents\GitHub\WebApp-GraphAPI-DotNet\WebAppGraphAPI\obj\Debug\WebAppGraphAPI.csprojResolveAssemblyReference.cache
-C:\Users\t-jokal\Documents\GitHub\WebApp-GraphAPI-DotNet\WebAppGraphAPI\obj\Debug\WebAppGraphAPI.dll
-C:\Users\t-jokal\Documents\GitHub\WebApp-GraphAPI-DotNet\WebAppGraphAPI\obj\Debug\WebAppGraphAPI.pdb
-C:\Users\t-jokal\Documents\GitHub\WebApp-GraphAPI-DotNet\WebAppGraphAPI\bin\Antlr3.Runtime.dll
-C:\Users\t-jokal\Documents\GitHub\WebApp-GraphAPI-DotNet\WebAppGraphAPI\bin\Microsoft.IdentityModel.Clients.ActiveDirectory.dll
-C:\Users\t-jokal\Documents\GitHub\WebApp-GraphAPI-DotNet\WebAppGraphAPI\bin\Microsoft.IdentityModel.Clients.ActiveDirectory.WindowsForms.dll
-C:\Users\t-jokal\Documents\GitHub\WebApp-GraphAPI-DotNet\WebAppGraphAPI\bin\Microsoft.IdentityModel.Protocol.Extensions.dll
-C:\Users\t-jokal\Documents\GitHub\WebApp-GraphAPI-DotNet\WebAppGraphAPI\bin\Microsoft.Owin.dll
-C:\Users\t-jokal\Documents\GitHub\WebApp-GraphAPI-DotNet\WebAppGraphAPI\bin\Microsoft.Owin.Host.SystemWeb.dll
-C:\Users\t-jokal\Documents\GitHub\WebApp-GraphAPI-DotNet\WebAppGraphAPI\bin\Microsoft.Owin.Security.Cookies.dll
-C:\Users\t-jokal\Documents\GitHub\WebApp-GraphAPI-DotNet\WebAppGraphAPI\bin\Microsoft.Owin.Security.dll
-C:\Users\t-jokal\Documents\GitHub\WebApp-GraphAPI-DotNet\WebAppGraphAPI\bin\Microsoft.Owin.Security.OpenIdConnect.dll
-C:\Users\t-jokal\Documents\GitHub\WebApp-GraphAPI-DotNet\WebAppGraphAPI\bin\Newtonsoft.Json.dll
-C:\Users\t-jokal\Documents\GitHub\WebApp-GraphAPI-DotNet\WebAppGraphAPI\bin\Owin.dll
-C:\Users\t-jokal\Documents\GitHub\WebApp-GraphAPI-DotNet\WebAppGraphAPI\bin\System.IdentityModel.Tokens.Jwt.dll
-C:\Users\t-jokal\Documents\GitHub\WebApp-GraphAPI-DotNet\WebAppGraphAPI\bin\System.Web.Helpers.dll
-C:\Users\t-jokal\Documents\GitHub\WebApp-GraphAPI-DotNet\WebAppGraphAPI\bin\System.Web.Mvc.dll
-C:\Users\t-jokal\Documents\GitHub\WebApp-GraphAPI-DotNet\WebAppGraphAPI\bin\System.Web.Optimization.dll
-C:\Users\t-jokal\Documents\GitHub\WebApp-GraphAPI-DotNet\WebAppGraphAPI\bin\System.Web.Razor.dll
-C:\Users\t-jokal\Documents\GitHub\WebApp-GraphAPI-DotNet\WebAppGraphAPI\bin\System.Web.WebPages.Deployment.dll
-C:\Users\t-jokal\Documents\GitHub\WebApp-GraphAPI-DotNet\WebAppGraphAPI\bin\System.Web.WebPages.dll
-C:\Users\t-jokal\Documents\GitHub\WebApp-GraphAPI-DotNet\WebAppGraphAPI\bin\System.Web.WebPages.Razor.dll
-C:\Users\t-jokal\Documents\GitHub\WebApp-GraphAPI-DotNet\WebAppGraphAPI\bin\WebGrease.dll
-C:\Users\t-jokal\Documents\GitHub\WebApp-GraphAPI-DotNet\WebAppGraphAPI\bin\System.Web.Helpers.xml
-C:\Users\t-jokal\Documents\GitHub\WebApp-GraphAPI-DotNet\WebAppGraphAPI\bin\System.Web.Mvc.xml
-C:\Users\t-jokal\Documents\GitHub\WebApp-GraphAPI-DotNet\WebAppGraphAPI\bin\System.Web.Razor.xml
-C:\Users\t-jokal\Documents\GitHub\WebApp-GraphAPI-DotNet\WebAppGraphAPI\bin\System.Web.WebPages.xml
-C:\Users\t-jokal\Documents\GitHub\WebApp-GraphAPI-DotNet\WebAppGraphAPI\bin\System.Web.WebPages.Deployment.xml
-C:\Users\t-jokal\Documents\GitHub\WebApp-GraphAPI-DotNet\WebAppGraphAPI\bin\System.Web.WebPages.Razor.xml
-C:\Test2\WebApp-GraphAPI-DotNet-master (2)\WebApp-GraphAPI-DotNet-master\WebAppGraphAPI\bin\WebAppGraphAPI.dll.config
-C:\Test2\WebApp-GraphAPI-DotNet-master (2)\WebApp-GraphAPI-DotNet-master\WebAppGraphAPI\bin\WebAppGraphAPI.dll
-C:\Test2\WebApp-GraphAPI-DotNet-master (2)\WebApp-GraphAPI-DotNet-master\WebAppGraphAPI\bin\WebAppGraphAPI.pdb
-C:\Test2\WebApp-GraphAPI-DotNet-master (2)\WebApp-GraphAPI-DotNet-master\WebAppGraphAPI\bin\Microsoft.Web.Infrastructure.dll
-C:\Test2\WebApp-GraphAPI-DotNet-master (2)\WebApp-GraphAPI-DotNet-master\WebAppGraphAPI\bin\Newtonsoft.Json.dll
-C:\Test2\WebApp-GraphAPI-DotNet-master (2)\WebApp-GraphAPI-DotNet-master\WebAppGraphAPI\bin\Antlr3.Runtime.pdb
-C:\Test2\WebApp-GraphAPI-DotNet-master (2)\WebApp-GraphAPI-DotNet-master\WebAppGraphAPI\bin\Microsoft.IdentityModel.Clients.ActiveDirectory.xml
-C:\Test2\WebApp-GraphAPI-DotNet-master (2)\WebApp-GraphAPI-DotNet-master\WebAppGraphAPI\bin\Microsoft.IdentityModel.Protocol.Extensions.xml
-C:\Test2\WebApp-GraphAPI-DotNet-master (2)\WebApp-GraphAPI-DotNet-master\WebAppGraphAPI\bin\Microsoft.Owin.xml
-C:\Test2\WebApp-GraphAPI-DotNet-master (2)\WebApp-GraphAPI-DotNet-master\WebAppGraphAPI\bin\Microsoft.Owin.Host.SystemWeb.xml
-C:\Test2\WebApp-GraphAPI-DotNet-master (2)\WebApp-GraphAPI-DotNet-master\WebAppGraphAPI\bin\Microsoft.Owin.Security.xml
-C:\Test2\WebApp-GraphAPI-DotNet-master (2)\WebApp-GraphAPI-DotNet-master\WebAppGraphAPI\bin\Microsoft.Owin.Security.Cookies.xml
-C:\Test2\WebApp-GraphAPI-DotNet-master (2)\WebApp-GraphAPI-DotNet-master\WebAppGraphAPI\bin\Microsoft.Owin.Security.OpenIdConnect.xml
-C:\Test2\WebApp-GraphAPI-DotNet-master (2)\WebApp-GraphAPI-DotNet-master\WebAppGraphAPI\bin\System.IdentityModel.Tokens.Jwt.xml
-C:\Test2\WebApp-GraphAPI-DotNet-master (2)\WebApp-GraphAPI-DotNet-master\WebAppGraphAPI\bin\System.Web.Optimization.xml
-C:\Test2\WebApp-GraphAPI-DotNet-master (2)\WebApp-GraphAPI-DotNet-master\WebAppGraphAPI\obj\Debug\WebAppGraphAPI.dll
-C:\Test2\WebApp-GraphAPI-DotNet-master (2)\WebApp-GraphAPI-DotNet-master\WebAppGraphAPI\obj\Debug\WebAppGraphAPI.pdb
-C:\Test2\WebApp-GraphAPI-DotNet-master (2)\WebApp-GraphAPI-DotNet-master\WebAppGraphAPI\bin\Antlr3.Runtime.dll
-C:\Test2\WebApp-GraphAPI-DotNet-master (2)\WebApp-GraphAPI-DotNet-master\WebAppGraphAPI\bin\Microsoft.Azure.ActiveDirectory.GraphClient.dll
-C:\Test2\WebApp-GraphAPI-DotNet-master (2)\WebApp-GraphAPI-DotNet-master\WebAppGraphAPI\bin\Microsoft.IdentityModel.Clients.ActiveDirectory.dll
-C:\Test2\WebApp-GraphAPI-DotNet-master (2)\WebApp-GraphAPI-DotNet-master\WebAppGraphAPI\bin\Microsoft.IdentityModel.Clients.ActiveDirectory.WindowsForms.dll
-C:\Test2\WebApp-GraphAPI-DotNet-master (2)\WebApp-GraphAPI-DotNet-master\WebAppGraphAPI\bin\Microsoft.IdentityModel.Protocol.Extensions.dll
-C:\Test2\WebApp-GraphAPI-DotNet-master (2)\WebApp-GraphAPI-DotNet-master\WebAppGraphAPI\bin\Microsoft.Owin.dll
-C:\Test2\WebApp-GraphAPI-DotNet-master (2)\WebApp-GraphAPI-DotNet-master\WebAppGraphAPI\bin\Microsoft.Owin.Host.SystemWeb.dll
-C:\Test2\WebApp-GraphAPI-DotNet-master (2)\WebApp-GraphAPI-DotNet-master\WebAppGraphAPI\bin\Microsoft.Owin.Security.Cookies.dll
-C:\Test2\WebApp-GraphAPI-DotNet-master (2)\WebApp-GraphAPI-DotNet-master\WebAppGraphAPI\bin\Microsoft.Owin.Security.dll
-C:\Test2\WebApp-GraphAPI-DotNet-master (2)\WebApp-GraphAPI-DotNet-master\WebAppGraphAPI\bin\Microsoft.Owin.Security.OpenIdConnect.dll
-C:\Test2\WebApp-GraphAPI-DotNet-master (2)\WebApp-GraphAPI-DotNet-master\WebAppGraphAPI\bin\Owin.dll
-C:\Test2\WebApp-GraphAPI-DotNet-master (2)\WebApp-GraphAPI-DotNet-master\WebAppGraphAPI\bin\System.IdentityModel.Tokens.Jwt.dll
-C:\Test2\WebApp-GraphAPI-DotNet-master (2)\WebApp-GraphAPI-DotNet-master\WebAppGraphAPI\bin\System.Web.Helpers.dll
-C:\Test2\WebApp-GraphAPI-DotNet-master (2)\WebApp-GraphAPI-DotNet-master\WebAppGraphAPI\bin\System.Web.Mvc.dll
-C:\Test2\WebApp-GraphAPI-DotNet-master (2)\WebApp-GraphAPI-DotNet-master\WebAppGraphAPI\bin\System.Web.Optimization.dll
-C:\Test2\WebApp-GraphAPI-DotNet-master (2)\WebApp-GraphAPI-DotNet-master\WebAppGraphAPI\bin\System.Web.Razor.dll
-C:\Test2\WebApp-GraphAPI-DotNet-master (2)\WebApp-GraphAPI-DotNet-master\WebAppGraphAPI\bin\System.Web.WebPages.Deployment.dll
-C:\Test2\WebApp-GraphAPI-DotNet-master (2)\WebApp-GraphAPI-DotNet-master\WebAppGraphAPI\bin\System.Web.WebPages.dll
-C:\Test2\WebApp-GraphAPI-DotNet-master (2)\WebApp-GraphAPI-DotNet-master\WebAppGraphAPI\bin\System.Web.WebPages.Razor.dll
-C:\Test2\WebApp-GraphAPI-DotNet-master (2)\WebApp-GraphAPI-DotNet-master\WebAppGraphAPI\bin\WebGrease.dll
-C:\Test2\WebApp-GraphAPI-DotNet-master (2)\WebApp-GraphAPI-DotNet-master\WebAppGraphAPI\bin\Newtonsoft.Json.xml
-C:\Test2\WebApp-GraphAPI-DotNet-master (2)\WebApp-GraphAPI-DotNet-master\WebAppGraphAPI\bin\System.Web.Helpers.xml
-C:\Test2\WebApp-GraphAPI-DotNet-master (2)\WebApp-GraphAPI-DotNet-master\WebAppGraphAPI\bin\System.Web.Mvc.xml
-C:\Test2\WebApp-GraphAPI-DotNet-master (2)\WebApp-GraphAPI-DotNet-master\WebAppGraphAPI\bin\System.Web.Razor.xml
-C:\Test2\WebApp-GraphAPI-DotNet-master (2)\WebApp-GraphAPI-DotNet-master\WebAppGraphAPI\bin\System.Web.WebPages.xml
-C:\Test2\WebApp-GraphAPI-DotNet-master (2)\WebApp-GraphAPI-DotNet-master\WebAppGraphAPI\bin\System.Web.WebPages.Deployment.xml
-C:\Test2\WebApp-GraphAPI-DotNet-master (2)\WebApp-GraphAPI-DotNet-master\WebAppGraphAPI\bin\System.Web.WebPages.Razor.xml
-C:\Test2\WebApp-GraphAPI-DotNet-master (2)\WebApp-GraphAPI-DotNet-master\WebAppGraphAPI\obj\Debug\WebAppGraphAPI.csprojResolveAssemblyReference.cache
-C:\test\WebApp-GraphAPI-DotNet-master (2)\WebApp-GraphAPI-DotNet-master\WebAppGraphAPI\obj\Debug\WebAppGraphAPI.csprojResolveAssemblyReference.cache
-C:\test\WebApp-GraphAPI-DotNet-master (2)\WebApp-GraphAPI-DotNet-master\WebAppGraphAPI\obj\Debug\WebAppGraphAPI.dll
-C:\test\WebApp-GraphAPI-DotNet-master (2)\WebApp-GraphAPI-DotNet-master\WebAppGraphAPI\bin\WebAppGraphAPI.dll.config
-C:\test\WebApp-GraphAPI-DotNet-master (2)\WebApp-GraphAPI-DotNet-master\WebAppGraphAPI\bin\WebAppGraphAPI.dll
-C:\test\WebApp-GraphAPI-DotNet-master (2)\WebApp-GraphAPI-DotNet-master\WebAppGraphAPI\bin\WebAppGraphAPI.pdb
-C:\test\WebApp-GraphAPI-DotNet-master (2)\WebApp-GraphAPI-DotNet-master\WebAppGraphAPI\bin\Antlr3.Runtime.dll
-C:\test\WebApp-GraphAPI-DotNet-master (2)\WebApp-GraphAPI-DotNet-master\WebAppGraphAPI\bin\Microsoft.Azure.ActiveDirectory.GraphClient.dll
-C:\test\WebApp-GraphAPI-DotNet-master (2)\WebApp-GraphAPI-DotNet-master\WebAppGraphAPI\bin\Microsoft.IdentityModel.Clients.ActiveDirectory.dll
-C:\test\WebApp-GraphAPI-DotNet-master (2)\WebApp-GraphAPI-DotNet-master\WebAppGraphAPI\bin\Microsoft.IdentityModel.Clients.ActiveDirectory.WindowsForms.dll
-C:\test\WebApp-GraphAPI-DotNet-master (2)\WebApp-GraphAPI-DotNet-master\WebAppGraphAPI\bin\Microsoft.IdentityModel.Protocol.Extensions.dll
-C:\test\WebApp-GraphAPI-DotNet-master (2)\WebApp-GraphAPI-DotNet-master\WebAppGraphAPI\bin\Microsoft.Owin.dll
-C:\test\WebApp-GraphAPI-DotNet-master (2)\WebApp-GraphAPI-DotNet-master\WebAppGraphAPI\bin\Microsoft.Owin.Host.SystemWeb.dll
-C:\test\WebApp-GraphAPI-DotNet-master (2)\WebApp-GraphAPI-DotNet-master\WebAppGraphAPI\bin\Microsoft.Owin.Security.Cookies.dll
-C:\test\WebApp-GraphAPI-DotNet-master (2)\WebApp-GraphAPI-DotNet-master\WebAppGraphAPI\bin\Microsoft.Owin.Security.dll
-C:\test\WebApp-GraphAPI-DotNet-master (2)\WebApp-GraphAPI-DotNet-master\WebAppGraphAPI\bin\Microsoft.Owin.Security.OpenIdConnect.dll
-C:\test\WebApp-GraphAPI-DotNet-master (2)\WebApp-GraphAPI-DotNet-master\WebAppGraphAPI\bin\Microsoft.Web.Infrastructure.dll
-C:\test\WebApp-GraphAPI-DotNet-master (2)\WebApp-GraphAPI-DotNet-master\WebAppGraphAPI\bin\Newtonsoft.Json.dll
-C:\test\WebApp-GraphAPI-DotNet-master (2)\WebApp-GraphAPI-DotNet-master\WebAppGraphAPI\bin\Owin.dll
-C:\test\WebApp-GraphAPI-DotNet-master (2)\WebApp-GraphAPI-DotNet-master\WebAppGraphAPI\bin\System.IdentityModel.Tokens.Jwt.dll
-C:\test\WebApp-GraphAPI-DotNet-master (2)\WebApp-GraphAPI-DotNet-master\WebAppGraphAPI\bin\System.Web.Helpers.dll
-C:\test\WebApp-GraphAPI-DotNet-master (2)\WebApp-GraphAPI-DotNet-master\WebAppGraphAPI\bin\System.Web.Mvc.dll
-C:\test\WebApp-GraphAPI-DotNet-master (2)\WebApp-GraphAPI-DotNet-master\WebAppGraphAPI\bin\System.Web.Optimization.dll
-C:\test\WebApp-GraphAPI-DotNet-master (2)\WebApp-GraphAPI-DotNet-master\WebAppGraphAPI\bin\System.Web.Razor.dll
-C:\test\WebApp-GraphAPI-DotNet-master (2)\WebApp-GraphAPI-DotNet-master\WebAppGraphAPI\bin\System.Web.WebPages.Deployment.dll
-C:\test\WebApp-GraphAPI-DotNet-master (2)\WebApp-GraphAPI-DotNet-master\WebAppGraphAPI\bin\System.Web.WebPages.dll
-C:\test\WebApp-GraphAPI-DotNet-master (2)\WebApp-GraphAPI-DotNet-master\WebAppGraphAPI\bin\System.Web.WebPages.Razor.dll
-C:\test\WebApp-GraphAPI-DotNet-master (2)\WebApp-GraphAPI-DotNet-master\WebAppGraphAPI\bin\WebGrease.dll
-C:\test\WebApp-GraphAPI-DotNet-master (2)\WebApp-GraphAPI-DotNet-master\WebAppGraphAPI\bin\Antlr3.Runtime.pdb
-C:\test\WebApp-GraphAPI-DotNet-master (2)\WebApp-GraphAPI-DotNet-master\WebAppGraphAPI\bin\Microsoft.IdentityModel.Clients.ActiveDirectory.xml
-C:\test\WebApp-GraphAPI-DotNet-master (2)\WebApp-GraphAPI-DotNet-master\WebAppGraphAPI\bin\Microsoft.IdentityModel.Protocol.Extensions.xml
-C:\test\WebApp-GraphAPI-DotNet-master (2)\WebApp-GraphAPI-DotNet-master\WebAppGraphAPI\bin\Microsoft.Owin.xml
-C:\test\WebApp-GraphAPI-DotNet-master (2)\WebApp-GraphAPI-DotNet-master\WebAppGraphAPI\bin\Microsoft.Owin.Host.SystemWeb.xml
-C:\test\WebApp-GraphAPI-DotNet-master (2)\WebApp-GraphAPI-DotNet-master\WebAppGraphAPI\bin\Microsoft.Owin.Security.xml
-C:\test\WebApp-GraphAPI-DotNet-master (2)\WebApp-GraphAPI-DotNet-master\WebAppGraphAPI\bin\Microsoft.Owin.Security.Cookies.xml
-C:\test\WebApp-GraphAPI-DotNet-master (2)\WebApp-GraphAPI-DotNet-master\WebAppGraphAPI\bin\Microsoft.Owin.Security.OpenIdConnect.xml
-C:\test\WebApp-GraphAPI-DotNet-master (2)\WebApp-GraphAPI-DotNet-master\WebAppGraphAPI\bin\Newtonsoft.Json.xml
-C:\test\WebApp-GraphAPI-DotNet-master (2)\WebApp-GraphAPI-DotNet-master\WebAppGraphAPI\bin\System.IdentityModel.Tokens.Jwt.xml
-C:\test\WebApp-GraphAPI-DotNet-master (2)\WebApp-GraphAPI-DotNet-master\WebAppGraphAPI\bin\System.Web.Helpers.xml
-C:\test\WebApp-GraphAPI-DotNet-master (2)\WebApp-GraphAPI-DotNet-master\WebAppGraphAPI\bin\System.Web.Mvc.xml
-C:\test\WebApp-GraphAPI-DotNet-master (2)\WebApp-GraphAPI-DotNet-master\WebAppGraphAPI\bin\System.Web.Optimization.xml
-C:\test\WebApp-GraphAPI-DotNet-master (2)\WebApp-GraphAPI-DotNet-master\WebAppGraphAPI\bin\System.Web.Razor.xml
-C:\test\WebApp-GraphAPI-DotNet-master (2)\WebApp-GraphAPI-DotNet-master\WebAppGraphAPI\bin\System.Web.WebPages.xml
-C:\test\WebApp-GraphAPI-DotNet-master (2)\WebApp-GraphAPI-DotNet-master\WebAppGraphAPI\bin\System.Web.WebPages.Deployment.xml
-C:\test\WebApp-GraphAPI-DotNet-master (2)\WebApp-GraphAPI-DotNet-master\WebAppGraphAPI\bin\System.Web.WebPages.Razor.xml
-C:\test\WebApp-GraphAPI-DotNet-master (2)\WebApp-GraphAPI-DotNet-master\WebAppGraphAPI\obj\Debug\WebAppGraphAPI.pdb
+C:\Test\GitHubCandidate - WebApp-GraphAPI-DotNet\WebAppGraphAPI\bin\WebAppGraphAPI.dll.config
+C:\Test\GitHubCandidate - WebApp-GraphAPI-DotNet\WebAppGraphAPI\bin\WebAppGraphAPI.dll
+C:\Test\GitHubCandidate - WebApp-GraphAPI-DotNet\WebAppGraphAPI\bin\WebAppGraphAPI.pdb
+C:\Test\GitHubCandidate - WebApp-GraphAPI-DotNet\WebAppGraphAPI\bin\Antlr3.Runtime.dll
+C:\Test\GitHubCandidate - WebApp-GraphAPI-DotNet\WebAppGraphAPI\bin\Microsoft.Azure.ActiveDirectory.GraphClient.dll
+C:\Test\GitHubCandidate - WebApp-GraphAPI-DotNet\WebAppGraphAPI\bin\Microsoft.IdentityModel.Clients.ActiveDirectory.dll
+C:\Test\GitHubCandidate - WebApp-GraphAPI-DotNet\WebAppGraphAPI\bin\Microsoft.IdentityModel.Clients.ActiveDirectory.WindowsForms.dll
+C:\Test\GitHubCandidate - WebApp-GraphAPI-DotNet\WebAppGraphAPI\bin\Microsoft.IdentityModel.Protocol.Extensions.dll
+C:\Test\GitHubCandidate - WebApp-GraphAPI-DotNet\WebAppGraphAPI\bin\Microsoft.Owin.dll
+C:\Test\GitHubCandidate - WebApp-GraphAPI-DotNet\WebAppGraphAPI\bin\Microsoft.Owin.Host.SystemWeb.dll
+C:\Test\GitHubCandidate - WebApp-GraphAPI-DotNet\WebAppGraphAPI\bin\Microsoft.Owin.Security.Cookies.dll
+C:\Test\GitHubCandidate - WebApp-GraphAPI-DotNet\WebAppGraphAPI\bin\Microsoft.Owin.Security.dll
+C:\Test\GitHubCandidate - WebApp-GraphAPI-DotNet\WebAppGraphAPI\bin\Microsoft.Owin.Security.OpenIdConnect.dll
+C:\Test\GitHubCandidate - WebApp-GraphAPI-DotNet\WebAppGraphAPI\bin\Microsoft.Web.Infrastructure.dll
+C:\Test\GitHubCandidate - WebApp-GraphAPI-DotNet\WebAppGraphAPI\bin\Newtonsoft.Json.dll
+C:\Test\GitHubCandidate - WebApp-GraphAPI-DotNet\WebAppGraphAPI\bin\Owin.dll
+C:\Test\GitHubCandidate - WebApp-GraphAPI-DotNet\WebAppGraphAPI\bin\System.IdentityModel.Tokens.Jwt.dll
+C:\Test\GitHubCandidate - WebApp-GraphAPI-DotNet\WebAppGraphAPI\bin\System.Web.Helpers.dll
+C:\Test\GitHubCandidate - WebApp-GraphAPI-DotNet\WebAppGraphAPI\bin\System.Web.Mvc.dll
+C:\Test\GitHubCandidate - WebApp-GraphAPI-DotNet\WebAppGraphAPI\bin\System.Web.Optimization.dll
+C:\Test\GitHubCandidate - WebApp-GraphAPI-DotNet\WebAppGraphAPI\bin\System.Web.Razor.dll
+C:\Test\GitHubCandidate - WebApp-GraphAPI-DotNet\WebAppGraphAPI\bin\System.Web.WebPages.Deployment.dll
+C:\Test\GitHubCandidate - WebApp-GraphAPI-DotNet\WebAppGraphAPI\bin\System.Web.WebPages.dll
+C:\Test\GitHubCandidate - WebApp-GraphAPI-DotNet\WebAppGraphAPI\bin\System.Web.WebPages.Razor.dll
+C:\Test\GitHubCandidate - WebApp-GraphAPI-DotNet\WebAppGraphAPI\bin\WebGrease.dll
+C:\Test\GitHubCandidate - WebApp-GraphAPI-DotNet\WebAppGraphAPI\bin\Antlr3.Runtime.pdb
+C:\Test\GitHubCandidate - WebApp-GraphAPI-DotNet\WebAppGraphAPI\bin\Microsoft.IdentityModel.Clients.ActiveDirectory.xml
+C:\Test\GitHubCandidate - WebApp-GraphAPI-DotNet\WebAppGraphAPI\bin\Microsoft.IdentityModel.Protocol.Extensions.xml
+C:\Test\GitHubCandidate - WebApp-GraphAPI-DotNet\WebAppGraphAPI\bin\Microsoft.Owin.xml
+C:\Test\GitHubCandidate - WebApp-GraphAPI-DotNet\WebAppGraphAPI\bin\Microsoft.Owin.Host.SystemWeb.xml
+C:\Test\GitHubCandidate - WebApp-GraphAPI-DotNet\WebAppGraphAPI\bin\Microsoft.Owin.Security.xml
+C:\Test\GitHubCandidate - WebApp-GraphAPI-DotNet\WebAppGraphAPI\bin\Microsoft.Owin.Security.Cookies.xml
+C:\Test\GitHubCandidate - WebApp-GraphAPI-DotNet\WebAppGraphAPI\bin\Microsoft.Owin.Security.OpenIdConnect.xml
+C:\Test\GitHubCandidate - WebApp-GraphAPI-DotNet\WebAppGraphAPI\bin\Newtonsoft.Json.xml
+C:\Test\GitHubCandidate - WebApp-GraphAPI-DotNet\WebAppGraphAPI\bin\System.IdentityModel.Tokens.Jwt.xml
+C:\Test\GitHubCandidate - WebApp-GraphAPI-DotNet\WebAppGraphAPI\bin\System.Web.Helpers.xml
+C:\Test\GitHubCandidate - WebApp-GraphAPI-DotNet\WebAppGraphAPI\bin\System.Web.Mvc.xml
+C:\Test\GitHubCandidate - WebApp-GraphAPI-DotNet\WebAppGraphAPI\bin\System.Web.Optimization.xml
+C:\Test\GitHubCandidate - WebApp-GraphAPI-DotNet\WebAppGraphAPI\bin\System.Web.Razor.xml
+C:\Test\GitHubCandidate - WebApp-GraphAPI-DotNet\WebAppGraphAPI\bin\System.Web.WebPages.xml
+C:\Test\GitHubCandidate - WebApp-GraphAPI-DotNet\WebAppGraphAPI\bin\System.Web.WebPages.Deployment.xml
+C:\Test\GitHubCandidate - WebApp-GraphAPI-DotNet\WebAppGraphAPI\bin\System.Web.WebPages.Razor.xml
+C:\Test\GitHubCandidate - WebApp-GraphAPI-DotNet\WebAppGraphAPI\obj\Debug\WebAppGraphAPI.csprojResolveAssemblyReference.cache
+C:\Test\GitHubCandidate - WebApp-GraphAPI-DotNet\WebAppGraphAPI\obj\Debug\WebAppGraphAPI.dll
+C:\Test\GitHubCandidate - WebApp-GraphAPI-DotNet\WebAppGraphAPI\obj\Debug\WebAppGraphAPI.pdb
