@@ -82,3 +82,5 @@ C:\Users\dastrock\Source\Repos\WebApp-GraphAPI-DotNet\WebAppGraphAPI\bin\System.
 C:\Users\dastrock\Source\Repos\WebApp-GraphAPI-DotNet\WebAppGraphAPI\obj\Debug\WebAppGraphAPI.csprojResolveAssemblyReference.cache
 C:\Users\dastrock\Source\Repos\WebApp-GraphAPI-DotNet\WebAppGraphAPI\obj\Debug\WebAppGraphAPI.dll
 C:\Users\dastrock\Source\Repos\WebApp-GraphAPI-DotNet\WebAppGraphAPI\obj\Debug\WebAppGraphAPI.pdb
+C:\Users\dastrock\Source\Repos\WebApp-GraphAPI-DotNet\WebAppGraphAPI\bin\Microsoft.IdentityModel.Protocol.Extensions.dll
+C:\Users\dastrock\Source\Repos\WebApp-GraphAPI-DotNet\WebAppGraphAPI\bin\Microsoft.IdentityModel.Protocol.Extensions.xml

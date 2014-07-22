@@ -1,0 +1,104 @@
+﻿@model Microsoft.Azure.ActiveDirectory.GraphClient.User
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Create User</title>
+</head>
+    <body>
+    <h2>Create User</h2><br/>
+        
+        @using (Html.BeginForm()) {
+            @Html.ValidationSummary(true)
+    
+            <fieldset>
+                <legend>User</legend>
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.UserPrincipalName)
+                </div>
+                <div class="editor-field">
+                    @Html.EditorFor(model => model.UserPrincipalName)
+                    @Html.ValidationMessageFor(model => model.UserPrincipalName)
+                </div>
+                
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.AccountEnabled)
+                </div>
+                <div class="editor-field">
+                    @Html.EditorFor(model => model.AccountEnabled)
+                    @Html.ValidationMessageFor(model => model.AccountEnabled)
+                </div>
+
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.PasswordProfile.Password)
+                </div>
+                <div class="editor-field">
+                    @Html.EditorFor(model => model.PasswordProfile.Password)
+                    @Html.ValidationMessageFor(model => model.PasswordProfile.Password)
+                </div>
+
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.MailNickname)
+                </div>
+                <div class="editor-field">
+                    @Html.EditorFor(model => model.MailNickname)
+                    @Html.ValidationMessageFor(model => model.MailNickname)
+                </div>
+
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.DisplayName)
+                </div>
+                <div class="editor-field">
+                    @Html.EditorFor(model => model.DisplayName)
+                    @Html.ValidationMessageFor(model => model.DisplayName)
+                </div>
+    
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.GivenName)
+                </div>
+                <div class="editor-field">
+                    @Html.EditorFor(model => model.GivenName)
+                    @Html.ValidationMessageFor(model => model.GivenName)
+                </div>
+    
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.Surname)
+                </div>
+                <div class="editor-field">
+                    @Html.EditorFor(model => model.Surname)
+                    @Html.ValidationMessageFor(model => model.Surname)
+                </div>
+        
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.JobTitle)
+                </div>
+                <div class="editor-field">
+                    @Html.EditorFor(model => model.JobTitle)
+                    @Html.ValidationMessageFor(model => model.JobTitle)
+                </div>
+    
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.Department)
+                </div>
+
+                <div class="editor-field">
+                    @Html.EditorFor(model => model.Department)
+                    @Html.ValidationMessageFor(model => model.Department)
+                </div>
+                <p>
+                    <input type="submit" value="Create" />
+                </p>
+            </fieldset>
+        }
+    
+        <div>
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    </body>
+</html>
+@if (ViewBag.ErrorMessage == "AuthorizationRequired")
+{
+    <p>You have to sign-in. Click @Html.ActionLink("here", "Create", "Users", new { reauth = true }, null) to sign-in.</p>
+}

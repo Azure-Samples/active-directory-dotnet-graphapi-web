@@ -1,0 +1,133 @@
+﻿@model Microsoft.Azure.ActiveDirectory.GraphClient.User
+
+@{
+    ViewBag.Title = "Edit User";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Edit User</h2>
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>User</legend>
+
+        <div class="editor-field">
+            @Html.Label("Upload User Photo")
+            <br />
+            <input type=file name="photofile" />    
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.UserPrincipalName)
+        </div>
+        <div class="editor-field">
+            @Html.DisplayFor(model => model.UserPrincipalName)
+        </div><br/>
+        
+        <div class="editor-label">
+            @Html.LabelFor(model => model.DisplayName)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.DisplayName)
+            @Html.ValidationMessageFor(model => model.DisplayName)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.AccountEnabled)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.AccountEnabled)
+            @Html.ValidationMessageFor(model => model.AccountEnabled)
+        </div>
+        
+        <div class="editor-label">
+            @Html.LabelFor(model => model.GivenName)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.GivenName)
+            @Html.ValidationMessageFor(model => model.GivenName)
+        </div>
+        
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Surname)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Surname)
+            @Html.ValidationMessageFor(model => model.Surname)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.JobTitle)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.JobTitle)
+            @Html.ValidationMessageFor(model => model.JobTitle)
+        </div>
+        
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Department)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Department)
+            @Html.ValidationMessageFor(model => model.Department)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Mobile)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Mobile)
+            @Html.ValidationMessageFor(model => model.Mobile)
+        </div>
+        
+        <div class="editor-label">
+            @Html.LabelFor(model => model.StreetAddress)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.StreetAddress)
+            @Html.ValidationMessageFor(model => model.StreetAddress)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.City)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.City)
+            @Html.ValidationMessageFor(model => model.City)
+        </div>
+        
+         <div class="editor-label">
+            @Html.LabelFor(model => model.State)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.State)
+            @Html.ValidationMessageFor(model => model.State)
+        </div>
+        
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Country)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Country)
+            @Html.ValidationMessageFor(model => model.Country)
+        </div>
+        <p>
+            <input type="submit" value="Save" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+@if (ViewBag.ErrorMessage == "AuthorizationRequired")
+{
+    <p>You have to sign-in. Click @Html.ActionLink("here", "Edit", "Users", new { reauth = true }, null) to sign-in.</p>
+}

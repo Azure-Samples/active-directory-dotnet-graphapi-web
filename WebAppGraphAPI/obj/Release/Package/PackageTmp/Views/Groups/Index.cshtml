@@ -1,0 +1,61 @@
+﻿@using Microsoft.Azure.ActiveDirectory.GraphClient
+@model IEnumerable<Group>
+
+<h2>/Groups</h2>
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table id="directoryObjects" class="table table-bordered table-striped">
+    <tr>
+        <th>
+            DisplayName
+        </th>
+        <th>
+            MailNickName
+        </th>
+        <th>
+            Description
+        </th>
+        <th>
+            ObjectId
+        </th>
+        <th>
+            Mail
+        </th>
+        <th />
+    </tr>
+    @foreach (var item in Model)
+    {
+        var group = item as Group;
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => group.DisplayName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => group.MailNickname)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => group.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => group.ObjectId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => group.Mail)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { objectId = item.ObjectId }) <br />
+                @Html.ActionLink("Details", "Details", new { objectId = item.ObjectId }) <br />
+                @Html.ActionLink("Delete", "Delete", new { objectId = item.ObjectId })  <br />
+                @Html.ActionLink("Members", "GetMembers", new { objectId = item.ObjectId }) <br />
+                @Html.ActionLink("GroupMembership", "GetGroups", new { objectId = item.ObjectId }) <br />
+            </td>
+        </tr>
+    }
+</table>
+
+@if (ViewBag.ErrorMessage == "AuthorizationRequired")
+{
+    <p>You have to sign-in to see groups. Click @Html.ActionLink("here", "Index", "groups", new { reauth = true }, null) to sign-in.</p>
+}
+
