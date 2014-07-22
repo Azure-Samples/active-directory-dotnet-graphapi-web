@@ -31,7 +31,7 @@ namespace WebAppGraphAPI
         private static string tenant = ConfigurationManager.AppSettings["ida:Tenant"];
         private static string postLogoutRedirectUri = ConfigurationManager.AppSettings["ida:PostLogoutRedirectUri"];
 
-        string authority = String.Format(CultureInfo.InvariantCulture, aadInstance, tenant);
+        public static readonly string Authority = String.Format(CultureInfo.InvariantCulture, aadInstance, tenant);
 
         // This is the resource ID of the AAD Graph API.  We'll need this to request a token to call the Graph API.
         string graphResourceId = "https://graph.windows.net";
@@ -47,7 +47,7 @@ namespace WebAppGraphAPI
                 {
                     
                     ClientId = clientId,
-                    Authority = authority,
+                    Authority = Authority,
                     PostLogoutRedirectUri = postLogoutRedirectUri,
 
                     Notifications = new OpenIdConnectAuthenticationNotifications()
@@ -61,14 +61,11 @@ namespace WebAppGraphAPI
                             var code = context.Code;
 
                             ClientCredential credential = new ClientCredential(clientId, appKey);
-                            AuthenticationContext authContext = new AuthenticationContext(authority);
-                         
+                            string userObjectID = context.AuthenticationTicket.Identity.FindFirst(
+                                    "http://schemas.microsoft.com/identity/claims/objectidentifier").Value;
+                            AuthenticationContext authContext = new AuthenticationContext(Authority, new NaiveSessionCache(userObjectID));
                             AuthenticationResult result = authContext.AcquireTokenByAuthorizationCode(
                                 code, new Uri(HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Path)), credential, graphResourceId);
-
-                            // Cache the access token and refresh token
-                            TokenCacheUtils.SaveAccessTokenInCache(graphResourceId, result.AccessToken, (result.ExpiresOn.AddMinutes(-5)).ToString());
-                            TokenCacheUtils.SaveRefreshTokenInCache(result.RefreshToken);
 
                             return Task.FromResult(0);
                         }
