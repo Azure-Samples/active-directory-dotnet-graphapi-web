@@ -23,7 +23,7 @@ From your shell or command line:
 
 The sample app is preconfigured to read data from a Demonstration company (GraphDir1.onMicrosoft.com) in Azure AD. Run the sample application, and from the main page, authenticate using this demo user account: demoUser@graphDir1.onMicrosoft.com   graphDem0
 
-### Step 3:  Run the application with your own Azure Active Directory tenant
+### Step 3:  Run the application with your own AAD tenant
 
 #### Register the MVC Sample app in your tenant
 
@@ -48,7 +48,7 @@ NOTE: the permission "Access your organization's directory" allows the applicati
 The permission "Enable sign-on and read users' profiles" allows users to sign in to the application with their organizational accounts and lets the application read the profiles of signed-in users, such as their email address and contact information - this is a delegation permission, and can be consented to by the user.
 The other permissions, "Read Directory data" and "Read and write Directory data", are Delegation and Application Permissions, which only the Administrator can grant consent to.
 
-15. Selct the Save button at the bottom of the screen - upon sucessful configuration, your Key value should now be displayed - please copy and store this value in a secure location.  The key value is only displayed once, and you will not be able to retrieve it later.
+15. Select the Save button at the bottom of the screen - upon sucessful configuration, your Key value should now be displayed - please copy and store this value in a secure location.  The key value is only displayed once, and you will not be able to retrieve it later.
 
 #### Configure the sample to use your tenant
 
@@ -90,7 +90,7 @@ Coming soon.
 
 First, in Visual Studio 2013 create an empty solution to host the  projects.  Then, follow these steps to create the sample.
 
-### Creating the TodoListWebApp Project
+### Creating the WebAppGraphAPI Project
 
 1. In the solution, create a new ASP.Net MVC web application called WebAppGraphAPI with Authentication set to No Authentication.
 2. Set SSL Enabled to be True.  Note the SSL URL.
