@@ -77,7 +77,7 @@ To deploy the sample to Azure Web Sites, you will create a web site, publish the
 ### Update the Application Configurations in the Directory Tenant
 
 1. Navigate to the [Azure management portal](https://manage.windowsazure.com).
-2. In the left hand nav, clink on Active Directory and select your tenant.
+2. In the left hand nav, click on Active Directory and select your tenant.
 3. On the applications tab, select the appropriate application.
 4. On the Configure tab, update the Sign-On URL and Reply URL fields to the address of your service, for example https://webappgraphapi-contoso.azurewebsites.net/.  Save the configuration.
 
