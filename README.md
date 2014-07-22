@@ -43,12 +43,11 @@ NOTE: If you already have a user account in your Azure Active Directory tenant, 
 12. In the Reply URL, add the reply URL address used to return the authorization code returned during Authorization code flow.  For example: "https://localhost:44322/"
 13. Under the Keys section, select either a 1 year or 2 year key - the keyValue will be displayed after you save the configuration at the end.
 14. Configure Permissions - under the "Permissions to other applications" section, select application "Windows Azure Active Directory" (this is the Graph API), and under the second permission (Delegated permissions), select "Access your organization's directory" and "Enable sign-on and read users' profiles". The 2nd column (Application permission) is not needed for this demo app.
+15. Select the Save button at the bottom of the screen - upon sucessful configuration, your Key value should now be displayed - please copy and store this value in a secure location.  The key value is only displayed once, and you will not be able to retrieve it later.
 
 NOTE: the permission "Access your organization's directory" allows the application to access your organization's directory on behalf of the signed-in user - this is a delegation permission and must be consented by the Administrator for web apps (such as this demo app).
 The permission "Enable sign-on and read users' profiles" allows users to sign in to the application with their organizational accounts and lets the application read the profiles of signed-in users, such as their email address and contact information - this is a delegation permission, and can be consented to by the user.
 The other permissions, "Read Directory data" and "Read and write Directory data", are Delegation and Application Permissions, which only the Administrator can grant consent to.
-
-15. Select the Save button at the bottom of the screen - upon sucessful configuration, your Key value should now be displayed - please copy and store this value in a secure location.  The key value is only displayed once, and you will not be able to retrieve it later.
 
 #### Configure the sample to use your tenant
 
@@ -105,19 +104,19 @@ First, in Visual Studio 2013 create an empty solution to host the  projects.  Th
 11. In the `Views` --> `Shared` folder, replace the contents of `_Layout.cshtml` with the contents of the file of same name from the sample.  Effectively, all this will do is add a single line, `@Html.Partial("_LoginPartial")`, that lights up the previously added `_LoginPartial` view.
 12. If you want the user to be required to sign-in before they can see any page of the app, then in the `HomeController`, decorate the `HomeController` class with the `[Authorize]` attribute.  If you leave this out, the user will be able to see the home page of the app without having to sign-in first, and can click the sign-in link on that page to get signed in.
 13. In the `Models` folder add a new class called `UserProfile.cs`.  Copy the implementation of UserProfile from this sample into the class.
-14. In the project, create a new folder called `Utils`.  In the folder, create a new class called `NaiveSessionCache.cs`.  Copy the implementation of the class from the sample.
-15. In the `Utils` folder, create two new classes, `GraphConfiguration.cs` and `Logger.cs`.  Replace their implementations with the implementations from the sample.
-16. Add a new empty MVC5 controller `AccountController` to the project.  Replace the implementation with the contents of the file of same name from the sample.
-17. Add a new empty MVC5 controller `ContactsController` to the project.  Copy the implementation of the controller from the sample.  Remember to include the [Authorize] attribute on the class definition.
-18. Add three views in the `Views/Contacts` folder, `Index`, `Details`, and `GetGroups`. Copy their implemenations from the sample. 
-19. Add a new empty MVC5 controller `GroupsController` to the project.  Copy the implementation of the controller from the sample.  Again, remember to include the [Authorize] attribute on the class definition.
-20. Add seven views in the `Views/Groups` folder, `Index`, `Details`, `GetGroups`, `Delete`, `GetMembers`, `Edit`, and `Create`. Copy their implemenations from the sample. 
-21. Add a new empty MVC5 controller `RolesController` to the project.  Copy the implementation of the controller from the sample.  Again, remember to include the [Authorize] attribute on the class definition.
-22. Add three views in the `Views/Roles` folder, `Index`, `Details`, and `GetMembers`. Copy their implemenations from the sample. 
-23. Add a new empty MVC5 controller `UserProfileController` to the project.  Copy the implementation of the controller from the sample.  Again, remember to include the [Authorize] attribute on the class definition.
-24. Add one view in the `Views/UserProfile` folder, `Index`. Copy its implemenation from the sample. 
-25. Add a new empty MVC5 controller `UsersController` to the project.  Copy the implementation of the controller from the sample.  Again, remember to include the [Authorize] attribute on the class definition.
-26. Add seven views in the `Views/Users` folder, `Index`, `Details`, `GetGroups`, `Delete`, `GetDirectReports`, `Edit`, and `Create`. Copy their implemenations from the sample. 
-27. In `web.config`, in `<appSettings>`, create keys for `ida:ClientId`, `ida:AppKey`, `ida:AADInstance`, `ida:Tenant`, `ida:PostLogoutRedirectUri`, `ida:GraphApiVersion`, and `ida:GraphUrl` and set the values accordingly.  For the public Azure AD, the value of `ida:AADInstance` is `https://login.windows.net/{0}` the value of `ida:GraphResourceId` is `https://graph.windows.net`, and the value of `ida:GraphUrl` is `https://graph.windows.net/`.
-28. In `web.config` add this line in the `<system.web>` section: `<sessionState timeout="525600" />`.  This increases the ASP.Net session state timeout to it's maximum value so that access tokens and refresh tokens cache in session state aren't cleared after the default timeout of 20 minutes.
+14. In the project, create a new folder called `Utils`.  In the folder, create three new classes called `NaiveSessionCache.cs`, `GraphConfiguration.cs` and `Logger.cs`.  Copy their implementations from the sample.
+15. Add a new empty MVC5 controller `AccountController` to the project.  Replace the implementation with the contents of the file of same name from the sample.
+16. Add a new empty MVC5 controller `ContactsController` to the project.  Copy the implementation of the controller from the sample.  Remember to include the [Authorize] attribute on the class definition.
+17. Add three views in the `Views/Contacts` folder, `Index`, `Details`, and `GetGroups`. Copy their implemenations from the sample. 
+18. Add a new empty MVC5 controller `GroupsController` to the project.  Copy the implementation of the controller from the sample.  Again, remember to include the [Authorize] attribute on the class definition.
+19. Add seven views in the `Views/Groups` folder, `Index`, `Details`, `GetGroups`, `Delete`, `GetMembers`, `Edit`, and `Create`. Copy their implemenations from the sample. 
+20. Add a new empty MVC5 controller `RolesController` to the project.  Copy the implementation of the controller from the sample.  Again, remember to include the [Authorize] attribute on the class definition.
+21. Add three views in the `Views/Roles` folder, `Index`, `Details`, and `GetMembers`. Copy their implemenations from the sample. 
+22. Add a new empty MVC5 controller `UserProfileController` to the project.  Copy the implementation of the controller from the sample.  Again, remember to include the [Authorize] attribute on the class definition.
+23. Add one view in the `Views/UserProfile` folder, `Index`. Copy its implemenation from the sample. 
+24. Add a new empty MVC5 controller `UsersController` to the project.  Copy the implementation of the controller from the sample.  Again, remember to include the [Authorize] attribute on the class definition.
+25. Add seven views in the `Views/Users` folder, `Index`, `Details`, `GetGroups`, `Delete`, `GetDirectReports`, `Edit`, and `Create`. Copy their implemenations from the sample. 
+26. In `web.config`, in `<appSettings>`, create keys for `ida:ClientId`, `ida:AppKey`, `ida:AADInstance`, `ida:Tenant`, `ida:PostLogoutRedirectUri`, `ida:GraphApiVersion`, and `ida:GraphUrl` and set the values accordingly.  For the public Azure AD, the value of `ida:AADInstance` is `https://login.windows.net/{0}` the value of `ida:GraphResourceId` is `https://graph.windows.net`, and the value of `ida:GraphUrl` is `https://graph.windows.net/`.
+27. In `web.config` add this line in the `<system.web>` section: `<sessionState timeout="525600" />`.  This increases the ASP.Net session state timeout to it's maximum value so that access tokens and refresh tokens cache in session state aren't cleared after the default timeout of 20 minutes.
+28. Follow the steps in the "Run the application with your own AAD tenant" above to run the newly created sample.
 
