@@ -39,7 +39,7 @@ namespace WebAppGraphAPI.Controllers
                 result = authContext.AcquireTokenSilent(graphResourceId, credential,
                     new UserIdentifier(userObjectID, UserIdentifierType.UniqueId));
 
-                //Setup GRaph API connection and get a list of roles
+                //Setup Graph API connection and get a list of roles
                 Guid ClientRequestId = Guid.NewGuid();
                 GraphSettings graphSettings = new GraphSettings();
                 graphSettings.ApiVersion = GraphConfiguration.GraphApiVersion;
@@ -47,6 +47,8 @@ namespace WebAppGraphAPI.Controllers
 
                 PagedResults<Role> pagedResults = graphConnection.List<Role>(null, new FilterGenerator());
                 roleList.AddRange(pagedResults.Results);
+                
+                // Get roles for all pages
                 while (!pagedResults.IsLastPage)
                 {
                     pagedResults = graphConnection.List<Role>(pagedResults.PageToken, new FilterGenerator());
@@ -95,7 +97,7 @@ namespace WebAppGraphAPI.Controllers
                 result = authContext.AcquireTokenSilent(graphResourceId, credential,
                     new UserIdentifier(userObjectID, UserIdentifierType.UniqueId));
 
-                //Setup GRaph API connection and get a list of roles
+                //Setup Graph API connection and get a list of roles
                 Guid ClientRequestId = Guid.NewGuid();
                 GraphSettings graphSettings = new GraphSettings();
                 graphSettings.ApiVersion = GraphConfiguration.GraphApiVersion;
@@ -147,7 +149,7 @@ namespace WebAppGraphAPI.Controllers
                 result = authContext.AcquireTokenSilent(graphResourceId, credential,
                     new UserIdentifier(userObjectID, UserIdentifierType.UniqueId));
 
-                //Setup Graph API connection and get a list of roles
+                // Setup Graph API connection and get a list of roles
                 Guid ClientRequestId = Guid.NewGuid();
                 GraphSettings graphSettings = new GraphSettings();
                 graphSettings.ApiVersion = GraphConfiguration.GraphApiVersion;
@@ -156,6 +158,7 @@ namespace WebAppGraphAPI.Controllers
                 Role role = graphConnection.Get<Role>(objectId);
                 IList<GraphObject> members = graphConnection.GetAllDirectLinks(role, LinkProperty.Members);
 
+                // Filter for users
                 foreach (GraphObject obj in members)
                 {
                     if (obj is User)

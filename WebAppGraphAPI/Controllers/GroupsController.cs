@@ -99,7 +99,7 @@ namespace WebAppGraphAPI.Controllers
                 result = authContext.AcquireTokenSilent(graphResourceId, credential,
                     new UserIdentifier(userObjectID, UserIdentifierType.UniqueId));
 
-                //Setup GRaph API connection and get a list of groups
+                //Setup Graph API connection and get a list of groups
                 Guid ClientRequestId = Guid.NewGuid();
                 GraphSettings graphSettings = new GraphSettings();
                 graphSettings.ApiVersion = GraphConfiguration.GraphApiVersion;
@@ -224,7 +224,7 @@ namespace WebAppGraphAPI.Controllers
                 result = authContext.AcquireTokenSilent(graphResourceId, credential,
                     new UserIdentifier(userObjectID, UserIdentifierType.UniqueId));
 
-                //Setup GRaph API connection and get a list of groups
+                //Setup Graph API connection and get a list of groups
                 Guid ClientRequestId = Guid.NewGuid();
                 GraphSettings graphSettings = new GraphSettings();
                 graphSettings.ApiVersion = GraphConfiguration.GraphApiVersion;
@@ -453,6 +453,8 @@ namespace WebAppGraphAPI.Controllers
 
                 GraphObject graphGroup = graphConnection.Get<Group>(objectId);
                 PagedResults<GraphObject> memberShip = graphConnection.GetLinkedObjects(graphGroup, LinkProperty.MemberOf, null, 999);
+                
+                // Filter for Groups only
                 foreach (GraphObject graphObj in memberShip.Results)
                 {
                     if (graphObj is Group)
@@ -461,6 +463,8 @@ namespace WebAppGraphAPI.Controllers
                         groupMemberShip.Add(group);
                     }
                 }
+
+                //Do the same filtering for all pages
                 while (!memberShip.IsLastPage)
                 {
                     memberShip = graphConnection.GetLinkedObjects(graphGroup, LinkProperty.MemberOf,
@@ -526,6 +530,8 @@ namespace WebAppGraphAPI.Controllers
 
                 Group group = graphConnection.Get<Group>(objectId);
                 PagedResults<GraphObject> members = graphConnection.GetLinkedObjects(group, LinkProperty.Members, null, 999);
+                
+                // Filter for users
                 foreach (GraphObject obj in members.Results)
                 {
                     if (obj is User)
@@ -533,6 +539,8 @@ namespace WebAppGraphAPI.Controllers
                         users.Add((User)obj);
                     }
                 }
+
+                // Perform same filter for all pages
                 while (!members.IsLastPage)
                 {
                     members = graphConnection.GetLinkedObjects(group, LinkProperty.Members, members.PageToken, 999);

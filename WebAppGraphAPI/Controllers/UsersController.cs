@@ -58,7 +58,7 @@ namespace WebAppGraphAPI.Controllers
                 graphSettings.ApiVersion = GraphConfiguration.GraphApiVersion;
                 GraphConnection graphConnection = new GraphConnection(result.AccessToken, ClientRequestId, graphSettings);
 
-                // Get all results into a list
+                // Get results from all pages into a list
                 PagedResults<User> pagedResults = graphConnection.List<User>(null, new FilterGenerator());
                 userList.AddRange(pagedResults.Results);
                 while (!pagedResults.IsLastPage)
@@ -536,7 +536,7 @@ namespace WebAppGraphAPI.Controllers
         public ActionResult GetDirectReports(string objectId)
         {
 
-            //Get the access token as we need it to make a call to the Graph API
+            // Get the access token as we need it to make a call to the Graph API
             AuthenticationResult result = null;
             IList<User> reports = new List<User>();
 

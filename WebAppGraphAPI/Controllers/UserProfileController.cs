@@ -48,9 +48,7 @@ namespace WebAppGraphAPI.Controllers
                 result = authContext.AcquireTokenSilent(graphResourceId, credential,
                     new UserIdentifier(userObjectID, UserIdentifierType.UniqueId));
 
-                //
-                // Call the Graph API and retrieve the user's profile.
-                //
+                // Call the Graph API manually and retrieve the user's profile.
                 string requestUrl = String.Format(
                     CultureInfo.InvariantCulture,
                     graphUserUrl,
@@ -60,9 +58,7 @@ namespace WebAppGraphAPI.Controllers
                 request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", result.AccessToken);
                 HttpResponseMessage response = await client.SendAsync(request);
 
-                //
                 // Return the user's profile in the view.
-                //
                 if (response.IsSuccessStatusCode)
                 {
                     string responseString = await response.Content.ReadAsStringAsync();
@@ -70,9 +66,8 @@ namespace WebAppGraphAPI.Controllers
                 }
                 else
                 {
-                    //
+                    
                     // If the call failed, then drop the current access token and show the user an error indicating they might need to sign-in again.
-                    //
                     authContext.TokenCache.Clear();
 
                     profile = new UserProfile();

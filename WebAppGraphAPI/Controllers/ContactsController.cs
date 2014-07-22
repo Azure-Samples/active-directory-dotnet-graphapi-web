@@ -41,7 +41,7 @@ namespace WebAppGraphAPI.Controllers
                 result = authContext.AcquireTokenSilent(graphResourceId, credential,
                     new UserIdentifier(userObjectID, UserIdentifierType.UniqueId));
 
-                //Setup Graph API connection and get a list of users
+                // Setup Graph API connection and get a list of users
                 Guid ClientRequestId = Guid.NewGuid();
                 GraphSettings graphSettings = new GraphSettings();
                 graphSettings.ApiVersion = GraphConfiguration.GraphApiVersion;
