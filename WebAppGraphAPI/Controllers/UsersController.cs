@@ -83,7 +83,7 @@ namespace WebAppGraphAPI.Controllers
                 // The user needs to re-authorize.  Show them a message to that effect.
                 //
                 ViewBag.ErrorMessage = "AuthorizationRequired";
-                return View();
+                return View(userList);
 
             }
 
