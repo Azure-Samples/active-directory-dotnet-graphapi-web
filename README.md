@@ -94,8 +94,8 @@ First, in Visual Studio 2013 create an empty solution to host the  projects.  Th
 1. In the solution, create a new ASP.Net MVC web application called WebAppGraphAPI with Authentication set to No Authentication.
 2. Set SSL Enabled to be True.  Note the SSL URL.
 3. In the project properties, Web properties, set the Project Url to be the SSL URL.
-4. Add the following ASP.Net OWIN middleware NuGets (be sure to use the prerelease versions): Microsoft.IdentityModel.Protocol.Extensions, System.IdentityModel.Tokens.Jwt, Microsoft.Owin.Security.OpenIdConnect, Microsoft.Owin.Security.Cookies, Microsoft.Owin.Host.SystemWeb.
-5. Add the prerelease Active Directory Authentication Library NuGet (`Microsoft.IdentityModel.Clients.ActiveDirectory`).
+4. Add the following ASP.Net OWIN middleware NuGets: Microsoft.IdentityModel.Protocol.Extensions, System.IdentityModel.Tokens.Jwt, Microsoft.Owin.Security.OpenIdConnect, Microsoft.Owin.Security.Cookies, Microsoft.Owin.Host.SystemWeb.
+5. Add the stable release Active Directory Authentication Library NuGet (`Microsoft.IdentityModel.Clients.ActiveDirectory`).
 6. Add the AAD GraphAPI client library NuGet (`Microsoft.Azure.ActiveDirectory.GraphClient`).
 7. In the `App_Start` folder, create a class `Startup.Auth.cs`.  You will need to remove `.App_Start` from the namespace name.  Replace the code for the `Startup` class with the code from the same file of the sample app.  Be sure to take the whole class definition!  The definition changes from `public class Startup` to `public partial class Startup`.
 8. Right-click on the project, select Add,  select "OWIN Startup class", and name the class "Startup".  If "OWIN Startup Class" doesn't appear in the menu, instead select "Class", and in the search box enter "OWIN".  "OWIN Startup class" will appear as a selection; select it, and name the class `Startup.cs`.
