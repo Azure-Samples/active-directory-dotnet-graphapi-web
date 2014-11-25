@@ -1,61 +1,47 @@
-﻿using Microsoft.Azure.ActiveDirectory.GraphClient;
-using Microsoft.IdentityModel.Clients.ActiveDirectory;
-using Microsoft.Owin.Security.OpenIdConnect;
+﻿#region
+
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Linq;
-using System.Security.Claims;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.Azure.ActiveDirectory.GraphClient;
+using Microsoft.Azure.ActiveDirectory.GraphClient.Extensions;
+using Microsoft.Owin.Security.OpenIdConnect;
 using WebAppGraphAPI.Utils;
+
+#endregion
 
 namespace WebAppGraphAPI.Controllers
 {
     /// <summary>
-    /// Group controller to get/set/update/delete users.
+    ///     Group controller to get/set/update/delete users.
     /// </summary>
     [Authorize]
     public class GroupsController : Controller
     {
-        private string graphResourceId = ConfigurationManager.AppSettings["ida:GraphUrl"];
-        private static string clientId = ConfigurationManager.AppSettings["ida:ClientId"];
-        private static string appKey = ConfigurationManager.AppSettings["ida:AppKey"];
-        
         /// <summary>
-        /// Gets a list of <see cref="Group"/> objects from Graph.
+        ///     Gets a list of <see cref="Group" /> objects from Graph.
         /// </summary>
-        /// <returns>A view with the list of <see cref="Group"/> objects.</returns>
-        public ActionResult Index()
+        /// <returns>A view with the list of <see cref="Group" /> objects.</returns>
+        public async Task<ActionResult> Index()
         {
-            //Get the access token as we need it to make a call to the Graph API
-            AuthenticationResult result = null;
             List<Group> groupList = new List<Group>();
 
             try
             {
-                // Get the access token from the cache
-                string userObjectID = ClaimsPrincipal.Current.FindFirst("http://schemas.microsoft.com/identity/claims/objectidentifier").Value;
-                AuthenticationContext authContext = new AuthenticationContext(Startup.Authority,
-                    new NaiveSessionCache(userObjectID));
-                ClientCredential credential = new ClientCredential(clientId, appKey);
-                result = authContext.AcquireTokenSilent(graphResourceId, credential,
-                    new UserIdentifier(userObjectID, UserIdentifierType.UniqueId));
-
-                //Setup GRaph API connection and get a list of groups
-                Guid ClientRequestId = Guid.NewGuid();
-                GraphSettings graphSettings = new GraphSettings();
-                graphSettings.ApiVersion = GraphConfiguration.GraphApiVersion;
-                GraphConnection graphConnection = new GraphConnection(result.AccessToken, ClientRequestId, graphSettings);
-
-                // Get all results into a list
-                PagedResults<Group> pagedResults = graphConnection.List<Group>(null, new FilterGenerator());
-                groupList.AddRange(pagedResults.Results);
-                while (!pagedResults.IsLastPage)
+                ActiveDirectoryClient client = AuthenticationHelper.GetActiveDirectoryClient();
+                IPagedCollection<IGroup> pagedCollection = await client.Groups.ExecuteAsync();
+                do
                 {
-                    pagedResults = graphConnection.List<Group>(pagedResults.PageToken, new FilterGenerator());
-                    groupList.AddRange(pagedResults.Results);
-                }
+                    List<IGroup> groups = pagedCollection.CurrentPage.ToList();
+                    foreach (IGroup group in groups)
+                    {
+                        groupList.Add((Group) group);
+                    }
+                    pagedCollection = pagedCollection.GetNextPageAsync().Result;
+                } while (pagedCollection != null && pagedCollection.MorePagesAvailable);
             }
             catch (Exception e)
             {
@@ -66,46 +52,30 @@ namespace WebAppGraphAPI.Controllers
                     // If the user still has a valid session with Azure AD, they will not be prompted for their credentials.
                     // The OpenID Connect middleware will return to this controller after the sign-in response has been handled.
                     //
-                    HttpContext.GetOwinContext().Authentication.Challenge(OpenIdConnectAuthenticationDefaults.AuthenticationType);
+                    HttpContext.GetOwinContext()
+                        .Authentication.Challenge(OpenIdConnectAuthenticationDefaults.AuthenticationType);
                 }
 
                 //
                 // The user needs to re-authorize.  Show them a message to that effect.
                 //
                 ViewBag.ErrorMessage = "AuthorizationRequired";
-                return View();
-
+                return View(groupList);
             }
             return View(groupList);
         }
 
         /// <summary>
-        /// Gets details of a single <see cref="Group"/> Graph.
+        ///     Gets details of a single <see cref="Group" /> Graph.
         /// </summary>
-        /// <returns>A view with the details of a single <see cref="Group"/>.</returns>
-        public ActionResult Details(string objectId)
+        /// <returns>A view with the details of a single <see cref="Group" />.</returns>
+        public async Task<ActionResult> Details(string objectId)
         {
-            //Get the access token as we need it to make a call to the Graph API
-            AuthenticationResult result = null;
             Group group = null;
-
             try
             {
-                // Get the access token from the cache
-                string userObjectID = ClaimsPrincipal.Current.FindFirst("http://schemas.microsoft.com/identity/claims/objectidentifier").Value;
-                AuthenticationContext authContext = new AuthenticationContext(Startup.Authority,
-                    new NaiveSessionCache(userObjectID));
-                ClientCredential credential = new ClientCredential(clientId, appKey);
-                result = authContext.AcquireTokenSilent(graphResourceId, credential,
-                    new UserIdentifier(userObjectID, UserIdentifierType.UniqueId));
-
-                //Setup Graph API connection and get a list of groups
-                Guid ClientRequestId = Guid.NewGuid();
-                GraphSettings graphSettings = new GraphSettings();
-                graphSettings.ApiVersion = GraphConfiguration.GraphApiVersion;
-                GraphConnection graphConnection = new GraphConnection(result.AccessToken, ClientRequestId, graphSettings);
-
-                group = graphConnection.Get<Group>(objectId);
+                ActiveDirectoryClient client = AuthenticationHelper.GetActiveDirectoryClient();
+                group = (Group) await client.Groups.GetByObjectId(objectId).ExecuteAsync();
             }
             catch (Exception e)
             {
@@ -116,7 +86,8 @@ namespace WebAppGraphAPI.Controllers
                     // If the user still has a valid session with Azure AD, they will not be prompted for their credentials.
                     // The OpenID Connect middleware will return to this controller after the sign-in response has been handled.
                     //
-                    HttpContext.GetOwinContext().Authentication.Challenge(OpenIdConnectAuthenticationDefaults.AuthenticationType);
+                    HttpContext.GetOwinContext()
+                        .Authentication.Challenge(OpenIdConnectAuthenticationDefaults.AuthenticationType);
                 }
 
                 //
@@ -124,75 +95,33 @@ namespace WebAppGraphAPI.Controllers
                 //
                 ViewBag.ErrorMessage = "AuthorizationRequired";
                 return View();
-
             }
 
             return View(group);
         }
 
         /// <summary>
-        /// Creates a view to for adding a new <see cref="Group"/> to Graph.
+        ///     Creates a view to for adding a new <see cref="Group" /> to Graph.
         /// </summary>
-        /// <returns>A view with the details to add a new <see cref="Group"/> objects</returns>
-        public ActionResult Create()
+        /// <returns>A view with the details to add a new <see cref="Group" /> objects</returns>
+        public async Task<ActionResult> Create()
         {
             return View();
         }
 
         /// <summary>
-        /// Processes creation of a new <see cref="Group"/> to Graph.
+        ///     Processes creation of a new <see cref="Group" /> to Graph.
         /// </summary>
-        /// <param name="group"><see cref="Group"/> to be created.</param>
-        /// <returns>A view with the details to all <see cref="Group"/> objects</returns>
+        /// <param name="group"><see cref="Group" /> to be created.</param>
+        /// <returns>A view with the details to all <see cref="Group" /> objects</returns>
         [HttpPost]
-        public ActionResult Create([Bind(Include = "DisplayName,Description,MailNickName,SecurityEnabled")] Group group)
+        public async Task<ActionResult> Create(
+            [Bind(Include = "DisplayName,Description,MailNickName,SecurityEnabled")] Group group)
         {
-            //Get the access token as we need it to make a call to the Graph API
-            AuthenticationResult result = null;
-
             try
             {
-                // Get the access token from the cache
-                string userObjectID = ClaimsPrincipal.Current.FindFirst("http://schemas.microsoft.com/identity/claims/objectidentifier").Value;
-                AuthenticationContext authContext = new AuthenticationContext(Startup.Authority,
-                    new NaiveSessionCache(userObjectID));
-                ClientCredential credential = new ClientCredential(clientId, appKey);
-                result = authContext.AcquireTokenSilent(graphResourceId, credential,
-                    new UserIdentifier(userObjectID, UserIdentifierType.UniqueId));
-            }
-            catch (Exception e)
-            {
-                if (Request.QueryString["reauth"] == "True")
-                {
-                    //
-                    // Send an OpenID Connect sign-in request to get a new set of tokens.
-                    // If the user still has a valid session with Azure AD, they will not be prompted for their credentials.
-                    // The OpenID Connect middleware will return to this controller after the sign-in response has been handled.
-                    //
-                    HttpContext.GetOwinContext().Authentication.Challenge(OpenIdConnectAuthenticationDefaults.AuthenticationType);
-                }
-
-                //
-                // The user needs to re-authorize.  Show them a message to that effect.
-                //
-                ViewBag.ErrorMessage = "AuthorizationRequired";
-                return View();
-            }
-
-            try
-            {
-                // Setup Graph API connection and add Group
-                Guid ClientRequestId = Guid.NewGuid();
-                GraphSettings graphSettings = new GraphSettings();
-                graphSettings.ApiVersion = GraphConfiguration.GraphApiVersion;
-                if (result != null)
-                {
-                    GraphConnection graphConnection = new GraphConnection(result.AccessToken, ClientRequestId,
-                        graphSettings);
-                    group.MailEnabled = false;
-                    graphConnection.Add(group);
-                    return RedirectToAction("Index");
-                }
+                ActiveDirectoryClient client = AuthenticationHelper.GetActiveDirectoryClient();
+                await client.Groups.AddGroupAsync(group);
             }
             catch (Exception exception)
             {
@@ -204,33 +133,17 @@ namespace WebAppGraphAPI.Controllers
         }
 
         /// <summary>
-        /// Creates a view to for editing an existing <see cref="Group"/> in Graph.
+        ///     Creates a view to for editing an existing <see cref="Group" /> in Graph.
         /// </summary>
-        /// <param name="objectId">Unique identifier of the <see cref="Group"/>.</param>
-        /// <returns>A view with details to edit <see cref="Group"/>.</returns>
-        public ActionResult Edit(string objectId)
+        /// <param name="objectId">Unique identifier of the <see cref="Group" />.</param>
+        /// <returns>A view with details to edit <see cref="Group" />.</returns>
+        public async Task<ActionResult> Edit(string objectId)
         {
-            //Get the access token as we need it to make a call to the Graph API
-            AuthenticationResult result = null;
             Group group = null;
-
             try
             {
-                // Get the access token from the cache
-                string userObjectID = ClaimsPrincipal.Current.FindFirst("http://schemas.microsoft.com/identity/claims/objectidentifier").Value;
-                AuthenticationContext authContext = new AuthenticationContext(Startup.Authority,
-                    new NaiveSessionCache(userObjectID));
-                ClientCredential credential = new ClientCredential(clientId, appKey);
-                result = authContext.AcquireTokenSilent(graphResourceId, credential,
-                    new UserIdentifier(userObjectID, UserIdentifierType.UniqueId));
-
-                //Setup Graph API connection and get a list of groups
-                Guid ClientRequestId = Guid.NewGuid();
-                GraphSettings graphSettings = new GraphSettings();
-                graphSettings.ApiVersion = GraphConfiguration.GraphApiVersion;
-                GraphConnection graphConnection = new GraphConnection(result.AccessToken, ClientRequestId, graphSettings);
-
-                group = graphConnection.Get<Group>(objectId);
+                ActiveDirectoryClient client = AuthenticationHelper.GetActiveDirectoryClient();
+                group = (Group) await client.Groups.GetByObjectId(objectId).ExecuteAsync();
             }
             catch (Exception e)
             {
@@ -241,7 +154,8 @@ namespace WebAppGraphAPI.Controllers
                     // If the user still has a valid session with Azure AD, they will not be prompted for their credentials.
                     // The OpenID Connect middleware will return to this controller after the sign-in response has been handled.
                     //
-                    HttpContext.GetOwinContext().Authentication.Challenge(OpenIdConnectAuthenticationDefaults.AuthenticationType);
+                    HttpContext.GetOwinContext()
+                        .Authentication.Challenge(OpenIdConnectAuthenticationDefaults.AuthenticationType);
                 }
 
                 //
@@ -249,59 +163,24 @@ namespace WebAppGraphAPI.Controllers
                 //
                 ViewBag.ErrorMessage = "AuthorizationRequired";
                 return View();
-
             }
             return View(group);
         }
 
         /// <summary>
-        /// Processes editing of an existing <see cref="Group"/>.
+        ///     Processes editing of an existing <see cref="Group" />.
         /// </summary>
-        /// <param name="group"><see cref="Group"/> to be edited.</param>
-        /// <returns>A view with list of all <see cref="Group"/> objects.</returns>
+        /// <param name="group"><see cref="Group" /> to be edited.</param>
+        /// <returns>A view with list of all <see cref="Group" /> objects.</returns>
         [HttpPost]
-        public ActionResult Edit([Bind(Include="ObjectId,DispalyName,Description,MailNickName,SecurityEnabled")] Group group) 
+        public async Task<ActionResult> Edit(Group group, FormCollection values)
         {
-            //Get the access token as we need it to make a call to the Graph API
-            AuthenticationResult result = null;
-
             try
             {
-                // Get the access token from the cache
-                string userObjectID = ClaimsPrincipal.Current.FindFirst("http://schemas.microsoft.com/identity/claims/objectidentifier").Value;
-                AuthenticationContext authContext = new AuthenticationContext(Startup.Authority,
-                    new NaiveSessionCache(userObjectID));
-                ClientCredential credential = new ClientCredential(clientId, appKey);
-                result = authContext.AcquireTokenSilent(graphResourceId, credential,
-                    new UserIdentifier(userObjectID, UserIdentifierType.UniqueId));
-            }
-            catch (Exception e)
-            {
-                if (Request.QueryString["reauth"] == "True")
-                {
-                    //
-                    // Send an OpenID Connect sign-in request to get a new set of tokens.
-                    // If the user still has a valid session with Azure AD, they will not be prompted for their credentials.
-                    // The OpenID Connect middleware will return to this controller after the sign-in response has been handled.
-                    //
-                    HttpContext.GetOwinContext().Authentication.Challenge(OpenIdConnectAuthenticationDefaults.AuthenticationType);
-                }
-
-                //
-                // The user needs to re-authorize.  Show them a message to that effect.
-                //
-                ViewBag.ErrorMessage = "AuthorizationRequired";
-                return View();
-            }
-
-            try
-            {
-                // Setup Graph API connection and update Group
-                Guid ClientRequestId = Guid.NewGuid();
-                GraphSettings graphSettings = new GraphSettings();
-                graphSettings.ApiVersion = GraphConfiguration.GraphApiVersion;
-                GraphConnection graphConnection = new GraphConnection(result.AccessToken, ClientRequestId, graphSettings);
-                graphConnection.Update(group);
+                ActiveDirectoryClient client = AuthenticationHelper.GetActiveDirectoryClient();
+                IGroup toUpdate = await client.Groups.GetByObjectId(group.ObjectId).ExecuteAsync();
+                Helper.CopyUpdatedValues(toUpdate, group, values);
+                await toUpdate.UpdateAsync();
                 return RedirectToAction("Index");
             }
             catch (Exception exception)
@@ -312,52 +191,16 @@ namespace WebAppGraphAPI.Controllers
         }
 
         /// <summary>
-        /// Creates a view to delete an existing <see cref="Group"/>.
+        ///     Creates a view to delete an existing <see cref="Group" />.
         /// </summary>
-        /// <param name="objectId">Unique identifier of the <see cref="Group"/>.</param>
-        /// <returns>A view of the <see cref="Group"/> to be deleted.</returns>
-        public ActionResult Delete(string objectId)
+        /// <param name="objectId">Unique identifier of the <see cref="Group" />.</param>
+        /// <returns>A view of the <see cref="Group" /> to be deleted.</returns>
+        public async Task<ActionResult> Delete(string objectId)
         {
-            //Get the access token as we need it to make a call to the Graph API
-            AuthenticationResult result = null;
-
             try
             {
-                // Get the access token from the cache
-                string userObjectID = ClaimsPrincipal.Current.FindFirst("http://schemas.microsoft.com/identity/claims/objectidentifier").Value;
-                AuthenticationContext authContext = new AuthenticationContext(Startup.Authority,
-                    new NaiveSessionCache(userObjectID));
-                ClientCredential credential = new ClientCredential(clientId, appKey);
-                result = authContext.AcquireTokenSilent(graphResourceId, credential,
-                    new UserIdentifier(userObjectID, UserIdentifierType.UniqueId));
-            }
-            catch (Exception e)
-            {
-                if (Request.QueryString["reauth"] == "True")
-                {
-                    //
-                    // Send an OpenID Connect sign-in request to get a new set of tokens.
-                    // If the user still has a valid session with Azure AD, they will not be prompted for their credentials.
-                    // The OpenID Connect middleware will return to this controller after the sign-in response has been handled.
-                    //
-                    HttpContext.GetOwinContext().Authentication.Challenge(OpenIdConnectAuthenticationDefaults.AuthenticationType);
-                }
-
-                //
-                // The user needs to re-authorize.  Show them a message to that effect.
-                //
-                ViewBag.ErrorMessage = "AuthorizationRequired";
-                return View();
-            }
-
-            try
-            {
-                //Setup Graph API and get a single Group
-                Guid ClientRequestId = Guid.NewGuid();
-                GraphSettings graphSettings = new GraphSettings();
-                graphSettings.ApiVersion = GraphConfiguration.GraphApiVersion;
-                GraphConnection graphConnection = new GraphConnection(result.AccessToken, ClientRequestId, graphSettings);
-                Group group = graphConnection.Get<Group>(objectId);
+                ActiveDirectoryClient client = AuthenticationHelper.GetActiveDirectoryClient();
+                Group group = (Group) await client.Groups.GetByObjectId(objectId).ExecuteAsync();
                 return View(group);
             }
             catch (Exception exception)
@@ -368,53 +211,18 @@ namespace WebAppGraphAPI.Controllers
         }
 
         /// <summary>
-        /// Processes the deletion of a given <see cref="Group"/>.
+        ///     Processes the deletion of a given <see cref="Group" />.
         /// </summary>
-        /// <param name="group"><see cref="Group"/> to be deleted.</param>
-        /// <returns>A view to display all the existing <see cref="Group"/> objects.</returns>
+        /// <param name="group"><see cref="Group" /> to be deleted.</param>
+        /// <returns>A view to display all the existing <see cref="Group" /> objects.</returns>
         [HttpPost]
-        public ActionResult Delete(Group group)
+        public async Task<ActionResult> Delete(Group group)
         {
-            //Get the access token as we need it to make a call to the Graph API
-            AuthenticationResult result = null;
-
             try
             {
-                // Get the access token from the cache
-                string userObjectID = ClaimsPrincipal.Current.FindFirst("http://schemas.microsoft.com/identity/claims/objectidentifier").Value;
-                AuthenticationContext authContext = new AuthenticationContext(Startup.Authority,
-                    new NaiveSessionCache(userObjectID));
-                ClientCredential credential = new ClientCredential(clientId, appKey);
-                result = authContext.AcquireTokenSilent(graphResourceId, credential,
-                    new UserIdentifier(userObjectID, UserIdentifierType.UniqueId));
-            }
-            catch (Exception e)
-            {
-                if (Request.QueryString["reauth"] == "True")
-                {
-                    //
-                    // Send an OpenID Connect sign-in request to get a new set of tokens.
-                    // If the user still has a valid session with Azure AD, they will not be prompted for their credentials.
-                    // The OpenID Connect middleware will return to this controller after the sign-in response has been handled.
-                    //
-                    HttpContext.GetOwinContext().Authentication.Challenge(OpenIdConnectAuthenticationDefaults.AuthenticationType);
-                }
-
-                //
-                // The user needs to re-authorize.  Show them a message to that effect.
-                //
-                ViewBag.ErrorMessage = "AuthorizationRequired";
-                return View();
-            }
-
-            try
-            {
-                // Setup Graph API connection and delete Group
-                Guid ClientRequestId = Guid.NewGuid();
-                GraphSettings graphSettings = new GraphSettings();
-                graphSettings.ApiVersion = GraphConfiguration.GraphApiVersion;
-                GraphConnection graphConnection = new GraphConnection(result.AccessToken, ClientRequestId, graphSettings);
-                graphConnection.Delete(group);
+                ActiveDirectoryClient client = AuthenticationHelper.GetActiveDirectoryClient();
+                IGroup toDelete = await client.Groups.GetByObjectId(@group.ObjectId).ExecuteAsync();
+                await toDelete.DeleteAsync();
                 return RedirectToAction("Index");
             }
             catch (Exception exception)
@@ -425,59 +233,32 @@ namespace WebAppGraphAPI.Controllers
         }
 
         /// <summary>
-        /// Gets a list of <see cref="Group"/> objects that a given <see cref="Group"/> is member of.
+        ///     Gets a list of <see cref="Group" /> objects that a given <see cref="Group" /> is member of.
         /// </summary>
-        /// <param name="objectId">Unique identifier of the <see cref="Group"/>.</param>
-        /// <returns>A view with the list of <see cref="Group"/> objects.</returns>
-        public ActionResult GetGroups(string objectId)
+        /// <param name="objectId">Unique identifier of the <see cref="Group" />.</param>
+        /// <returns>A view with the list of <see cref="Group" /> objects.</returns>
+        public async Task<ActionResult> GetGroups(string objectId)
         {
-            //Get the access token as we need it to make a call to the Graph API
-            AuthenticationResult result = null;
             IList<Group> groupMemberShip = new List<Group>();
 
             try
             {
-                // Get the access token from the cache
-                string userObjectID = ClaimsPrincipal.Current.FindFirst("http://schemas.microsoft.com/identity/claims/objectidentifier").Value;
-                AuthenticationContext authContext = new AuthenticationContext(Startup.Authority,
-                    new NaiveSessionCache(userObjectID));
-                ClientCredential credential = new ClientCredential(clientId, appKey);
-                result = authContext.AcquireTokenSilent(graphResourceId, credential,
-                    new UserIdentifier(userObjectID, UserIdentifierType.UniqueId));
-
-                // Setup Graph API connection and get Group membership
-                Guid ClientRequestId = Guid.NewGuid();
-                GraphSettings graphSettings = new GraphSettings();
-                graphSettings.ApiVersion = GraphConfiguration.GraphApiVersion;
-                GraphConnection graphConnection = new GraphConnection(result.AccessToken, ClientRequestId, graphSettings);
-
-                GraphObject graphGroup = graphConnection.Get<Group>(objectId);
-                PagedResults<GraphObject> memberShip = graphConnection.GetLinkedObjects(graphGroup, LinkProperty.MemberOf, null, 999);
-                
-                // Filter for Groups only
-                foreach (GraphObject graphObj in memberShip.Results)
+                ActiveDirectoryClient client = AuthenticationHelper.GetActiveDirectoryClient();
+                IGroup group = await client.Groups.GetByObjectId(objectId).ExecuteAsync();
+                IGroupFetcher groupFetcher = group as IGroupFetcher;
+                IPagedCollection<IDirectoryObject> pagedCollection = await groupFetcher.MemberOf.ExecuteAsync();
+                do
                 {
-                    if (graphObj is Group)
+                    List<IDirectoryObject> directoryObjects = pagedCollection.CurrentPage.ToList();
+                    foreach (IDirectoryObject directoryObject in directoryObjects)
                     {
-                        Group group = (Group)graphObj;
-                        groupMemberShip.Add(group);
-                    }
-                }
-
-                //Do the same filtering for all pages
-                while (!memberShip.IsLastPage)
-                {
-                    memberShip = graphConnection.GetLinkedObjects(graphGroup, LinkProperty.MemberOf,
-                        memberShip.PageToken, 999);
-                    foreach (GraphObject graphObj in memberShip.Results)
-                    {
-                        if (graphObj is Group)
+                        if (directoryObject is Group)
                         {
-                            Group group = (Group) graphObj;
-                            groupMemberShip.Add(group);
+                            groupMemberShip.Add((Group) directoryObject);
                         }
                     }
-                }
+                    pagedCollection = await pagedCollection.GetNextPageAsync();
+                } while (pagedCollection != null && pagedCollection.MorePagesAvailable);
             }
             catch (Exception e)
             {
@@ -488,7 +269,8 @@ namespace WebAppGraphAPI.Controllers
                     // If the user still has a valid session with Azure AD, they will not be prompted for their credentials.
                     // The OpenID Connect middleware will return to this controller after the sign-in response has been handled.
                     //
-                    HttpContext.GetOwinContext().Authentication.Challenge(OpenIdConnectAuthenticationDefaults.AuthenticationType);
+                    HttpContext.GetOwinContext()
+                        .Authentication.Challenge(OpenIdConnectAuthenticationDefaults.AuthenticationType);
                 }
 
                 //
@@ -497,61 +279,36 @@ namespace WebAppGraphAPI.Controllers
                 ViewBag.ErrorMessage = "AuthorizationRequired";
                 return View();
             }
-            
+
             return View(groupMemberShip);
         }
 
         /// <summary>
-        /// Gets a list of <see cref="User"/> objects that are members of a give <see cref="Group"/>.
+        ///     Gets a list of <see cref="User" /> objects that are members of a give <see cref="Group" />.
         /// </summary>
-        /// <param name="objectId">Unique identifier of the <see cref="Group"/>.</param>
-        /// <returns>A view with the list of <see cref="User"/> objects.</returns>
-        public ActionResult GetMembers(string objectId)
+        /// <param name="objectId">Unique identifier of the <see cref="Group" />.</param>
+        /// <returns>A view with the list of <see cref="User" /> objects.</returns>
+        public async Task<ActionResult> GetMembers(string objectId)
         {
-            //Get the access token as we need it to make a call to the Graph API
-            AuthenticationResult result = null;
             IList<User> users = new List<User>();
-
             try
             {
-                // Get the access token from the cache
-                string userObjectID = ClaimsPrincipal.Current.FindFirst("http://schemas.microsoft.com/identity/claims/objectidentifier").Value;
-                AuthenticationContext authContext = new AuthenticationContext(Startup.Authority,
-                    new NaiveSessionCache(userObjectID));
-                ClientCredential credential = new ClientCredential(clientId, appKey);
-                result = authContext.AcquireTokenSilent(graphResourceId, credential,
-                    new UserIdentifier(userObjectID, UserIdentifierType.UniqueId));
-
-                // Setup Graph API connection and get Group membership
-                Guid ClientRequestId = Guid.NewGuid();
-                GraphSettings graphSettings = new GraphSettings();
-                graphSettings.ApiVersion = GraphConfiguration.GraphApiVersion;
-                GraphConnection graphConnection = new GraphConnection(result.AccessToken, ClientRequestId, graphSettings);
-
-                Group group = graphConnection.Get<Group>(objectId);
-                PagedResults<GraphObject> members = graphConnection.GetLinkedObjects(group, LinkProperty.Members, null, 999);
-                
-                // Filter for users
-                foreach (GraphObject obj in members.Results)
+                ActiveDirectoryClient client = AuthenticationHelper.GetActiveDirectoryClient();
+                IGroup group = await client.Groups.GetByObjectId(objectId).ExecuteAsync();
+                IGroupFetcher groupFetcher = group as IGroupFetcher;
+                IPagedCollection<IDirectoryObject> pagedCollection = await groupFetcher.Members.ExecuteAsync();
+                do
                 {
-                    if (obj is User)
+                    List<IDirectoryObject> directoryObjects = pagedCollection.CurrentPage.ToList();
+                    foreach (IDirectoryObject directoryObject in directoryObjects)
                     {
-                        users.Add((User)obj);
-                    }
-                }
-
-                // Perform same filter for all pages
-                while (!members.IsLastPage)
-                {
-                    members = graphConnection.GetLinkedObjects(group, LinkProperty.Members, members.PageToken, 999);
-                    foreach (GraphObject obj in members.Results)
-                    {
-                        if (obj is User)
+                        if (directoryObject is User)
                         {
-                            users.Add((User)obj);
+                            users.Add((User) directoryObject);
                         }
                     }
-                }
+                    pagedCollection = await pagedCollection.GetNextPageAsync();
+                } while (pagedCollection != null && pagedCollection.MorePagesAvailable);
             }
             catch (Exception e)
             {
@@ -562,7 +319,8 @@ namespace WebAppGraphAPI.Controllers
                     // If the user still has a valid session with Azure AD, they will not be prompted for their credentials.
                     // The OpenID Connect middleware will return to this controller after the sign-in response has been handled.
                     //
-                    HttpContext.GetOwinContext().Authentication.Challenge(OpenIdConnectAuthenticationDefaults.AuthenticationType);
+                    HttpContext.GetOwinContext()
+                        .Authentication.Challenge(OpenIdConnectAuthenticationDefaults.AuthenticationType);
                 }
 
                 //
@@ -574,5 +332,5 @@ namespace WebAppGraphAPI.Controllers
 
             return View(users);
         }
-	}
+    }
 }

@@ -1,60 +1,48 @@
-﻿using Microsoft.Azure.ActiveDirectory.GraphClient;
-using Microsoft.IdentityModel.Clients.ActiveDirectory;
-using Microsoft.Owin.Security.OpenIdConnect;
+﻿#region
+
 using System;
 using System.Collections.Generic;
-using System.Configuration;
-using System.Security.Claims;
+using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.Azure.ActiveDirectory.GraphClient;
+using Microsoft.Azure.ActiveDirectory.GraphClient.Extensions;
+using Microsoft.Owin.Security.OpenIdConnect;
 using WebAppGraphAPI.Utils;
+
+#endregion
 
 namespace WebAppGraphAPI.Controllers
 {
     /// <summary>
-    /// Contact controller to get/set/update/delete users.
+    ///     Contact controller to get/set/update/delete users.
     /// </summary>
     [Authorize]
     public class ContactsController : Controller
     {
-        private string graphResourceId = ConfigurationManager.AppSettings["ida:GraphUrl"];
-        private static string clientId = ConfigurationManager.AppSettings["ida:ClientId"];
-        private static string appKey = ConfigurationManager.AppSettings["ida:AppKey"];
-
         /// <summary>
-        /// Gets a list of <see cref="Contact"/> objects from Graph.
+        ///     Gets a list of <see cref="Contact" /> objects from Graph.
         /// </summary>
-        /// <returns>A view with the list of <see cref="Contact"/> objects.</returns>
-        public ActionResult Index()
+        /// <returns>A view with the list of <see cref="Contact" /> objects.</returns>
+        public async Task<ActionResult> Index()
         {
-            //Get the access token as we need it to make a call to the Graph API
-            AuthenticationResult result = null;
             List<Contact> contactList = new List<Contact>();
-            
+
             try
             {
-                // Get the access token from the cache
-                string userObjectID = ClaimsPrincipal.Current.FindFirst("http://schemas.microsoft.com/identity/claims/objectidentifier").Value;
-                AuthenticationContext authContext = new AuthenticationContext(Startup.Authority,
-                    new NaiveSessionCache(userObjectID));
-                ClientCredential credential = new ClientCredential(clientId, appKey);
-                result = authContext.AcquireTokenSilent(graphResourceId, credential,
-                    new UserIdentifier(userObjectID, UserIdentifierType.UniqueId));
-
-                // Setup Graph API connection and get a list of users
-                Guid ClientRequestId = Guid.NewGuid();
-                GraphSettings graphSettings = new GraphSettings();
-                graphSettings.ApiVersion = GraphConfiguration.GraphApiVersion;
-                GraphConnection graphConnection = new GraphConnection(result.AccessToken, ClientRequestId, graphSettings);
-
+                ActiveDirectoryClient client = AuthenticationHelper.GetActiveDirectoryClient();
                 // Get all results into a list
-                PagedResults<Contact> pagedResults = graphConnection.List<Contact>(null, new FilterGenerator());
-                contactList.AddRange(pagedResults.Results);
-                while (!pagedResults.IsLastPage)
+                IPagedCollection<IContact> contacts = await client.Contacts.ExecuteAsync();
+                do
                 {
-                    pagedResults = graphConnection.List<Contact>(pagedResults.PageToken, new FilterGenerator());
-                    contactList.AddRange(pagedResults.Results);
-                }
+                    List<IContact> currentPage = contacts.CurrentPage.ToList();
+                    foreach (IContact contact in currentPage)
+                    {
+                        contactList.Add((Contact) contact);
+                    }
+                    contacts = await contacts.GetNextPageAsync();
+                } while (contacts != null && contacts.MorePagesAvailable);
             }
             catch (Exception e)
             {
@@ -65,7 +53,8 @@ namespace WebAppGraphAPI.Controllers
                     // If the user still has a valid session with Azure AD, they will not be prompted for their credentials.
                     // The OpenID Connect middleware will return to this controller after the sign-in response has been handled.
                     //
-                    HttpContext.GetOwinContext().Authentication.Challenge(OpenIdConnectAuthenticationDefaults.AuthenticationType);
+                    HttpContext.GetOwinContext()
+                        .Authentication.Challenge(OpenIdConnectAuthenticationDefaults.AuthenticationType);
                 }
 
                 //
@@ -73,40 +62,22 @@ namespace WebAppGraphAPI.Controllers
                 //
                 ViewBag.ErrorMessage = "AuthorizationRequired";
                 return View();
-                
             }
 
             return View(contactList);
         }
 
         /// <summary>
-        /// Gets details of a single <see cref="Contact"/> Graph.
+        ///     Gets details of a single <see cref="Contact" /> Graph.
         /// </summary>
-        /// <returns>A view with the details of a single <see cref="Contact"/>.</returns>
-        public ActionResult Details(string objectId)
+        /// <returns>A view with the details of a single <see cref="Contact" />.</returns>
+        public async Task<ActionResult> Details(string objectId)
         {
-            //Get the access token as we need it to make a call to the Graph API
-            AuthenticationResult result = null;
             Contact contact = null;
-
             try
             {
-                // Get the access token from the cache
-                string userObjectID = ClaimsPrincipal.Current.FindFirst("http://schemas.microsoft.com/identity/claims/objectidentifier").Value;
-                AuthenticationContext authContext = new AuthenticationContext(Startup.Authority,
-                    new NaiveSessionCache(userObjectID));
-                ClientCredential credential = new ClientCredential(clientId, appKey);
-                result = authContext.AcquireTokenSilent(graphResourceId, credential,
-                    new UserIdentifier(userObjectID, UserIdentifierType.UniqueId));
-
-                // Setup Graph API connection and get single Contact
-                Guid ClientRequestId = Guid.NewGuid();
-                GraphSettings graphSettings = new GraphSettings();
-                graphSettings.ApiVersion = GraphConfiguration.GraphApiVersion;
-                GraphConnection graphConnection = new GraphConnection(result.AccessToken, ClientRequestId, graphSettings);
-
-                contact = graphConnection.Get<Contact>(objectId);
-                
+                ActiveDirectoryClient client = AuthenticationHelper.GetActiveDirectoryClient();
+                contact = (Contact) await client.Contacts.GetByObjectId(objectId).ExecuteAsync();
             }
             catch (Exception e)
             {
@@ -117,7 +88,8 @@ namespace WebAppGraphAPI.Controllers
                     // If the user still has a valid session with Azure AD, they will not be prompted for their credentials.
                     // The OpenID Connect middleware will return to this controller after the sign-in response has been handled.
                     //
-                    HttpContext.GetOwinContext().Authentication.Challenge(OpenIdConnectAuthenticationDefaults.AuthenticationType);
+                    HttpContext.GetOwinContext()
+                        .Authentication.Challenge(OpenIdConnectAuthenticationDefaults.AuthenticationType);
                 }
 
                 //
@@ -125,70 +97,37 @@ namespace WebAppGraphAPI.Controllers
                 //
                 ViewBag.ErrorMessage = "AuthorizationRequired";
                 return View();
-
             }
 
             return View(contact);
         }
 
         /// <summary>
-        /// Gets a list of <see cref="Group"/> objects that a given <see cref="Contact"/> is member of.
+        ///     Gets a list of <see cref="Group" /> objects that a given <see cref="Contact" /> is member of.
         /// </summary>
-        /// <param name="objectId">Unique identifier of the <see cref="Contact"/>.</param>
-        /// <returns>A view with the list of <see cref="Group"/> objects.</returns>
-        public ActionResult GetGroups(string objectId)
-        {   
-            //Get the access token as we need it to make a call to the Graph API
-            AuthenticationResult result = null;
+        /// <param name="objectId">Unique identifier of the <see cref="Contact" />.</param>
+        /// <returns>A view with the list of <see cref="Group" /> objects.</returns>
+        public async Task<ActionResult> GetGroups(string objectId)
+        {
             IList<Group> groupMembership = new List<Group>();
-
             try
             {
-                // Get the access token from the cache
-                string userObjectID = ClaimsPrincipal.Current.FindFirst("http://schemas.microsoft.com/identity/claims/objectidentifier").Value;
-                AuthenticationContext authContext = new AuthenticationContext(Startup.Authority,
-                    new NaiveSessionCache(userObjectID));
-                ClientCredential credential = new ClientCredential(clientId, appKey);
-                result = authContext.AcquireTokenSilent(graphResourceId, credential,
-                    new UserIdentifier(userObjectID, UserIdentifierType.UniqueId));
-
-                // Setup Graph API connection and get Group membership
-                Guid ClientRequestId = Guid.NewGuid();
-                GraphSettings graphSettings = new GraphSettings();
-                graphSettings.ApiVersion = GraphConfiguration.GraphApiVersion;
-                GraphConnection graphConnection = new GraphConnection(result.AccessToken, ClientRequestId, graphSettings);
-
-                GraphObject graphContact = graphConnection.Get<Contact>(objectId);
-                PagedResults<GraphObject> memberShip = graphConnection.GetLinkedObjects(graphContact, LinkProperty.MemberOf, null, 999);
-                
-                // filter for Groups only
-                int count = 0;
-                foreach (GraphObject graphObj in memberShip.Results)
+                ActiveDirectoryClient client = AuthenticationHelper.GetActiveDirectoryClient();
+                IContact contact = await client.Contacts.GetByObjectId(objectId).ExecuteAsync();
+                IContactFetcher contactFetcher = contact as IContactFetcher;
+                IPagedCollection<IDirectoryObject> pagedCollection = await contactFetcher.MemberOf.ExecuteAsync();
+                do
                 {
-                    if (graphObj.ODataTypeName.Contains("Group"))
+                    List<IDirectoryObject> currentPage = pagedCollection.CurrentPage.ToList();
+                    foreach (IDirectoryObject directoryObject in currentPage)
                     {
-                        Group groupMember = (Group)memberShip.Results[count];
-                        groupMembership.Add(groupMember);
-                    }
-                    ++count;
-                }
-                
-                // Do the same filtering for all pages
-                while (!memberShip.IsLastPage)
-                {
-                    memberShip = graphConnection.GetLinkedObjects(graphContact, LinkProperty.MemberOf, memberShip.PageToken, 999);
-                    // filter for Groups only
-                    count = 0;
-                    foreach (GraphObject graphObj in memberShip.Results)
-                    {
-                        if (graphObj.ODataTypeName.Contains("Group"))
+                        if (directoryObject is Group)
                         {
-                            Group groupMember = (Group) memberShip.Results[count];
-                            groupMembership.Add(groupMember);
+                            groupMembership.Add((Group) directoryObject);
                         }
-                        ++count;
                     }
-                }
+                    pagedCollection = await pagedCollection.GetNextPageAsync();
+                } while (pagedCollection != null && pagedCollection.MorePagesAvailable);
             }
             catch (Exception e)
             {
@@ -199,7 +138,8 @@ namespace WebAppGraphAPI.Controllers
                     // If the user still has a valid session with Azure AD, they will not be prompted for their credentials.
                     // The OpenID Connect middleware will return to this controller after the sign-in response has been handled.
                     //
-                    HttpContext.GetOwinContext().Authentication.Challenge(OpenIdConnectAuthenticationDefaults.AuthenticationType);
+                    HttpContext.GetOwinContext()
+                        .Authentication.Challenge(OpenIdConnectAuthenticationDefaults.AuthenticationType);
                 }
 
                 //
@@ -207,10 +147,9 @@ namespace WebAppGraphAPI.Controllers
                 //
                 ViewBag.ErrorMessage = "AuthorizationRequired";
                 return View();
-
             }
 
             return View(groupMembership);
         }
-	}
+    }
 }

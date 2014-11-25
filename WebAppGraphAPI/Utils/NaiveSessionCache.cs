@@ -1,25 +1,25 @@
-﻿using Microsoft.IdentityModel.Clients.ActiveDirectory;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography;
+﻿#region
+
 using System.Web;
+using Microsoft.IdentityModel.Clients.ActiveDirectory;
+
+#endregion
 
 namespace WebAppGraphAPI.Utils
 {
-
     public class NaiveSessionCache : TokenCache
     {
         private static readonly object FileLock = new object();
-        string UserObjectId = string.Empty;
-        string CacheId = string.Empty;
+        private readonly string CacheId = string.Empty;
+        private string UserObjectId = string.Empty;
+
         public NaiveSessionCache(string userId)
         {
             UserObjectId = userId;
             CacheId = UserObjectId + "_TokenCache";
 
-            this.AfterAccess = AfterAccessNotification;
-            this.BeforeAccess = BeforeAccessNotification;
+            AfterAccess = AfterAccessNotification;
+            BeforeAccess = BeforeAccessNotification;
             Load();
         }
 
@@ -27,7 +27,10 @@ namespace WebAppGraphAPI.Utils
         {
             lock (FileLock)
             {
-                this.Deserialize((byte[])HttpContext.Current.Session[CacheId]);
+                if (HttpContext.Current != null)
+                {
+                    Deserialize((byte[]) HttpContext.Current.Session[CacheId]);
+                }
             }
         }
 
@@ -36,9 +39,9 @@ namespace WebAppGraphAPI.Utils
             lock (FileLock)
             {
                 // reflect changes in the persistent store
-                HttpContext.Current.Session[CacheId] = this.Serialize();
+                HttpContext.Current.Session[CacheId] = Serialize();
                 // once the write operation took place, restore the HasStateChanged bit to false
-                this.HasStateChanged = false;
+                HasStateChanged = false;
             }
         }
 
@@ -46,7 +49,7 @@ namespace WebAppGraphAPI.Utils
         public override void Clear()
         {
             base.Clear();
-            System.Web.HttpContext.Current.Session.Remove(CacheId);
+            HttpContext.Current.Session.Remove(CacheId);
         }
 
         public override void DeleteItem(TokenCacheItem item)
@@ -57,16 +60,16 @@ namespace WebAppGraphAPI.Utils
 
         // Triggered right before ADAL needs to access the cache.
         // Reload the cache from the persistent store in case it changed since the last access.
-        void BeforeAccessNotification(TokenCacheNotificationArgs args)
+        private void BeforeAccessNotification(TokenCacheNotificationArgs args)
         {
             Load();
         }
 
         // Triggered right after ADAL accessed the cache.
-        void AfterAccessNotification(TokenCacheNotificationArgs args)
+        private void AfterAccessNotification(TokenCacheNotificationArgs args)
         {
             // if the access operation resulted in a cache update
-            if (this.HasStateChanged)
+            if (HasStateChanged)
             {
                 Persist();
             }

@@ -1,17 +1,19 @@
-﻿using System;
+﻿#region
+
+using System;
 using System.Diagnostics;
+
+#endregion
 
 namespace WebAppGraphAPI.Utils
 {
-
-
     /// <summary>
-    /// Trace based logger
+    ///     Trace based logger
     /// </summary>
     public class Logger
     {
         /// <summary>
-        /// Log errors and exceptions.
+        ///     Log errors and exceptions.
         /// </summary>
         /// <param name="message">Formatted message.</param>
         /// <param name="args">Message arguments.</param>
@@ -22,7 +24,7 @@ namespace WebAppGraphAPI.Utils
         }
 
         /// <summary>
-        /// Log warnings.
+        ///     Log warnings.
         /// </summary>
         /// <param name="message">Formatted message.</param>
         /// <param name="args">Message arguments.</param>
@@ -33,7 +35,7 @@ namespace WebAppGraphAPI.Utils
         }
 
         /// <summary>
-        /// Log information.
+        ///     Log information.
         /// </summary>
         /// <param name="message">Formatted message.</param>
         /// <param name="args">Message arguments.</param>

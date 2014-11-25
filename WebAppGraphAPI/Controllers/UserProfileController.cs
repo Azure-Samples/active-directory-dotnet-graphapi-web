@@ -1,31 +1,34 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿#region
 
-using System.Threading.Tasks;
-using WebAppGraphAPI.Models;
-using System.Security.Claims;
-using Microsoft.Owin.Security.OpenIdConnect;
-using System.Globalization;
+using System;
 using System.Configuration;
+using System.Globalization;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using Newtonsoft.Json;
-using WebAppGraphAPI.Utils;
+using System.Security.Claims;
+using System.Threading.Tasks;
+using System.Web;
+using System.Web.Mvc;
 using Microsoft.IdentityModel.Clients.ActiveDirectory;
+using Microsoft.Owin.Security.OpenIdConnect;
+using Newtonsoft.Json;
+using WebAppGraphAPI.Models;
+using WebAppGraphAPI.Utils;
+
+#endregion
 
 namespace WebAppGraphAPI.Controllers
 {
     [Authorize]
     public class UserProfileController : Controller
     {
-        private string graphResourceId = ConfigurationManager.AppSettings["ida:GraphUrl"];
-        private string graphUserUrl = "https://graph.windows.net/{0}/me?api-version=" + ConfigurationManager.AppSettings["ida:GraphApiVersion"];
         private const string TenantIdClaimType = "http://schemas.microsoft.com/identity/claims/tenantid";
-        private static string clientId = ConfigurationManager.AppSettings["ida:ClientId"];
-        private static string appKey = ConfigurationManager.AppSettings["ida:AppKey"];
+        private static readonly string clientId = ConfigurationManager.AppSettings["ida:ClientId"];
+        private static readonly string appKey = ConfigurationManager.AppSettings["ida:AppKey"];
+        private readonly string graphResourceId = ConfigurationManager.AppSettings["ida:GraphUrl"];
+
+        private readonly string graphUserUrl = "https://graph.windows.net/{0}/me?api-version=" +
+                                               ConfigurationManager.AppSettings["ida:GraphApiVersion"];
 
         //
         // GET: /UserProfile/
@@ -41,7 +44,9 @@ namespace WebAppGraphAPI.Controllers
             try
             {
                 // Get the access token from the cache
-                string userObjectID = ClaimsPrincipal.Current.FindFirst("http://schemas.microsoft.com/identity/claims/objectidentifier").Value;
+                string userObjectID =
+                    ClaimsPrincipal.Current.FindFirst("http://schemas.microsoft.com/identity/claims/objectidentifier")
+                        .Value;
                 AuthenticationContext authContext = new AuthenticationContext(Startup.Authority,
                     new NaiveSessionCache(userObjectID));
                 ClientCredential credential = new ClientCredential(clientId, appKey);
@@ -66,7 +71,6 @@ namespace WebAppGraphAPI.Controllers
                 }
                 else
                 {
-                    
                     // If the call failed, then drop the current access token and show the user an error indicating they might need to sign-in again.
                     authContext.TokenCache.Clear();
 
@@ -75,7 +79,6 @@ namespace WebAppGraphAPI.Controllers
                     profile.GivenName = " ";
                     profile.Surname = " ";
                     ViewBag.ErrorMessage = "UnexpectedError";
-
                 }
             }
             catch (Exception e)
@@ -87,7 +90,8 @@ namespace WebAppGraphAPI.Controllers
                     // If the user still has a valid session with Azure AD, they will not be prompted for their credentials.
                     // The OpenID Connect middleware will return to this controller after the sign-in response has been handled.
                     //
-                    HttpContext.GetOwinContext().Authentication.Challenge(OpenIdConnectAuthenticationDefaults.AuthenticationType);
+                    HttpContext.GetOwinContext()
+                        .Authentication.Challenge(OpenIdConnectAuthenticationDefaults.AuthenticationType);
                 }
 
                 //
@@ -98,9 +102,9 @@ namespace WebAppGraphAPI.Controllers
                 profile.GivenName = " ";
                 profile.Surname = " ";
                 ViewBag.ErrorMessage = "AuthorizationRequired";
-           }
+            }
 
             return View(profile);
         }
-	}
+    }
 }

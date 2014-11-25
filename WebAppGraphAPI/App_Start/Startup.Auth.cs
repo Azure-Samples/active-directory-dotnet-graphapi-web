@@ -11,6 +11,7 @@ using System.Configuration;
 using System.Globalization;
 using Microsoft.IdentityModel.Clients.ActiveDirectory;
 using System.Threading.Tasks;
+using WebAppGraphAPI.Controllers;
 using WebAppGraphAPI.Utils;
 
 namespace WebAppGraphAPI
@@ -34,7 +35,7 @@ namespace WebAppGraphAPI
         public static readonly string Authority = String.Format(CultureInfo.InvariantCulture, aadInstance, tenant);
 
         // This is the resource ID of the AAD Graph API.  We'll need this to request a token to call the Graph API.
-        string graphResourceId = "https://graph.windows.net";
+        string graphResourceId = ConfigurationManager.AppSettings["ida:GraphUrl"];
 
         public void ConfigureAuth(IAppBuilder app)
         {
@@ -66,7 +67,7 @@ namespace WebAppGraphAPI
                             AuthenticationContext authContext = new AuthenticationContext(Authority, new NaiveSessionCache(userObjectID));
                             AuthenticationResult result = authContext.AcquireTokenByAuthorizationCode(
                                 code, new Uri(HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Path)), credential, graphResourceId);
-
+                            AuthenticationHelper.token = result.AccessToken;
                             return Task.FromResult(0);
                         }
 

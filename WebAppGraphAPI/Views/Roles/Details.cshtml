@@ -1,5 +1,5 @@
 ﻿@using Microsoft.Azure.ActiveDirectory.GraphClient
-@model Role
+@model DirectoryRole
 
 <h2>/Roles/@Model.DisplayName</h2>
 <!DOCTYPE html>
@@ -81,18 +81,6 @@
                 <td>
                     <div class="display-field">
                         @Html.DisplayFor(model => model.RoleDisabled)
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <div class="display-label">
-                        @Html.DisplayNameFor(model => model.ODataTypeName)
-                    </div>
-                </td>
-                <td>
-                    <div class="display-field">
-                        @Html.DisplayFor(model => model.ODataTypeName)
                     </div>
                 </td>
             </tr>

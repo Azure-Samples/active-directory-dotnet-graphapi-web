@@ -1,5 +1,5 @@
 ﻿@using Microsoft.Azure.ActiveDirectory.GraphClient
-@model IEnumerable<Role>
+@model IEnumerable<DirectoryRole>
 
 <h2>/Roles</h2>
 <table id="directoryObjects" class="table table-bordered table-striped">
@@ -17,7 +17,7 @@
     </tr>
     @foreach (var item in Model)
     {
-        var role = item as Role;
+        var role = item as DirectoryRole;
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => role.DisplayName)
@@ -30,7 +30,6 @@
             </td>
             <td>
                 @Html.ActionLink("Details", "Details", new { objectId = item.ObjectId }) <br />
-                @Html.ActionLink("Members", "GetMembers", new { objectId = item.ObjectId }) <br />
             </td>
         </tr>
     }
