@@ -265,6 +265,12 @@ namespace WebAppGraphAPI.Controllers
                 IUser toUpdate = await client.Users.GetByObjectId(user.ObjectId).ExecuteAsync();
                 Helper.CopyUpdatedValues(toUpdate, user, values);
                 await toUpdate.UpdateAsync();
+
+                //Upload the photo
+                HttpPostedFileBase photo = Request.Files["photofile"];
+                if (photo != null)
+                    await toUpdate.ThumbnailPhoto.UploadAsync(photo.InputStream, photo.ContentType, false, true);
+
                 return RedirectToAction("Index");
             }
             catch (Exception exception)

@@ -7,16 +7,19 @@
 
 <h2>Edit User</h2>
 
-@using (Html.BeginForm()) {
+@using (Html.BeginForm("Edit", "Users", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
     @Html.ValidationSummary(true)
 
+    @Html.HiddenFor(model => model.ObjectId)
+    
     <fieldset>
         <legend>User</legend>
 
         <div class="editor-field">
             @Html.Label("Upload User Photo")
             <br />
-            <input type=file name="photofile" />    
+            <input type=file name="photofile"/>    
         </div>
 
         <div class="editor-label">
