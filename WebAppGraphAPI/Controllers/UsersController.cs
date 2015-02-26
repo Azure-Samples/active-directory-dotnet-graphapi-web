@@ -43,7 +43,7 @@ namespace WebAppGraphAPI.Controllers
                             userList.Add((User) user);
                         }
                         pagedCollection = await pagedCollection.GetNextPageAsync();
-                    } while (pagedCollection != null && pagedCollection.MorePagesAvailable);
+                    } while (pagedCollection != null);
                 }
             }
             catch (Exception e)
@@ -225,7 +225,7 @@ namespace WebAppGraphAPI.Controllers
                         }
                     }
                     pagedCollection = await pagedCollection.GetNextPageAsync();
-                } while (pagedCollection != null && pagedCollection.MorePagesAvailable);
+                } while (pagedCollection != null);
             }
             catch (Exception e)
             {
@@ -341,7 +341,7 @@ namespace WebAppGraphAPI.Controllers
                         }
                     }
                     directReports = await directReports.GetNextPageAsync();
-                } while (directReports != null && directReports.MorePagesAvailable);
+                } while (directReports != null);
             }
             catch (Exception e)
             {

@@ -41,7 +41,7 @@ namespace WebAppGraphAPI.Controllers
                         groupList.Add((Group) group);
                     }
                     pagedCollection = pagedCollection.GetNextPageAsync().Result;
-                } while (pagedCollection != null && pagedCollection.MorePagesAvailable);
+                } while (pagedCollection != null);
             }
             catch (Exception e)
             {
@@ -258,7 +258,7 @@ namespace WebAppGraphAPI.Controllers
                         }
                     }
                     pagedCollection = await pagedCollection.GetNextPageAsync();
-                } while (pagedCollection != null && pagedCollection.MorePagesAvailable);
+                } while (pagedCollection != null);
             }
             catch (Exception e)
             {
@@ -308,7 +308,7 @@ namespace WebAppGraphAPI.Controllers
                         }
                     }
                     pagedCollection = await pagedCollection.GetNextPageAsync();
-                } while (pagedCollection != null && pagedCollection.MorePagesAvailable);
+                } while (pagedCollection != null);
             }
             catch (Exception e)
             {

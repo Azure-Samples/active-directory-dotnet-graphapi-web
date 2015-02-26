@@ -42,7 +42,7 @@ namespace WebAppGraphAPI.Controllers
                         contactList.Add((Contact) contact);
                     }
                     contacts = await contacts.GetNextPageAsync();
-                } while (contacts != null && contacts.MorePagesAvailable);
+                } while (contacts != null);
             }
             catch (Exception e)
             {
@@ -127,7 +127,7 @@ namespace WebAppGraphAPI.Controllers
                         }
                     }
                     pagedCollection = await pagedCollection.GetNextPageAsync();
-                } while (pagedCollection != null && pagedCollection.MorePagesAvailable);
+                } while (pagedCollection != null);
             }
             catch (Exception e)
             {

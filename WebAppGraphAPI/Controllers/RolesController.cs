@@ -37,7 +37,8 @@ namespace WebAppGraphAPI.Controllers
                     {
                         roleList.Add((DirectoryRole) directoryRole);
                     }
-                } while (pagedCollection != null && pagedCollection.MorePagesAvailable);
+                    pagedCollection = await pagedCollection.GetNextPageAsync();
+                } while (pagedCollection != null);
             }
             catch (Exception e)
             {
