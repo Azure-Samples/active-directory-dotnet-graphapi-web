@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -13,6 +13,7 @@ using Microsoft.IdentityModel.Clients.ActiveDirectory;
 using System.Threading.Tasks;
 using WebAppGraphAPI.Controllers;
 using WebAppGraphAPI.Utils;
+using System.Security.Cryptography.X509Certificates;
 
 namespace WebAppGraphAPI
 {
@@ -31,6 +32,7 @@ namespace WebAppGraphAPI
         private static string aadInstance = ConfigurationManager.AppSettings["ida:AADInstance"];
         private static string tenant = ConfigurationManager.AppSettings["ida:Tenant"];
         private static string postLogoutRedirectUri = ConfigurationManager.AppSettings["ida:PostLogoutRedirectUri"];
+        private static string certName = ConfigurationManager.AppSettings["ida:CertName"];
 
         public static readonly string Authority = String.Format(CultureInfo.InvariantCulture, aadInstance, tenant);
 
@@ -61,13 +63,60 @@ namespace WebAppGraphAPI
                         {
                             var code = context.Code;
 
-                            ClientCredential credential = new ClientCredential(clientId, appKey);
-                            string userObjectID = context.AuthenticationTicket.Identity.FindFirst(
+                            if ( certName.Length != 0)
+                            {
+                                // Create a Client Credential Using a Certificate
+                                //
+                                // Initialize the Certificate Credential to be used by ADAL.
+                                // First find the matching certificate in the cert store.
+                                //
+
+                                X509Certificate2 cert = null;
+                                X509Store store = new X509Store(StoreLocation.CurrentUser);
+                                try
+                                {
+                                    store.Open(OpenFlags.ReadOnly);
+                                    // Place all certificates in an X509Certificate2Collection object.
+                                    X509Certificate2Collection certCollection = store.Certificates;
+                                    // Find unexpired certificates.
+                                    X509Certificate2Collection currentCerts = certCollection.Find(X509FindType.FindByTimeValid, DateTime.Now, false);
+                                    // From the collection of unexpired certificates, find the ones with the correct name.
+                                    X509Certificate2Collection signingCert = currentCerts.Find(X509FindType.FindBySubjectDistinguishedName, certName, false);
+                                    if (signingCert.Count == 0)
+                                    {
+                                        // No matching certificate found.
+                                        return Task.FromResult(0);
+                                    }
+                                    // Return the first certificate in the collection, has the right name and is current.
+                                    cert = signingCert[0];
+                                }
+                                finally
+                                {
+                                    store.Close();
+                                }
+
+                                // Then create the certificate credential.
+                                ClientAssertionCertificate credential = new ClientAssertionCertificate(clientId, cert);
+
+                                string userObjectID = context.AuthenticationTicket.Identity.FindFirst(
                                     "http://schemas.microsoft.com/identity/claims/objectidentifier").Value;
-                            AuthenticationContext authContext = new AuthenticationContext(Authority, new NaiveSessionCache(userObjectID));
-                            AuthenticationResult result = authContext.AcquireTokenByAuthorizationCode(
-                                code, new Uri(HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Path)), credential, graphResourceId);
-                            AuthenticationHelper.token = result.AccessToken;
+                                AuthenticationContext authContext = new AuthenticationContext(Authority, new NaiveSessionCache(userObjectID));
+                                AuthenticationResult result = authContext.AcquireTokenByAuthorizationCode(
+                                    code, new Uri(HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Path)), credential, graphResourceId);
+                                AuthenticationHelper.token = result.AccessToken;
+                            }
+                            else
+                            {
+                                // Create a Client Credential Using an Application Key
+                                ClientCredential credential = new ClientCredential(clientId, appKey);
+                                string userObjectID = context.AuthenticationTicket.Identity.FindFirst(
+                                    "http://schemas.microsoft.com/identity/claims/objectidentifier").Value;
+                                AuthenticationContext authContext = new AuthenticationContext(Authority, new NaiveSessionCache(userObjectID));
+                                AuthenticationResult result = authContext.AcquireTokenByAuthorizationCode(
+                                    code, new Uri(HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Path)), credential, graphResourceId);
+                                AuthenticationHelper.token = result.AccessToken;
+                            }
+
                             return Task.FromResult(0);
                         }
 
