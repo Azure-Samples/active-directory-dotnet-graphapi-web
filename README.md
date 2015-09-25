@@ -1,11 +1,5 @@
----
-services:
-platforms:
-author: azure
----
+# WebApp-GraphAPI-DotNet
 
-WebApp-GraphAPI-DotNet
-=========================================
 This is a sample MVC Web application that shows how to make RESTful calls to the Graph API to access Azure Active Directory data. It includes use of OWIN libraries to authenticate/authorize using Open ID connect, and a Graph API .Net library - these libraries are both available as Nuget packages. 
 
 For more information about how the protocols work in this scenario and other scenarios, see the REST API and Authentication Scenarios on http://msdn.microsoft.com/aad.
