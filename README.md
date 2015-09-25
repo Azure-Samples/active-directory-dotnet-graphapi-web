@@ -1,4 +1,4 @@
-# WebApp-GraphAPI-DotNet
+# Calling the Azure AD Graph API in a web application
 
 This is a sample MVC Web application that shows how to make RESTful calls to the Graph API to access Azure Active Directory data. It includes use of OWIN libraries to authenticate/authorize using Open ID connect, and a Graph API .Net library - these libraries are both available as Nuget packages. 
 
