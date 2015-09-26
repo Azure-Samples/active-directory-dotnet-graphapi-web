@@ -1,3 +1,9 @@
+---
+services: active-directory
+platforms: dotnet
+author: dstrockis
+---
+
 # Calling the Azure AD Graph API in a web application
 
 This is a sample MVC Web application that shows how to make RESTful calls to the Graph API to access Azure Active Directory data. It includes use of OWIN libraries to authenticate/authorize using Open ID connect, and a Graph API .Net library - these libraries are both available as Nuget packages. 
@@ -119,4 +125,5 @@ First, in Visual Studio 2013 create an empty solution to host the  projects.  Th
 26. In `web.config`, in `<appSettings>`, create keys for `ida:ClientId`, `ida:AppKey`, `ida:AADInstance`, `ida:Tenant`, `ida:PostLogoutRedirectUri`, `ida:GraphApiVersion`, and `ida:GraphUrl` and set the values accordingly.  For the public Azure AD, the value of `ida:AADInstance` is `https://login.windows.net/{0}` the value of `ida:GraphResourceId` is `https://graph.windows.net`, and the value of `ida:GraphUrl` is `https://graph.windows.net/`.
 27. In `web.config` add this line in the `<system.web>` section: `<sessionState timeout="525600" />`.  This increases the ASP.Net session state timeout to it's maximum value so that access tokens and refresh tokens cache in session state aren't cleared after the default timeout of 20 minutes.
 28. Follow the steps in the "Run the application with your own AAD tenant" above to run the newly created sample.
+
 
