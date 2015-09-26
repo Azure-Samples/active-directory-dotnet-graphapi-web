@@ -138,7 +138,7 @@ publish/
 # If using the old MSBuild-Integrated Package Restore, uncomment this:
 #!**/packages/repositories.config
 
-# Windows Azure Build Output
+# Azure Build Output
 csx/
 *.build.csdef
 
