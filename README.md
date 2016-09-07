@@ -35,24 +35,19 @@ The sample app is preconfigured to read data from a Demonstration company (Graph
 
 NOTE: If you already have a user account in your Azure Active Directory tenant, you can skip to the next step.  This sample will not work with a Microsoft account, so if you signed in to the Azure portal with a Microsoft account and have never created a user account in your directory before, you need to do that now.  If you create an account and want to use it to sign-in to the Azure portal, don't forget to add the user account as a co-administrator of your Azure subscription.
 
-1. Sign in to the [Azure management portal](https://manage.windowsazure.com).
-2. Click on Active Directory in the left hand nav.
-3. Click the directory tenant where you wish to register the sample application.
-4. Click the Applications tab.
-5. In the drawer, click Add.
-6. Click "Add an application my organization is developing".
-7. Enter a friendly name for the application, for example "WebApp-GraphAPI", select "Web Application and/or Web API", and click next.
-8. For the sign-on URL, enter the base URL for the sample, which is by default `https://localhost:44322/`. NOTE: It is important, due to the way Azure AD matches URLs, to ensure there is a trailing slash on the end of this URL. If you don't include the trailing slash, you will receive an error when the application attempts to redeem an authorization code.
-9. For the App ID URI, enter `https://<your_tenant_name>/WebAppGraphAPI`, replacing `<your_tenant_name>` with the domain name of your Azure AD tenant. For Example "https://contoso.com/WebAppGraphAPI".  Click OK to complete the registration.
-10. While still in the Azure portal, click the Configure tab of your application.
-11. Find the Client ID value and copy it aside, you will need this later when configuring your application.
-12. In the Reply URL, add the reply URL address used to return the authorization code returned during Authorization code flow.  For example: "https://localhost:44322/"
-13. Under the Keys section, select either a 1 year or 2 year key - the keyValue will be displayed after you save the configuration at the end.
-14. Configure Permissions - under the "Permissions to other applications" section, select application "Azure Active Directory" (this is the Graph API), and under the second permission (Delegated permissions), select "Access your organization's directory" and "Enable sign-on and read users' profiles". The 2nd column (Application permission) is not needed for this demo app.
-15. Select the Save button at the bottom of the screen - upon sucessful configuration, your Key value should now be displayed - please copy and store this value in a secure location.  The key value is only displayed once, and you will not be able to retrieve it later.
+1. Sign in to the [Azure portal](https://portal.azure.com).
+2. On the top bar, click on your account and under the **Directory** list, choose the Active Directory tenant where you wish to register your application.
+2. Click on **More Services** in the left hand nav, and choose **Azure Active Directory**.
+3. Click on **Registered Applications** and choose **Add**.
+4. Enter a friendly name for the application, for example 'WebApp-GraphAPI' and select 'Web Application and/or Web API' as the Application Type. For the sign-on URL, enter the base URL for the sample, which is by default `https://localhost:44322/`. NOTE: It is important, due to the way Azure AD matches URLs, to ensure there is a trailing slash on the end of this URL. If you don't include the trailing slash, you will receive an error when the application attempts to redeem an authorization code. Click on **Create** to create the application.
+5. While still in the Azure portal, choose your application, click on **Settings** and choose **Properties**.
+6. Find the Application ID value and copy it to the clipboard.
+7. In the Reply URL, add the reply URL address used to return the authorization code returned during Authorization code flow.  For example: "https://localhost:44322/"
+8. From the Settings menu, choose **Keys** and add a key - select a key duration of either 1 year or 2 years. When you save this page, the key value will be displayed, copy and save the value in a safe location - you will need this key later to configure the project in Visual Studio - this key value will not be displayed again, nor retrievable by any other means, so please record it as soon as it is visible from the Azure Portal.
+9. Configure Permissions for your application - in the Settings menu, choose the 'Required permissions' section, click on **Add**, then **Select an API**, and select 'Microsoft Graph' (this is the Graph API). Then, click on  **Select Permissions** and select 'Access the directory as the signed-in user' and 'Sign in and read user profile'.
 
-NOTE: the permission "Access your organization's directory" allows the application to access your organization's directory on behalf of the signed-in user - this is a delegation permission and must be consented by the Administrator for web apps (such as this demo app).
-The permission "Enable sign-on and read users' profiles" allows users to sign in to the application with their organizational accounts and lets the application read the profiles of signed-in users, such as their email address and contact information - this is a delegation permission, and can be consented to by the user.
+NOTE: the permission "Access the directory as the signed-in user" allows the application to access your organization's directory on behalf of the signed-in user - this is a delegation permission and must be consented by the Administrator for web apps (such as this demo app).
+The permission "Sign in and read user profile' profiles" allows users to sign in to the application with their organizational accounts and lets the application read the profiles of signed-in users, such as their email address and contact information - this is a delegation permission, and can be consented to by the user.
 The other permissions, "Read Directory data" and "Read and write Directory data", are Delegation and Application Permissions, which only the Administrator can grant consent to.
 
 #### Configure the sample to use your tenant
@@ -71,9 +66,8 @@ To deploy the sample to Azure Web Sites, you will create a web site, publish the
 
 ### Create and Publish the sample to an Azure Web Site
 
-1. Sign in to the [Azure management portal](https://manage.windowsazure.com).
-2. Click on Web Sites in the left hand nav.
-3. Click New in the bottom left hand corner, select Compute --> Web Site --> Quick Create, select the hosting plan and region, and give your web site a name, e.g. webappgraphapi-contoso.azurewebsites.net.  Click Create Web Site.
+1. Sign in to the [Azure portal](https://portal.azure.com).
+2. Click New in the top left hand corner, select Web + Mobile --> Web App, select the hosting plan and region, and give your web site a name, e.g. webappgraphapi-contoso.azurewebsites.net.  Click Create Web Site.
 4. Once the web site is created, click on it to manage it.  For this set of steps, download the publish profile and save it.  Other deployment mechanisms, such as from source control, can also be used.
 5. Switch to Visual Studio and go to the WebAppGraphAPI project.  Right click on the project in the Solution Explorer and select Publish.  Click Import, and import the publish profile that you just downloaded.
 6. On the Connection tab, update the Destination URL so that it is https, for example https://webappgraphapi-contoso.azurewebsites.net.  Click Next.
@@ -82,10 +76,10 @@ To deploy the sample to Azure Web Sites, you will create a web site, publish the
 
 ### Update the Application Configurations in the Directory Tenant
 
-1. Navigate to the [Azure management portal](https://manage.windowsazure.com).
-2. In the left hand nav, click on Active Directory and select your tenant.
+1. Navigate to the [Azure portal](https://portal.azure.com).
+2. On the top bar, click on your account and under the **Directory** list, choose the Active Directory tenant where you wish to register your application.
 3. On the applications tab, select the appropriate application.
-4. On the Configure tab, update the Sign-On URL and Reply URL fields to the address of your service, for example https://webappgraphapi-contoso.azurewebsites.net/.  Save the configuration.
+4. From the Settings -> Properties and Settings -> Reply URLs menus, update the Sign-On URL and Reply URL fields to the address of your service, for example https://webappgraphapi-contoso.azurewebsites.net/.  Save the configuration.
 
 ## About The Code
 
