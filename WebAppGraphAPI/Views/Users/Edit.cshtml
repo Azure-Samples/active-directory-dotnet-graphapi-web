@@ -1,13 +1,19 @@
-﻿@model Microsoft.Azure.ActiveDirectory.GraphClient.User
+﻿@using Microsoft.Azure.ActiveDirectory.GraphClient
+@using WebAppGraphAPI.Controllers
+@model Microsoft.Azure.ActiveDirectory.GraphClient.User
 
 @{
     ViewBag.Title = "Edit User";
-    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h2>Edit User</h2>
 
-@using (Html.BeginForm()) {
+@using (Html.BeginForm("Edit",
+        "Users",
+        new { id = Model != null? Model.ObjectId : ""},
+        FormMethod.Post,
+        new { enctype = "multipart/form-data" })
+) {
     @Html.ValidationSummary(true)
 
     <fieldset>
@@ -16,7 +22,7 @@
         <div class="editor-field">
             @Html.Label("Upload User Photo")
             <br />
-            <input type=file name="photofile" />    
+            <input type=file name="photoFile" id="img"/>    
         </div>
 
         <div class="editor-label">

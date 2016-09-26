@@ -257,14 +257,19 @@ namespace WebAppGraphAPI.Controllers
         /// <returns>A view with list of all <see cref="User" /> objects.</returns>
         [HttpPost]
         public async Task<ActionResult> Edit(
-            User user, FormCollection values)
+            User user, FormCollection values, HttpPostedFileBase photoFile)
         {
             try
             {
                 ActiveDirectoryClient client = AuthenticationHelper.GetActiveDirectoryClient();
-                IUser toUpdate = await client.Users.GetByObjectId(user.ObjectId).ExecuteAsync();
+                string userId = user.ObjectId ?? RouteData.Values["id"].ToString();
+                IUser toUpdate = await client.Users.GetByObjectId(userId).ExecuteAsync();
                 Helper.CopyUpdatedValues(toUpdate, user, values);
                 await toUpdate.UpdateAsync();
+                if (photoFile.ContentLength > 0)
+                {
+                    await toUpdate.ThumbnailPhoto.UploadAsync(photoFile.InputStream, "application/image");
+                }
                 return RedirectToAction("Index");
             }
             catch (Exception exception)
