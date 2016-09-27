@@ -254,6 +254,8 @@ namespace WebAppGraphAPI.Controllers
         ///     Processes editing of an existing <see cref="User" />.
         /// </summary>
         /// <param name="user"><see cref="User" /> to be edited.</param>
+        /// <param name="values">new values user, taken from form</param>
+        /// <param name="photoFile">thumbnail photo file</param>
         /// <returns>A view with list of all <see cref="User" /> objects.</returns>
         [HttpPost]
         public async Task<ActionResult> Edit(

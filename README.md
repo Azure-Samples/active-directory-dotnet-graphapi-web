@@ -54,7 +54,7 @@ The permission "Sign in and read user profile' profiles" allows users to sign in
 1. You will need to update the `web.config` file of the sample. From Visual Studio, open the `web.config` file, and under the `<appSettings>` section, modify `"ida:ClientId"` and `"ida:AppKey"` with the values from the previous steps.  Also update the `"ida:Tenant"` with your Azure AD Tenant's domain name e.g. `contoso.onMicrosoft.com`, (or `contoso.com` if that domain is owned by your tenant).
 2. Find your tenantID. Your tenantId can be discovered by opening the following metadata.xml document: https://login.windows.net/GraphDir1.onmicrosoft.com/FederationMetadata/2007-06/FederationMetadata.xml - replace "graphDir1.onMicrosoft.com", with your tenant's domain value (any domain that is owned by the tenant will work). The tenantId is a guid, that is part of the sts URL, returned in the first xml node's sts url ("EntityDescriptor"): e.g. "https://sts.windows.net/".
 3. In `web.config` add this line in the `<system.web>` section: `<sessionState timeout="525600" />`.  This increases the ASP.Net session state timeout to it's maximum value so that access tokens and refresh tokens cache in session state aren't cleared after the default timeout of 20 minutes.
-4. Build and run your application - you will need to authenticate with valid user credentials for your company when you run the application.
+4. Build and run your application - you will need to authenticate with valid user credentials for your company when you run the application. **Note:** you might have to manually create a packages folder for NuGet.
 
 ## How To Deploy This Sample to Azure
 
