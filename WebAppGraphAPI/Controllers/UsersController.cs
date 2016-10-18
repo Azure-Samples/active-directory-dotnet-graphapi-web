@@ -264,7 +264,7 @@ namespace WebAppGraphAPI.Controllers
             try
             {
                 ActiveDirectoryClient client = AuthenticationHelper.GetActiveDirectoryClient();
-                string userId = user.ObjectId ?? RouteData.Values["id"].ToString();
+                string userId = RouteData.Values["id"].ToString();
                 IUser toUpdate = await client.Users.GetByObjectId(userId).ExecuteAsync();
                 Helper.CopyUpdatedValues(toUpdate, user, values);
                 await toUpdate.UpdateAsync();
