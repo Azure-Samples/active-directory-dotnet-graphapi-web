@@ -59,7 +59,7 @@ namespace WebAppGraphAPI
                         // If there is a code in the OpenID Connect response, redeem it for an access token and refresh token, and store those away.
                         //
                         
-                        AuthorizationCodeReceived = (context) =>
+                        AuthorizationCodeReceived = async (context) =>
                         {
                             var code = context.Code;
 
@@ -85,7 +85,7 @@ namespace WebAppGraphAPI
                                     if (signingCert.Count == 0)
                                     {
                                         // No matching certificate found.
-                                        return Task.FromResult(0);
+                                        return;
                                     }
                                     // Return the first certificate in the collection, has the right name and is current.
                                     cert = signingCert[0];
@@ -101,7 +101,7 @@ namespace WebAppGraphAPI
                                 string userObjectID = context.AuthenticationTicket.Identity.FindFirst(
                                     "http://schemas.microsoft.com/identity/claims/objectidentifier").Value;
                                 AuthenticationContext authContext = new AuthenticationContext(Authority, new NaiveSessionCache(userObjectID));
-                                AuthenticationResult result = authContext.AcquireTokenByAuthorizationCode(
+                                AuthenticationResult result = await authContext.AcquireTokenByAuthorizationCodeAsync(
                                     code, new Uri(HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Path)), credential, graphResourceId);
                                 AuthenticationHelper.token = result.AccessToken;
                             }
@@ -112,12 +112,10 @@ namespace WebAppGraphAPI
                                 string userObjectID = context.AuthenticationTicket.Identity.FindFirst(
                                     "http://schemas.microsoft.com/identity/claims/objectidentifier").Value;
                                 AuthenticationContext authContext = new AuthenticationContext(Authority, new NaiveSessionCache(userObjectID));
-                                AuthenticationResult result = authContext.AcquireTokenByAuthorizationCode(
+                                AuthenticationResult result = await authContext.AcquireTokenByAuthorizationCodeAsync(
                                     code, new Uri(HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Path)), credential, graphResourceId);
                                 AuthenticationHelper.token = result.AccessToken;
                             }
-
-                            return Task.FromResult(0);
                         }
 
                     }
