@@ -38,10 +38,13 @@ namespace WebAppGraphAPI.Utils
         {
             lock (FileLock)
             {
-                // reflect changes in the persistent store
-                HttpContext.Current.Session[CacheId] = Serialize();
-                // once the write operation took place, restore the HasStateChanged bit to false
-                HasStateChanged = false;
+                if (HttpContext.Current != null)
+                {
+                    // reflect changes in the persistent store
+                    HttpContext.Current.Session[CacheId] = Serialize();
+                    // once the write operation took place, restore the HasStateChanged bit to false
+                    HasStateChanged = false;
+                }
             }
         }
 
@@ -49,7 +52,10 @@ namespace WebAppGraphAPI.Utils
         public override void Clear()
         {
             base.Clear();
-            HttpContext.Current.Session.Remove(CacheId);
+            if (HttpContext.Current != null)
+            {
+                HttpContext.Current.Session.Remove(CacheId);
+            }
         }
 
         public override void DeleteItem(TokenCacheItem item)

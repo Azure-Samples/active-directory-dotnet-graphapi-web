@@ -33,29 +33,25 @@ The sample app is preconfigured to read data from a Demonstration company (Graph
 #### Register the MVC Sample app in your tenant
 
 1. Sign in to the [Azure portal](https://portal.azure.com).
-2. On the top bar, click on your account and under the **Directory** list, choose the Active Directory tenant where you wish to register your application.
-3. Click on **More Services** in the left hand nav, and choose **Azure Active Directory**.
+2. On the top right, click on your account and under the **Directory** list, choose an Active Directory tenant where you have admin permissions.
+3. Type **App registrations** in the search filter.
 4. Click on **App registrations** and choose **Add**.
-5. Enter a friendly name for the application, for example 'WebApp-GraphAPI' and select 'Web Application and/or Web API' as the Application Type. For the sign-on URL, enter the base URL for the sample, which is by default `https://localhost:44322/`. NOTE: It is important, due to the way Azure AD matches URLs, to ensure there is a trailing slash on the end of this URL. If you don't include the trailing slash, you will receive an error when the application attempts to redeem an authorization code. Click on **Create** to create the application.
+5. Enter a friendly name for the application, for example 'WebApp-GraphAPI' and select 'Web Application and/or Web API' as the Application Type. For the sign-on URL, enter the base URL for the sample, which is by default `https://localhost:44322/`. **NOTE:** It is important, due to the way Azure AD matches URLs, to ensure there is a trailing slash on the end of this URL. If you don't include the trailing slash, you will receive an error when the application attempts to redeem an authorization code. Click on **Create** to create the application.
 6. While still in the Azure portal, choose your application, click on **Settings** and choose **Properties**.
 7. Find the Application ID value and copy it to the clipboard.
-8. In the Reply URL, add the reply URL address used to return the authorization code returned during Authorization code flow.  For example: "https://localhost:44322/"
+8. In the Reply URL, add the reply URL address used to return the authorization code returned during Authorization code flow, eg https://localhost:44322/". **NOTE:** If you see TLS error messages, try changing your reply URL to use http instead of http*s*.
 9. From the Settings menu, choose **Keys** and add a key - select a key duration of either 1 year or 2 years. When you save this page, the key value will be displayed, copy and save the value in a safe location - you will need this key later to configure the project in Visual Studio - this key value will not be displayed again, nor retrievable by any other means, so please record it as soon as it is visible from the Azure Portal.
-10. Configure Permissions for your application - in the Settings menu, choose the 'Required permissions' section, click on **Add**, then **Select an API**, and select 'Microsoft Graph' (this is the Graph API). Then, click on  **Select Permissions** and select 'Access the directory as the signed-in user' and 'Sign in and read user profile'.
+10. Configure Permissions for your application - in the Settings menu, choose the 'Required permissions' section, click on **Add**, then **Select an API**, and select 'Windows Azure Active Directory' (this is the AADGraph API). Then, click on  **Select Permissions** and select 'Access the directory as the signed-in user' and 'Sign in and read user profile'.
 
 NOTE: the permission "Access the directory as the signed-in user" allows the application to access your organization's directory on behalf of the signed-in user - this is a delegation permission and must be consented by the Administrator for web apps (such as this demo app).
 The permission "Sign in and read user profile' profiles" allows users to sign in to the application with their organizational accounts and lets the application read the profiles of signed-in users, such as their email address and contact information - this is a delegation permission, and can be consented to by the user.
-The other permissions, "Read Directory data" and "Read and write Directory data", are Delegation and Application Permissions, which only the Administrator can grant consent to.
 
 #### Configure the sample to use your tenant
 
 1. You will need to update the `web.config` file of the sample. From Visual Studio, open the `web.config` file, and under the `<appSettings>` section, modify `"ida:ClientId"` and `"ida:AppKey"` with the values from the previous steps.  Also update the `"ida:Tenant"` with your Azure AD Tenant's domain name e.g. `contoso.onMicrosoft.com`, (or `contoso.com` if that domain is owned by your tenant).
-2. In `web.config` add this line in the `<system.web>` section: `<sessionState timeout="525600" />`.  This increases the ASP.Net session state timeout to it's maximum value so that access tokens and refresh tokens cache in session state aren't cleared after the default timeout of 20 minutes.
-3. Build and run your application - you will need to authenticate with valid user credentials for your company when you run the application.
-
-Note: there is an issues with uploading jpeg file images for user's thumbnail photos when using this app
-from Chrome or FireFox (Internet Explorer works) - we will debug this in more detail and update when this issue
-is addressed.
+2. Find your tenantID. Your tenantId can be discovered by opening the following metadata.xml document: https://login.microsoft.com/GraphDir1.onmicrosoft.com/FederationMetadata/2007-06/FederationMetadata.xml - replace "graphDir1.onMicrosoft.com", with your tenant's domain value (any domain that is owned by the tenant will work). The tenantId is a guid, that is part of the sts URL, returned in the first xml node's sts url ("EntityDescriptor"): e.g. "https://sts.windows.net/".
+3. In `web.config` add this line in the `<system.web>` section: `<sessionState timeout="525600" />`.  This increases the ASP.Net session state timeout to it's maximum value so that access tokens and refresh tokens cache in session state aren't cleared after the default timeout of 20 minutes.
+4. Build and run your application - you will need to authenticate with valid user credentials for your company when you run the application. **Note:** If you get "missing reference" errors, enable Nuget Package Restore and try building again.
 
 ## How To Deploy This Sample to Azure
 
@@ -116,4 +112,3 @@ First, in Visual Studio 2013 create an empty solution to host the  projects.  Th
 26. In `web.config`, in `<appSettings>`, create keys for `ida:ClientId`, `ida:AppKey`, `ida:AADInstance`, `ida:Tenant`, `ida:PostLogoutRedirectUri`, `ida:GraphApiVersion`, and `ida:GraphUrl` and set the values accordingly.  For the public Azure AD, the value of `ida:AADInstance` is `https://login.windows.net/{0}` the value of `ida:GraphResourceId` is `https://graph.windows.net`, and the value of `ida:GraphUrl` is `https://graph.windows.net/`.
 27. In `web.config` add this line in the `<system.web>` section: `<sessionState timeout="525600" />`.  This increases the ASP.Net session state timeout to it's maximum value so that access tokens and refresh tokens cache in session state aren't cleared after the default timeout of 20 minutes.
 28. Follow the steps in the "Run the application with your own AAD tenant" above to run the newly created sample.
-

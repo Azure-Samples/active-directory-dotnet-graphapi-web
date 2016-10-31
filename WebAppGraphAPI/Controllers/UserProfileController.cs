@@ -50,7 +50,7 @@ namespace WebAppGraphAPI.Controllers
                 AuthenticationContext authContext = new AuthenticationContext(Startup.Authority,
                     new NaiveSessionCache(userObjectID));
                 ClientCredential credential = new ClientCredential(clientId, appKey);
-                result = authContext.AcquireTokenSilent(graphResourceId, credential,
+                result = await authContext.AcquireTokenSilentAsync(graphResourceId, credential,
                     new UserIdentifier(userObjectID, UserIdentifierType.UniqueId));
 
                 // Call the Graph API manually and retrieve the user's profile.

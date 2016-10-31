@@ -254,17 +254,24 @@ namespace WebAppGraphAPI.Controllers
         ///     Processes editing of an existing <see cref="User" />.
         /// </summary>
         /// <param name="user"><see cref="User" /> to be edited.</param>
+        /// <param name="values">user input from the form</param>
+        /// <param name="photoFile">thumbnail photo file</param>
         /// <returns>A view with list of all <see cref="User" /> objects.</returns>
         [HttpPost]
         public async Task<ActionResult> Edit(
-            User user, FormCollection values)
+            User user, FormCollection values, HttpPostedFileBase photoFile)
         {
             try
             {
                 ActiveDirectoryClient client = AuthenticationHelper.GetActiveDirectoryClient();
-                IUser toUpdate = await client.Users.GetByObjectId(user.ObjectId).ExecuteAsync();
+                string userId = RouteData.Values["id"].ToString();
+                IUser toUpdate = await client.Users.GetByObjectId(userId).ExecuteAsync();
                 Helper.CopyUpdatedValues(toUpdate, user, values);
                 await toUpdate.UpdateAsync();
+                if (photoFile != null && photoFile.ContentLength > 0)
+                {
+                    await toUpdate.ThumbnailPhoto.UploadAsync(photoFile.InputStream, "application/image");
+                }
                 return RedirectToAction("Index");
             }
             catch (Exception exception)
