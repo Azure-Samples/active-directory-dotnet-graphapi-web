@@ -1,7 +1,7 @@
 ---
 services: active-directory
 platforms: dotnet
-author: dstrockis
+author: jmprieur
 ---
 
 # Calling the Azure AD Graph API in a web application
