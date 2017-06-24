@@ -1,32 +1,52 @@
-﻿@model WebAppGraphAPI.Models.UserProfile
+﻿@using System.Collections
+@model WebAppGraphAPI.Models.UserProfile
 @{
     ViewBag.Title = "User Profile";
 }
-
 <h2>@ViewBag.Title.</h2>
 
 <table class="table table-bordered table-striped">
-    <tr>
-        <td>Display Name</td>
-        <td>@Model.DisplayName</td>
-    </tr>
-    <tr>
-        <td>First Name</td>
-        <td>@Model.GivenName</td>
-    </tr>
-    <tr>
-        <td>Last Name</td>
-        <td>@Model.Surname</td>
-    </tr>
+    @{
+        var type = Model.GetType();
+        var properties = type.GetProperties();
+        var collections = new List<Type>() { typeof(IEnumerable<>), typeof(IEnumerable) };
+
+        foreach (var property in properties)
+        {
+            <tr>
+                <td>@property.Name</td>
+                <td>
+                    @{
+            if (property.PropertyType != typeof(string) && property.PropertyType.GetInterfaces().Any(i => collections.Any(c => i == c)))
+            {
+                var list = (IList)property.GetValue(Model, null);
+                if (list != null)
+                {
+                    foreach (var value in list)
+                    {
+                        @value<br />
+                    }
+                }
+
+            }
+            else
+            {
+                @property.GetValue(Model, null)
+            }
+                    }
+                </td>
+
+            </tr>
+        }
+
+    }
 </table>
 
 @if (ViewBag.ErrorMessage == "AuthorizationRequired")
 {
     <p>You have to sign-in to see your profile. Click @Html.ActionLink("here", "Index", "UserProfile", new { reauth = true }, null) to sign-in.</p>
 }
-
 @if (ViewBag.ErrorMessage == "UnexpectedError")
 {
     <p>An unexpected error occurred while retrieving your profile.  Please try again.  You may need to sign-in.</p>
 }
-
