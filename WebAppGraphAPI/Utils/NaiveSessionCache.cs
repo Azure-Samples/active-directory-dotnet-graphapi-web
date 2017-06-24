@@ -12,9 +12,11 @@ namespace WebAppGraphAPI.Utils
         private static readonly object FileLock = new object();
         private readonly string CacheId = string.Empty;
         private string UserObjectId = string.Empty;
+        private readonly HttpContext _httpContext;
 
         public NaiveSessionCache(string userId)
         {
+            _httpContext = HttpContext.Current;
             UserObjectId = userId;
             CacheId = UserObjectId + "_TokenCache";
 
@@ -27,9 +29,9 @@ namespace WebAppGraphAPI.Utils
         {
             lock (FileLock)
             {
-                if (HttpContext.Current != null)
+                if (_httpContext != null)
                 {
-                    Deserialize((byte[]) HttpContext.Current.Session[CacheId]);
+                    Deserialize((byte[])_httpContext.Session[CacheId]);
                 }
             }
         }
@@ -38,10 +40,10 @@ namespace WebAppGraphAPI.Utils
         {
             lock (FileLock)
             {
-                if (HttpContext.Current != null)
+                if (_httpContext != null)
                 {
                     // reflect changes in the persistent store
-                    HttpContext.Current.Session[CacheId] = Serialize();
+                    _httpContext.Session[CacheId] = Serialize();
                     // once the write operation took place, restore the HasStateChanged bit to false
                     HasStateChanged = false;
                 }
@@ -52,9 +54,9 @@ namespace WebAppGraphAPI.Utils
         public override void Clear()
         {
             base.Clear();
-            if (HttpContext.Current != null)
+            if (_httpContext != null)
             {
-                HttpContext.Current.Session.Remove(CacheId);
+                _httpContext.Session.Remove(CacheId);
             }
         }
 
